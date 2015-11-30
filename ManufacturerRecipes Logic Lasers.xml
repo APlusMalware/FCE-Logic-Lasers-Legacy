@@ -1,0 +1,81 @@
+
+	<CraftData>
+		<Key>logic emitter</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Logic Laser Emitter</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Transmits boolean logic. HIGH by default, but will output any recieved value. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic and</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser AND Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Boolean AND gate. LOW by default, but will output HIGH if recieving HIGH on both left and right sides. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic or</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser OR Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Boolean OR gate. LOW by default, but will output HIGH if recieving HIGH on either left and right sides. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic not</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser NOT Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Boolean NOT gate. LOW by default, but will output HIGH if recieving LOW on the back side. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic splitter</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Splitter</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Boolean splitter. LOW by default, but will output any recieved value to all adjacent blocks.</Description>
+		<Hint>Maximum range: 1</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>

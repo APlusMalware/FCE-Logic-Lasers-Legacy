@@ -1,4 +1,5 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCraftData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<CraftData>
 		<Key>logic emitter</Key>
 		<Category>power</Category>
@@ -79,3 +80,4 @@
 		<Hint>Maximum range: 1</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
+</ArrayOfCraftData>

@@ -6,7 +6,7 @@
   } // end of method IBooleanReciever::IsFaceInput
 
   .method public hidebysig newslot abstract virtual 
-          instance void  SetNextValue(bool 'value',
+          instance void  SetNextValue(uint8 'value',
                                       uint8 face) cil managed
   {
   } // end of method IBooleanReciever::SetNextValue

@@ -12,7 +12,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>Transmits boolean logic. HIGH by default, but will output any recieved value. Can send to other logic gates</Description>
+		<Description>Transmits logic. 255 (HIGH) by default, but will output any recieved value. Can send to other logic gates</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
@@ -28,7 +28,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>Boolean AND gate. LOW by default, but will output HIGH if recieving HIGH on both left and right sides. Can send to other logic gates</Description>
+		<Description>0 (LOW) by default, but if both left and right inputs equal will retransmit the input. Also functions as a Boolean AND Gate. Can send to other logic gates</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
@@ -44,7 +44,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>Boolean OR gate. LOW by default, but will output HIGH if recieving HIGH on either left and right sides. Can send to other logic gates</Description>
+		<Description>0 (LOW) by default, but will output the highest value of the left and right inputs. Also functions as a Boolean OR Gate. Can send to other logic gates</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
@@ -60,7 +60,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>Boolean NOT gate. LOW by default, but will output HIGH if recieving LOW on the back side. Can send to other logic gates</Description>
+		<Description>0 (LOW) by default, but will output 255 - back side input. Also functions as a Boolean NOT Gate. Can send to other logic gates</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
@@ -76,7 +76,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>Boolean splitter. LOW by default, but will output any recieved value to all adjacent blocks.</Description>
+		<Description>Logic splitter. (0) LOW by default, but will output any recieved value to all adjacent blocks.</Description>
 		<Hint>Maximum range: 1</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>

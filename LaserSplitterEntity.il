@@ -2,10 +2,10 @@
        extends MachineEntity
        implements IBooleanReciever
 {
-  .field private bool mbCurrent
-  .field private bool mbNext
+  .field private uint8 mbCurrent
+  .field private uint8 mbNext
   .field private int8 mUpdate
-  .field private bool mbOutput
+  .field private uint8 mbOutput
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -54,14 +54,14 @@
   } // end of method LaserSplitterEntity::IsFaceInput
 
   .method public hidebysig newslot virtual 
-          instance void  SetNextValue(bool 'value',
+          instance void  SetNextValue(uint8 'value',
                                       uint8 face) cil managed
   {
     // Code size       22 (0x16)
     .maxstack  8
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
-    IL_0002:  stfld      bool LaserSplitterEntity::mbNext
+    IL_0002:  stfld      uint8 LaserSplitterEntity::mbNext
     IL_0007:  ldarg.0
     IL_0008:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
     IL_000d:  ldc.i4.1
@@ -83,7 +83,7 @@
 
     IL_0009:  ldarg.0
     IL_000a:  ldc.i4.0
-    IL_000b:  stfld      bool LaserSplitterEntity::mbOutput
+    IL_000b:  stfld      uint8 LaserSplitterEntity::mbOutput
     IL_0010:  br.s       IL_0048
 
     IL_0012:  ldarg.0
@@ -96,18 +96,18 @@
 
     IL_0022:  ldarg.0
     IL_0023:  ldarg.0
-    IL_0024:  ldfld      bool LaserSplitterEntity::mbCurrent
-    IL_0029:  stfld      bool LaserSplitterEntity::mbOutput
+    IL_0024:  ldfld      uint8 LaserSplitterEntity::mbCurrent
+    IL_0029:  stfld      uint8 LaserSplitterEntity::mbOutput
     IL_002e:  ldarg.0
     IL_002f:  ldarg.0
-    IL_0030:  ldfld      bool LaserSplitterEntity::mbNext
-    IL_0035:  stfld      bool LaserSplitterEntity::mbCurrent
+    IL_0030:  ldfld      uint8 LaserSplitterEntity::mbNext
+    IL_0035:  stfld      uint8 LaserSplitterEntity::mbCurrent
     IL_003a:  br.s       IL_0048
 
     IL_003c:  ldarg.0
     IL_003d:  ldarg.0
-    IL_003e:  ldfld      bool LaserSplitterEntity::mbNext
-    IL_0043:  stfld      bool LaserSplitterEntity::mbOutput
+    IL_003e:  ldfld      uint8 LaserSplitterEntity::mbNext
+    IL_0043:  stfld      uint8 LaserSplitterEntity::mbOutput
     IL_0048:  ldarg.0
     IL_0049:  ldc.i4.m1
     IL_004a:  stfld      int8 LaserSplitterEntity::mUpdate
@@ -301,10 +301,10 @@
 
     IL_008b:  ldloc.2
     IL_008c:  ldarg.0
-    IL_008d:  ldfld      bool LaserSplitterEntity::mbOutput
+    IL_008d:  ldfld      uint8 LaserSplitterEntity::mbOutput
     IL_0092:  ldloc.3
-    IL_0093:  callvirt   instance void ['Assembly-CSharp']IBooleanReciever::SetNextValue(bool,
-                                                                                         uint8)
+    IL_0093:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
+                                                                      uint8)
     IL_0098:  ldarg.0
     IL_0099:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
     IL_009e:  ret

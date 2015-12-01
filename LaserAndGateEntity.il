@@ -2,10 +2,10 @@
        extends LaserEmitterEntity
        implements IBooleanReciever
 {
-  .field private bool mbCurrentLeft
-  .field private bool mbCurrentRight
-  .field private bool mbNextLeft
-  .field private bool mbNextRight
+  .field private uint8 mbCurrentLeft
+  .field private uint8 mbCurrentRight
+  .field private uint8 mbNextLeft
+  .field private uint8 mbNextRight
   .field private uint8 mbLeftFace
   .field private uint8 mbRightFace
   .field private int8 mLeftUpdate
@@ -42,19 +42,19 @@
                                                                                     class ['Assembly-CSharp']Segment)
     IL_0017:  ldarg.0
     IL_0018:  ldc.i4.0
-    IL_0019:  stfld      bool LaserAndGateEntity::mbCurrentLeft
+    IL_0019:  stfld      uint8 LaserAndGateEntity::mbCurrentLeft
     IL_001e:  ldarg.0
     IL_001f:  ldc.i4.0
-    IL_0020:  stfld      bool LaserAndGateEntity::mbCurrentRight
+    IL_0020:  stfld      uint8 LaserAndGateEntity::mbCurrentRight
     IL_0025:  ldarg.0
     IL_0026:  ldc.i4.0
-    IL_0027:  stfld      bool LaserAndGateEntity::mbNextLeft
+    IL_0027:  stfld      uint8 LaserAndGateEntity::mbNextLeft
     IL_002c:  ldarg.0
     IL_002d:  ldc.i4.0
-    IL_002e:  stfld      bool LaserAndGateEntity::mbNextRight
+    IL_002e:  stfld      uint8 LaserAndGateEntity::mbNextRight
     IL_0033:  ldarg.0
     IL_0034:  ldc.i4.0
-    IL_0035:  stfld      bool LaserEmitterEntity::mbOutput
+    IL_0035:  stfld      uint8 LaserEmitterEntity::mbOutput
     IL_003a:  ldarg.0
     IL_003b:  ldarg.s    'flags'
     IL_003d:  call       instance void LaserAndGateEntity::UpdateFaces(uint8)
@@ -64,10 +64,10 @@
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
   {
-    // Code size       145 (0x91)
-    .maxstack  2
-    .locals init (bool V_0,
-             bool V_1,
+    // Code size       146 (0x92)
+    .maxstack  3
+    .locals init (uint8 V_0,
+             uint8 V_1,
              int8 V_2)
     IL_0000:  ldc.i4.0
     IL_0001:  stloc.0
@@ -84,12 +84,12 @@
     IL_0014:  bne.un.s   IL_002b
 
     IL_0016:  ldarg.0
-    IL_0017:  ldfld      bool LaserAndGateEntity::mbCurrentLeft
+    IL_0017:  ldfld      uint8 LaserAndGateEntity::mbCurrentLeft
     IL_001c:  stloc.0
     IL_001d:  ldarg.0
     IL_001e:  ldarg.0
-    IL_001f:  ldfld      bool LaserAndGateEntity::mbNextLeft
-    IL_0024:  stfld      bool LaserAndGateEntity::mbCurrentLeft
+    IL_001f:  ldfld      uint8 LaserAndGateEntity::mbNextLeft
+    IL_0024:  stfld      uint8 LaserAndGateEntity::mbCurrentLeft
     IL_0029:  br.s       IL_003b
 
     IL_002b:  ldarg.0
@@ -98,7 +98,7 @@
     IL_0032:  beq.s      IL_003b
 
     IL_0034:  ldarg.0
-    IL_0035:  ldfld      bool LaserAndGateEntity::mbNextLeft
+    IL_0035:  ldfld      uint8 LaserAndGateEntity::mbNextLeft
     IL_003a:  stloc.0
     IL_003b:  ldarg.0
     IL_003c:  ldfld      int8 LaserAndGateEntity::mRightUpdate
@@ -106,12 +106,12 @@
     IL_0042:  bne.un.s   IL_0059
 
     IL_0044:  ldarg.0
-    IL_0045:  ldfld      bool LaserAndGateEntity::mbCurrentRight
+    IL_0045:  ldfld      uint8 LaserAndGateEntity::mbCurrentRight
     IL_004a:  stloc.1
     IL_004b:  ldarg.0
     IL_004c:  ldarg.0
-    IL_004d:  ldfld      bool LaserAndGateEntity::mbNextRight
-    IL_0052:  stfld      bool LaserAndGateEntity::mbCurrentRight
+    IL_004d:  ldfld      uint8 LaserAndGateEntity::mbNextRight
+    IL_0052:  stfld      uint8 LaserAndGateEntity::mbCurrentRight
     IL_0057:  br.s       IL_0069
 
     IL_0059:  ldarg.0
@@ -120,28 +120,29 @@
     IL_0060:  beq.s      IL_0069
 
     IL_0062:  ldarg.0
-    IL_0063:  ldfld      bool LaserAndGateEntity::mbNextRight
+    IL_0063:  ldfld      uint8 LaserAndGateEntity::mbNextRight
     IL_0068:  stloc.1
     IL_0069:  ldarg.0
     IL_006a:  ldloc.0
-    IL_006b:  brfalse.s  IL_0070
+    IL_006b:  ldloc.1
+    IL_006c:  beq.s      IL_0071
 
-    IL_006d:  ldloc.1
-    IL_006e:  br.s       IL_0071
+    IL_006e:  ldc.i4.0
+    IL_006f:  br.s       IL_0072
 
-    IL_0070:  ldc.i4.0
-    IL_0071:  stfld      bool ['Assembly-CSharp']LaserEmitterEntity::mbOutput
-    IL_0076:  ldarg.0
-    IL_0077:  ldc.i4.m1
-    IL_0078:  stfld      int8 LaserAndGateEntity::mLeftUpdate
-    IL_007d:  ldarg.0
-    IL_007e:  ldc.i4.m1
-    IL_007f:  stfld      int8 LaserAndGateEntity::mRightUpdate
-    IL_0084:  ldarg.0
-    IL_0085:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
-    IL_008a:  ldarg.0
-    IL_008b:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
-    IL_0090:  ret
+    IL_0071:  ldloc.0
+    IL_0072:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
+    IL_0077:  ldarg.0
+    IL_0078:  ldc.i4.m1
+    IL_0079:  stfld      int8 LaserAndGateEntity::mLeftUpdate
+    IL_007e:  ldarg.0
+    IL_007f:  ldc.i4.m1
+    IL_0080:  stfld      int8 LaserAndGateEntity::mRightUpdate
+    IL_0085:  ldarg.0
+    IL_0086:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
+    IL_008b:  ldarg.0
+    IL_008c:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
+    IL_0091:  ret
   } // end of method LaserAndGateEntity::LowFrequencyUpdate
 
   .method public hidebysig virtual instance bool 
@@ -165,7 +166,7 @@
   } // end of method LaserAndGateEntity::IsFaceInput
 
   .method public hidebysig virtual instance void 
-          SetNextValue(bool 'value',
+          SetNextValue(uint8 'value',
                        uint8 face) cil managed
   {
     // Code size       62 (0x3e)
@@ -177,7 +178,7 @@
 
     IL_0009:  ldarg.0
     IL_000a:  ldarg.1
-    IL_000b:  stfld      bool LaserAndGateEntity::mbNextLeft
+    IL_000b:  stfld      uint8 LaserAndGateEntity::mbNextLeft
     IL_0010:  ldarg.0
     IL_0011:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
     IL_0016:  ldc.i4.1
@@ -193,7 +194,7 @@
 
     IL_0028:  ldarg.0
     IL_0029:  ldarg.1
-    IL_002a:  stfld      bool LaserAndGateEntity::mbNextRight
+    IL_002a:  stfld      uint8 LaserAndGateEntity::mbNextRight
     IL_002f:  ldarg.0
     IL_0030:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
     IL_0035:  ldc.i4.1

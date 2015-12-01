@@ -34,10 +34,10 @@
   .field private float32 mrStateTimer
   .field private valuetype [UnityEngine]UnityEngine.Vector3 mImpactPos
   .field private bool mbIsBehindPlayer
-  .field family bool mbOutput
+  .field family uint8 mbOutput
   .field private int8 mUpdate
-  .field private bool mbCurrent
-  .field private bool mbNext
+  .field private uint8 mbCurrent
+  .field private uint8 mbNext
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -47,7 +47,7 @@
                                uint8 'flags',
                                uint16 lValue) cil managed
   {
-    // Code size       41 (0x29)
+    // Code size       53 (0x35)
     .maxstack  10
     IL_0000:  ldarg.0
     IL_0001:  ldc.i4.5
@@ -69,15 +69,15 @@
                                                                                     uint16,
                                                                                     class ['Assembly-CSharp']Segment)
     IL_0013:  ldarg.0
-    IL_0014:  ldc.i4.1
-    IL_0015:  stfld      bool LaserEmitterEntity::mbOutput
-    IL_001a:  ldarg.0
-    IL_001b:  ldc.i4.1
-    IL_001c:  stfld      bool LaserEmitterEntity::mbCurrent
-    IL_0021:  ldarg.0
-    IL_0022:  ldc.i4.1
-    IL_0023:  stfld      bool LaserEmitterEntity::mbNext
-    IL_0028:  ret
+    IL_0014:  ldc.i4     0xff
+    IL_0019:  stfld      uint8 LaserEmitterEntity::mbOutput
+    IL_001e:  ldarg.0
+    IL_001f:  ldc.i4     0xff
+    IL_0024:  stfld      uint8 LaserEmitterEntity::mbCurrent
+    IL_0029:  ldarg.0
+    IL_002a:  ldc.i4     0xff
+    IL_002f:  stfld      uint8 LaserEmitterEntity::mbNext
+    IL_0034:  ret
   } // end of method LaserEmitterEntity::.ctor
 
   .method public hidebysig virtual instance void 
@@ -355,47 +355,47 @@
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
   {
-    // Code size       91 (0x5b)
+    // Code size       95 (0x5f)
     .maxstack  3
     IL_0000:  ldarg.0
     IL_0001:  ldfld      int8 LaserEmitterEntity::mUpdate
     IL_0006:  ldc.i4.m1
-    IL_0007:  bne.un.s   IL_0012
+    IL_0007:  bne.un.s   IL_0016
 
     IL_0009:  ldarg.0
-    IL_000a:  ldc.i4.1
-    IL_000b:  stfld      bool LaserEmitterEntity::mbOutput
-    IL_0010:  br.s       IL_0047
+    IL_000a:  ldc.i4     0xff
+    IL_000f:  stfld      uint8 LaserEmitterEntity::mbOutput
+    IL_0014:  br.s       IL_004b
 
-    IL_0012:  ldarg.0
-    IL_0013:  ldfld      int8 LaserEmitterEntity::mUpdate
-    IL_0018:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
-    IL_001d:  ldc.i4.1
-    IL_001e:  and
-    IL_001f:  bne.un.s   IL_003b
+    IL_0016:  ldarg.0
+    IL_0017:  ldfld      int8 LaserEmitterEntity::mUpdate
+    IL_001c:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
+    IL_0021:  ldc.i4.1
+    IL_0022:  and
+    IL_0023:  bne.un.s   IL_003f
 
-    IL_0021:  ldarg.0
-    IL_0022:  ldarg.0
-    IL_0023:  ldfld      bool LaserEmitterEntity::mbCurrent
-    IL_0028:  stfld      bool LaserEmitterEntity::mbOutput
-    IL_002d:  ldarg.0
-    IL_002e:  ldarg.0
-    IL_002f:  ldfld      bool LaserEmitterEntity::mbNext
-    IL_0034:  stfld      bool LaserEmitterEntity::mbCurrent
-    IL_0039:  br.s       IL_0047
+    IL_0025:  ldarg.0
+    IL_0026:  ldarg.0
+    IL_0027:  ldfld      uint8 LaserEmitterEntity::mbCurrent
+    IL_002c:  stfld      uint8 LaserEmitterEntity::mbOutput
+    IL_0031:  ldarg.0
+    IL_0032:  ldarg.0
+    IL_0033:  ldfld      uint8 LaserEmitterEntity::mbNext
+    IL_0038:  stfld      uint8 LaserEmitterEntity::mbCurrent
+    IL_003d:  br.s       IL_004b
 
-    IL_003b:  ldarg.0
-    IL_003c:  ldarg.0
-    IL_003d:  ldfld      bool LaserEmitterEntity::mbNext
-    IL_0042:  stfld      bool LaserEmitterEntity::mbOutput
-    IL_0047:  ldarg.0
-    IL_0048:  ldc.i4.m1
-    IL_0049:  stfld      int8 LaserEmitterEntity::mUpdate
-    IL_004e:  ldarg.0
-    IL_004f:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
-    IL_0054:  ldarg.0
-    IL_0055:  call       instance void LaserEmitterEntity::UpdateLaser()
-    IL_005a:  ret
+    IL_003f:  ldarg.0
+    IL_0040:  ldarg.0
+    IL_0041:  ldfld      uint8 LaserEmitterEntity::mbNext
+    IL_0046:  stfld      uint8 LaserEmitterEntity::mbOutput
+    IL_004b:  ldarg.0
+    IL_004c:  ldc.i4.m1
+    IL_004d:  stfld      int8 LaserEmitterEntity::mUpdate
+    IL_0052:  ldarg.0
+    IL_0053:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
+    IL_0058:  ldarg.0
+    IL_0059:  call       instance void LaserEmitterEntity::UpdateLaser()
+    IL_005e:  ret
   } // end of method LaserEmitterEntity::LowFrequencyUpdate
 
   .method public hidebysig instance void 
@@ -694,9 +694,9 @@
 
     IL_0226:  ldloc.s    V_7
     IL_0228:  ldarg.0
-    IL_0229:  ldfld      bool LaserEmitterEntity::mbOutput
+    IL_0229:  ldfld      uint8 LaserEmitterEntity::mbOutput
     IL_022e:  ldloc.s    V_8
-    IL_0230:  callvirt   instance void IBooleanReciever::SetNextValue(bool,
+    IL_0230:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
                                                                       uint8)
     IL_0235:  ldarg.0
     IL_0236:  dup
@@ -1167,7 +1167,7 @@
     IL_0327:  ldc.r4     0.1
     IL_032c:  stloc.s    V_5
     IL_032e:  ldarg.0
-    IL_032f:  ldfld      bool LaserEmitterEntity::mbOutput
+    IL_032f:  ldfld      uint8 LaserEmitterEntity::mbOutput
     IL_0334:  brfalse.s  IL_033d
 
     IL_0336:  ldc.r4     1.
@@ -1189,7 +1189,7 @@
     IL_0365:  mul
     IL_0366:  callvirt   instance void [UnityEngine]UnityEngine.Light::set_intensity(float32)
     IL_036b:  ldarg.0
-    IL_036c:  ldfld      bool LaserEmitterEntity::mbOutput
+    IL_036c:  ldfld      uint8 LaserEmitterEntity::mbOutput
     IL_0371:  brtrue.s   IL_0386
 
     IL_0373:  ldarg.0
@@ -1349,14 +1349,14 @@
   } // end of method LaserEmitterEntity::ShouldNetworkUpdate
 
   .method public hidebysig newslot virtual 
-          instance void  SetNextValue(bool 'value',
+          instance void  SetNextValue(uint8 'value',
                                       uint8 face) cil managed
   {
     // Code size       22 (0x16)
     .maxstack  8
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
-    IL_0002:  stfld      bool LaserEmitterEntity::mbNext
+    IL_0002:  stfld      uint8 LaserEmitterEntity::mbNext
     IL_0007:  ldarg.0
     IL_0008:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
     IL_000d:  ldc.i4.1

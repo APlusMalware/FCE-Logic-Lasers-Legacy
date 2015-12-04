@@ -64,7 +64,7 @@
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
   {
-    // Code size       146 (0x92)
+    // Code size       140 (0x8c)
     .maxstack  3
     .locals init (uint8 V_0,
              uint8 V_1,
@@ -139,10 +139,8 @@
     IL_007f:  ldc.i4.m1
     IL_0080:  stfld      int8 LaserAndGateEntity::mRightUpdate
     IL_0085:  ldarg.0
-    IL_0086:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
-    IL_008b:  ldarg.0
-    IL_008c:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
-    IL_0091:  ret
+    IL_0086:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
+    IL_008b:  ret
   } // end of method LaserAndGateEntity::LowFrequencyUpdate
 
   .method public hidebysig virtual instance bool 

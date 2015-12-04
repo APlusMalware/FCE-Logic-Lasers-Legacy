@@ -60,7 +60,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-		<Description>0 (LOW) by default, but will output 255 - back side input. Also functions as a Boolean NOT Gate. Can send to other logic gates</Description>
+		<Description>0 (LOW) by default, but will output 255 if the back side input is 0. Also functions as a Boolean NOT Gate. Can send to other logic gates</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>

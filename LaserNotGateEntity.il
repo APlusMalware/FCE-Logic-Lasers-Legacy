@@ -58,7 +58,7 @@
           LowFrequencyUpdate() cil managed
   {
     // Code size       108 (0x6c)
-    .maxstack  3
+    .maxstack  2
     .locals init (int8 V_0)
     IL_0000:  ldarg.0
     IL_0001:  ldfld      int8 LaserNotGateEntity::mUpdate
@@ -68,7 +68,7 @@
     IL_0009:  ldarg.0
     IL_000a:  ldc.i4.0
     IL_000b:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
-    IL_0010:  br.s       IL_005f
+    IL_0010:  br.s       IL_0065
 
     IL_0012:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
     IL_0017:  ldc.i4.1
@@ -78,33 +78,37 @@
     IL_001b:  ldloc.0
     IL_001c:  ldarg.0
     IL_001d:  ldfld      int8 LaserNotGateEntity::mUpdate
-    IL_0022:  bne.un.s   IL_0045
+    IL_0022:  bne.un.s   IL_0048
 
     IL_0024:  ldarg.0
-    IL_0025:  ldc.i4     0xff
-    IL_002a:  ldarg.0
-    IL_002b:  ldfld      uint8 LaserNotGateEntity::mbCurrent
-    IL_0030:  sub
-    IL_0031:  conv.u1
-    IL_0032:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
-    IL_0037:  ldarg.0
-    IL_0038:  ldarg.0
-    IL_0039:  ldfld      uint8 LaserNotGateEntity::mbNext
-    IL_003e:  stfld      uint8 LaserNotGateEntity::mbCurrent
-    IL_0043:  br.s       IL_0058
+    IL_0025:  ldarg.0
+    IL_0026:  ldfld      uint8 LaserNotGateEntity::mbCurrent
+    IL_002b:  brtrue.s   IL_0034
 
-    IL_0045:  ldarg.0
-    IL_0046:  ldc.i4     0xff
-    IL_004b:  ldarg.0
-    IL_004c:  ldfld      uint8 LaserNotGateEntity::mbNext
-    IL_0051:  sub
-    IL_0052:  conv.u1
-    IL_0053:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
-    IL_0058:  ldarg.0
-    IL_0059:  ldc.i4.m1
-    IL_005a:  stfld      int8 LaserNotGateEntity::mUpdate
-    IL_005f:  ldarg.0
-    IL_0060:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
+    IL_002d:  ldc.i4     0xff
+    IL_0032:  br.s       IL_0035
+
+    IL_0034:  ldc.i4.0
+    IL_0035:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
+    IL_003a:  ldarg.0
+    IL_003b:  ldarg.0
+    IL_003c:  ldfld      uint8 LaserNotGateEntity::mbNext
+    IL_0041:  stfld      uint8 LaserNotGateEntity::mbCurrent
+    IL_0046:  br.s       IL_005e
+
+    IL_0048:  ldarg.0
+    IL_0049:  ldarg.0
+    IL_004a:  ldfld      uint8 LaserNotGateEntity::mbNext
+    IL_004f:  brtrue.s   IL_0058
+
+    IL_0051:  ldc.i4     0xff
+    IL_0056:  br.s       IL_0059
+
+    IL_0058:  ldc.i4.0
+    IL_0059:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
+    IL_005e:  ldarg.0
+    IL_005f:  ldc.i4.m1
+    IL_0060:  stfld      int8 LaserNotGateEntity::mUpdate
     IL_0065:  ldarg.0
     IL_0066:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
     IL_006b:  ret

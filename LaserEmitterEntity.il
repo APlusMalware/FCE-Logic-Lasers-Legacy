@@ -355,7 +355,7 @@
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
   {
-    // Code size       95 (0x5f)
+    // Code size       89 (0x59)
     .maxstack  3
     IL_0000:  ldarg.0
     IL_0001:  ldfld      int8 LaserEmitterEntity::mUpdate
@@ -392,10 +392,8 @@
     IL_004c:  ldc.i4.m1
     IL_004d:  stfld      int8 LaserEmitterEntity::mUpdate
     IL_0052:  ldarg.0
-    IL_0053:  call       instance void ['Assembly-CSharp']MachineEntity::UpdatePlayerDistanceInfo()
-    IL_0058:  ldarg.0
-    IL_0059:  call       instance void LaserEmitterEntity::UpdateLaser()
-    IL_005e:  ret
+    IL_0053:  call       instance void LaserEmitterEntity::UpdateLaser()
+    IL_0058:  ret
   } // end of method LaserEmitterEntity::LowFrequencyUpdate
 
   .method public hidebysig instance void 
@@ -415,7 +413,7 @@
   .method family hidebysig newslot virtual 
           instance void  UpdateLaser() cil managed
   {
-    // Code size       906 (0x38a)
+    // Code size       912 (0x390)
     .maxstack  5
     .locals init (int64 V_0,
              int64 V_1,
@@ -434,420 +432,422 @@
              bool V_14)
     IL_0000:  ldarg.0
     IL_0001:  dup
-    IL_0002:  ldfld      float32 LaserEmitterEntity::mrStateTimer
-    IL_0007:  ldsfld     float32 ['Assembly-CSharp']LowFrequencyThread::mrPreviousUpdateTimeStep
-    IL_000c:  add
-    IL_000d:  stfld      float32 LaserEmitterEntity::mrStateTimer
-    IL_0012:  ldarg.0
-    IL_0013:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0018:  ldc.i4.2
-    IL_0019:  bne.un.s   IL_0036
+    IL_0002:  dup
+    IL_0003:  call       instance void MachineEntity::UpdatePlayerDistanceInfo()
+    IL_0008:  ldfld      float32 LaserEmitterEntity::mrStateTimer
+    IL_000d:  ldsfld     float32 ['Assembly-CSharp']LowFrequencyThread::mrPreviousUpdateTimeStep
+    IL_0012:  add
+    IL_0013:  stfld      float32 LaserEmitterEntity::mrStateTimer
+    IL_0018:  ldarg.0
+    IL_0019:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_001e:  ldc.i4.2
+    IL_001f:  bne.un.s   IL_003c
 
-    IL_001b:  ldarg.0
-    IL_001c:  ldfld      float32 LaserEmitterEntity::mrStateTimer
-    IL_0021:  ldc.r4     5.
-    IL_0026:  ble.un.s   IL_0036
+    IL_0021:  ldarg.0
+    IL_0022:  ldfld      float32 LaserEmitterEntity::mrStateTimer
+    IL_0027:  ldc.r4     5.
+    IL_002c:  ble.un.s   IL_003c
 
-    IL_0028:  ldarg.0
-    IL_0029:  ldc.i4.1
-    IL_002a:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_002f:  ldarg.0
-    IL_0030:  ldc.i4.0
-    IL_0031:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
-    IL_0036:  ldarg.0
-    IL_0037:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_003c:  brtrue.s   IL_0078
+    IL_002e:  ldarg.0
+    IL_002f:  ldc.i4.1
+    IL_0030:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_0035:  ldarg.0
+    IL_0036:  ldc.i4.0
+    IL_0037:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
+    IL_003c:  ldarg.0
+    IL_003d:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_0042:  brtrue.s   IL_007e
 
-    IL_003e:  ldarg.0
-    IL_003f:  call       instance void LaserEmitterEntity::SearchForEntity()
     IL_0044:  ldarg.0
     IL_0045:  call       instance void LaserEmitterEntity::SearchForEntity()
     IL_004a:  ldarg.0
-    IL_004b:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0050:  brtrue.s   IL_0061
+    IL_004b:  call       instance void LaserEmitterEntity::SearchForEntity()
+    IL_0050:  ldarg.0
+    IL_0051:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_0056:  brtrue.s   IL_0067
 
-    IL_0052:  ldarg.0
-    IL_0053:  ldfld      uint16 ['Assembly-CSharp']MachineEntity::mValue
-    IL_0058:  ldc.i4.0
-    IL_0059:  ble.s      IL_0061
+    IL_0058:  ldarg.0
+    IL_0059:  ldfld      uint16 ['Assembly-CSharp']MachineEntity::mValue
+    IL_005e:  ldc.i4.0
+    IL_005f:  ble.s      IL_0067
 
-    IL_005b:  ldarg.0
-    IL_005c:  call       instance void LaserEmitterEntity::SearchForEntity()
     IL_0061:  ldarg.0
-    IL_0062:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0067:  brtrue.s   IL_0078
+    IL_0062:  call       instance void LaserEmitterEntity::SearchForEntity()
+    IL_0067:  ldarg.0
+    IL_0068:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_006d:  brtrue.s   IL_007e
 
-    IL_0069:  ldarg.0
-    IL_006a:  ldfld      uint16 ['Assembly-CSharp']MachineEntity::mValue
-    IL_006f:  ldc.i4.1
-    IL_0070:  ble.s      IL_0078
+    IL_006f:  ldarg.0
+    IL_0070:  ldfld      uint16 ['Assembly-CSharp']MachineEntity::mValue
+    IL_0075:  ldc.i4.1
+    IL_0076:  ble.s      IL_007e
 
-    IL_0072:  ldarg.0
-    IL_0073:  call       instance void LaserEmitterEntity::SearchForEntity()
     IL_0078:  ldarg.0
-    IL_0079:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_007e:  ldc.i4.1
-    IL_007f:  bne.un     IL_012d
+    IL_0079:  call       instance void LaserEmitterEntity::SearchForEntity()
+    IL_007e:  ldarg.0
+    IL_007f:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_0084:  ldc.i4.1
+    IL_0085:  bne.un     IL_0133
 
-    IL_0084:  ldarg.0
-    IL_0085:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_008a:  stloc.0
-    IL_008b:  ldarg.0
-    IL_008c:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_0091:  stloc.1
-    IL_0092:  ldarg.0
-    IL_0093:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_0098:  stloc.2
-    IL_0099:  ldloc.0
-    IL_009a:  ldarg.0
-    IL_009b:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_00a0:  conv.r4
-    IL_00a1:  ldarg.0
-    IL_00a2:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_00a7:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_00ac:  mul
-    IL_00ad:  conv.i8
-    IL_00ae:  add
-    IL_00af:  stloc.0
-    IL_00b0:  ldloc.1
-    IL_00b1:  ldarg.0
-    IL_00b2:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_00b7:  conv.r4
-    IL_00b8:  ldarg.0
-    IL_00b9:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_00be:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
-    IL_00c3:  mul
-    IL_00c4:  conv.i8
-    IL_00c5:  add
-    IL_00c6:  stloc.1
-    IL_00c7:  ldloc.2
-    IL_00c8:  ldarg.0
-    IL_00c9:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_00ce:  conv.r4
-    IL_00cf:  ldarg.0
-    IL_00d0:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_00d5:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
-    IL_00da:  mul
-    IL_00db:  conv.i8
-    IL_00dc:  add
-    IL_00dd:  stloc.2
-    IL_00de:  ldarg.0
-    IL_00df:  ldloc.0
-    IL_00e0:  ldloc.1
-    IL_00e1:  ldloc.2
-    IL_00e2:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
+    IL_008a:  ldarg.0
+    IL_008b:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_0090:  stloc.0
+    IL_0091:  ldarg.0
+    IL_0092:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_0097:  stloc.1
+    IL_0098:  ldarg.0
+    IL_0099:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_009e:  stloc.2
+    IL_009f:  ldloc.0
+    IL_00a0:  ldarg.0
+    IL_00a1:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_00a6:  conv.r4
+    IL_00a7:  ldarg.0
+    IL_00a8:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_00ad:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_00b2:  mul
+    IL_00b3:  conv.i8
+    IL_00b4:  add
+    IL_00b5:  stloc.0
+    IL_00b6:  ldloc.1
+    IL_00b7:  ldarg.0
+    IL_00b8:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_00bd:  conv.r4
+    IL_00be:  ldarg.0
+    IL_00bf:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_00c4:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_00c9:  mul
+    IL_00ca:  conv.i8
+    IL_00cb:  add
+    IL_00cc:  stloc.1
+    IL_00cd:  ldloc.2
+    IL_00ce:  ldarg.0
+    IL_00cf:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_00d4:  conv.r4
+    IL_00d5:  ldarg.0
+    IL_00d6:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_00db:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
+    IL_00e0:  mul
+    IL_00e1:  conv.i8
+    IL_00e2:  add
+    IL_00e3:  stloc.2
+    IL_00e4:  ldarg.0
+    IL_00e5:  ldloc.0
+    IL_00e6:  ldloc.1
+    IL_00e7:  ldloc.2
+    IL_00e8:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
                                                                                                                        int64,
                                                                                                                        int64)
-    IL_00e7:  stloc.3
-    IL_00e8:  ldloc.3
-    IL_00e9:  brtrue.s   IL_00ec
+    IL_00ed:  stloc.3
+    IL_00ee:  ldloc.3
+    IL_00ef:  brtrue.s   IL_00f2
 
-    IL_00eb:  ret
+    IL_00f1:  ret
 
-    IL_00ec:  ldloc.3
-    IL_00ed:  ldloc.0
-    IL_00ee:  ldloc.1
-    IL_00ef:  ldloc.2
-    IL_00f0:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
+    IL_00f2:  ldloc.3
+    IL_00f3:  ldloc.0
+    IL_00f4:  ldloc.1
+    IL_00f5:  ldloc.2
+    IL_00f6:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
                                                                              int64,
                                                                              int64)
-    IL_00f5:  stloc.s    V_4
-    IL_00f7:  ldloc.s    V_4
-    IL_00f9:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeTransparent(int32)
-    IL_00fe:  brtrue.s   IL_0109
+    IL_00fb:  stloc.s    V_4
+    IL_00fd:  ldloc.s    V_4
+    IL_00ff:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeTransparent(int32)
+    IL_0104:  brtrue.s   IL_010f
 
-    IL_0100:  ldloc.s    V_4
-    IL_0102:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
-    IL_0107:  brfalse.s  IL_0112
+    IL_0106:  ldloc.s    V_4
+    IL_0108:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
+    IL_010d:  brfalse.s  IL_0118
 
-    IL_0109:  ldarg.0
-    IL_010a:  ldc.i4.0
-    IL_010b:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
-    IL_0110:  br.s       IL_012d
+    IL_010f:  ldarg.0
+    IL_0110:  ldc.i4.0
+    IL_0111:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
+    IL_0116:  br.s       IL_0133
 
-    IL_0112:  ldarg.0
-    IL_0113:  ldfld      float32 LaserEmitterEntity::mrStateTimer
-    IL_0118:  ldc.r4     3.
-    IL_011d:  ble.un.s   IL_012d
+    IL_0118:  ldarg.0
+    IL_0119:  ldfld      float32 LaserEmitterEntity::mrStateTimer
+    IL_011e:  ldc.r4     3.
+    IL_0123:  ble.un.s   IL_0133
 
-    IL_011f:  ldarg.0
-    IL_0120:  ldc.i4.1
-    IL_0121:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_0126:  ldarg.0
-    IL_0127:  ldc.i4.0
-    IL_0128:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
-    IL_012d:  ldarg.0
-    IL_012e:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0133:  ldc.i4.3
-    IL_0134:  bne.un     IL_0263
+    IL_0125:  ldarg.0
+    IL_0126:  ldc.i4.1
+    IL_0127:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_012c:  ldarg.0
+    IL_012d:  ldc.i4.0
+    IL_012e:  call       instance void LaserEmitterEntity::SetNewState(valuetype LaserEmitterEntity/eState)
+    IL_0133:  ldarg.0
+    IL_0134:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_0139:  ldc.i4.3
+    IL_013a:  bne.un     IL_0269
 
-    IL_0139:  ldarg.0
-    IL_013a:  ldarg.0
-    IL_013b:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_013f:  ldarg.0
     IL_0140:  ldarg.0
-    IL_0141:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_0141:  ldfld      int64 LaserEmitterEntity::mEntityX
     IL_0146:  ldarg.0
-    IL_0147:  ldfld      int64 LaserEmitterEntity::mEntityZ
-    IL_014c:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
+    IL_0147:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_014c:  ldarg.0
+    IL_014d:  ldfld      int64 LaserEmitterEntity::mEntityZ
+    IL_0152:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
                                                                                                                        int64,
                                                                                                                        int64)
-    IL_0151:  stloc.s    V_5
-    IL_0153:  ldloc.s    V_5
-    IL_0155:  brtrue.s   IL_0158
+    IL_0157:  stloc.s    V_5
+    IL_0159:  ldloc.s    V_5
+    IL_015b:  brtrue.s   IL_015e
 
-    IL_0157:  ret
+    IL_015d:  ret
 
-    IL_0158:  ldloc.s    V_5
-    IL_015a:  ldarg.0
-    IL_015b:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_015e:  ldloc.s    V_5
     IL_0160:  ldarg.0
-    IL_0161:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_0161:  ldfld      int64 LaserEmitterEntity::mEntityX
     IL_0166:  ldarg.0
-    IL_0167:  ldfld      int64 LaserEmitterEntity::mEntityZ
-    IL_016c:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
+    IL_0167:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_016c:  ldarg.0
+    IL_016d:  ldfld      int64 LaserEmitterEntity::mEntityZ
+    IL_0172:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
                                                                              int64,
                                                                              int64)
-    IL_0171:  stloc.s    V_6
-    IL_0173:  ldloc.s    V_6
-    IL_0175:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
-    IL_017a:  brfalse    IL_024b
+    IL_0177:  stloc.s    V_6
+    IL_0179:  ldloc.s    V_6
+    IL_017b:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
+    IL_0180:  brfalse    IL_0251
 
-    IL_017f:  ldloc.s    V_5
-    IL_0181:  ldarg.0
-    IL_0182:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_0185:  ldloc.s    V_5
     IL_0187:  ldarg.0
-    IL_0188:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_0188:  ldfld      int64 LaserEmitterEntity::mEntityX
     IL_018d:  ldarg.0
-    IL_018e:  ldfld      int64 LaserEmitterEntity::mEntityZ
-    IL_0193:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
+    IL_018e:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_0193:  ldarg.0
+    IL_0194:  ldfld      int64 LaserEmitterEntity::mEntityZ
+    IL_0199:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
-    IL_0198:  isinst     IBooleanReciever
-    IL_019d:  stloc.s    V_7
-    IL_019f:  ldloc.s    V_7
-    IL_01a1:  brfalse    IL_0263
+    IL_019e:  isinst     IBooleanReciever
+    IL_01a3:  stloc.s    V_7
+    IL_01a5:  ldloc.s    V_7
+    IL_01a7:  brfalse    IL_0269
 
-    IL_01a6:  ldc.i4.0
-    IL_01a7:  stloc.s    V_8
-    IL_01a9:  ldarg.0
-    IL_01aa:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_01ac:  ldc.i4.0
+    IL_01ad:  stloc.s    V_8
     IL_01af:  ldarg.0
-    IL_01b0:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_01b5:  ble.s      IL_01bd
+    IL_01b0:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_01b5:  ldarg.0
+    IL_01b6:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_01bb:  ble.s      IL_01c3
 
-    IL_01b7:  ldc.i4.s   16
-    IL_01b9:  stloc.s    V_8
-    IL_01bb:  br.s       IL_021b
+    IL_01bd:  ldc.i4.s   16
+    IL_01bf:  stloc.s    V_8
+    IL_01c1:  br.s       IL_0221
 
-    IL_01bd:  ldarg.0
-    IL_01be:  ldfld      int64 LaserEmitterEntity::mEntityX
     IL_01c3:  ldarg.0
-    IL_01c4:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_01c9:  bge.s      IL_01d1
+    IL_01c4:  ldfld      int64 LaserEmitterEntity::mEntityX
+    IL_01c9:  ldarg.0
+    IL_01ca:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_01cf:  bge.s      IL_01d7
 
-    IL_01cb:  ldc.i4.s   32
-    IL_01cd:  stloc.s    V_8
-    IL_01cf:  br.s       IL_021b
+    IL_01d1:  ldc.i4.s   32
+    IL_01d3:  stloc.s    V_8
+    IL_01d5:  br.s       IL_0221
 
-    IL_01d1:  ldarg.0
-    IL_01d2:  ldfld      int64 LaserEmitterEntity::mEntityY
     IL_01d7:  ldarg.0
-    IL_01d8:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_01dd:  ble.s      IL_01e4
+    IL_01d8:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_01dd:  ldarg.0
+    IL_01de:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_01e3:  ble.s      IL_01ea
 
-    IL_01df:  ldc.i4.2
-    IL_01e0:  stloc.s    V_8
-    IL_01e2:  br.s       IL_021b
+    IL_01e5:  ldc.i4.2
+    IL_01e6:  stloc.s    V_8
+    IL_01e8:  br.s       IL_0221
 
-    IL_01e4:  ldarg.0
-    IL_01e5:  ldfld      int64 LaserEmitterEntity::mEntityY
     IL_01ea:  ldarg.0
-    IL_01eb:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_01f0:  bge.s      IL_01f7
+    IL_01eb:  ldfld      int64 LaserEmitterEntity::mEntityY
+    IL_01f0:  ldarg.0
+    IL_01f1:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_01f6:  bge.s      IL_01fd
 
-    IL_01f2:  ldc.i4.1
-    IL_01f3:  stloc.s    V_8
-    IL_01f5:  br.s       IL_021b
+    IL_01f8:  ldc.i4.1
+    IL_01f9:  stloc.s    V_8
+    IL_01fb:  br.s       IL_0221
 
-    IL_01f7:  ldarg.0
-    IL_01f8:  ldfld      int64 LaserEmitterEntity::mEntityZ
     IL_01fd:  ldarg.0
-    IL_01fe:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_0203:  ble.s      IL_020a
+    IL_01fe:  ldfld      int64 LaserEmitterEntity::mEntityZ
+    IL_0203:  ldarg.0
+    IL_0204:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_0209:  ble.s      IL_0210
 
-    IL_0205:  ldc.i4.8
-    IL_0206:  stloc.s    V_8
-    IL_0208:  br.s       IL_021b
+    IL_020b:  ldc.i4.8
+    IL_020c:  stloc.s    V_8
+    IL_020e:  br.s       IL_0221
 
-    IL_020a:  ldarg.0
-    IL_020b:  ldfld      int64 LaserEmitterEntity::mEntityZ
     IL_0210:  ldarg.0
-    IL_0211:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_0216:  bge.s      IL_021b
+    IL_0211:  ldfld      int64 LaserEmitterEntity::mEntityZ
+    IL_0216:  ldarg.0
+    IL_0217:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_021c:  bge.s      IL_0221
 
-    IL_0218:  ldc.i4.4
-    IL_0219:  stloc.s    V_8
-    IL_021b:  ldloc.s    V_7
-    IL_021d:  ldloc.s    V_8
-    IL_021f:  callvirt   instance bool IBooleanReciever::IsFaceInput(uint8)
-    IL_0224:  brfalse.s  IL_0263
+    IL_021e:  ldc.i4.4
+    IL_021f:  stloc.s    V_8
+    IL_0221:  ldloc.s    V_7
+    IL_0223:  ldloc.s    V_8
+    IL_0225:  callvirt   instance bool IBooleanReciever::IsFaceInput(uint8)
+    IL_022a:  brfalse.s  IL_0269
 
-    IL_0226:  ldloc.s    V_7
-    IL_0228:  ldarg.0
-    IL_0229:  ldfld      uint8 LaserEmitterEntity::mbOutput
-    IL_022e:  ldloc.s    V_8
-    IL_0230:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
+    IL_022c:  ldloc.s    V_7
+    IL_022e:  ldarg.0
+    IL_022f:  ldfld      uint8 LaserEmitterEntity::mbOutput
+    IL_0234:  ldloc.s    V_8
+    IL_0236:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
                                                                       uint8)
-    IL_0235:  ldarg.0
-    IL_0236:  dup
-    IL_0237:  ldfld      int32 LaserEmitterEntity::mnNumTransfers
-    IL_023c:  ldc.i4.1
-    IL_023d:  add
-    IL_023e:  stfld      int32 LaserEmitterEntity::mnNumTransfers
-    IL_0243:  ldarg.0
-    IL_0244:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
-    IL_0249:  br.s       IL_0263
+    IL_023b:  ldarg.0
+    IL_023c:  dup
+    IL_023d:  ldfld      int32 LaserEmitterEntity::mnNumTransfers
+    IL_0242:  ldc.i4.1
+    IL_0243:  add
+    IL_0244:  stfld      int32 LaserEmitterEntity::mnNumTransfers
+    IL_0249:  ldarg.0
+    IL_024a:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
+    IL_024f:  br.s       IL_0269
 
-    IL_024b:  ldstr      "Laser can no longer find an entity - what happened\?"
-    IL_0250:  call       void [UnityEngine]UnityEngine.Debug::LogWarning(object)
-    IL_0255:  ldarg.0
-    IL_0256:  ldc.i4.1
-    IL_0257:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_025c:  ldarg.0
-    IL_025d:  ldc.i4.0
-    IL_025e:  stfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0263:  ldarg.0
-    IL_0264:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0269:  brfalse    IL_0389
+    IL_0251:  ldstr      "Laser can no longer find an entity - what happened\?"
+    IL_0256:  call       void [UnityEngine]UnityEngine.Debug::LogWarning(object)
+    IL_025b:  ldarg.0
+    IL_025c:  ldc.i4.1
+    IL_025d:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_0262:  ldarg.0
+    IL_0263:  ldc.i4.0
+    IL_0264:  stfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_0269:  ldarg.0
+    IL_026a:  ldfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_026f:  brfalse    IL_038f
 
-    IL_026e:  ldarg.0
-    IL_026f:  dup
-    IL_0270:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_0275:  ldc.i4.1
-    IL_0276:  add
-    IL_0277:  stfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_027c:  ldarg.0
-    IL_027d:  dup
-    IL_027e:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_0283:  ldarg.0
-    IL_0284:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_0289:  rem
-    IL_028a:  stfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_028f:  ldarg.0
-    IL_0290:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_0295:  ldc.i4.1
-    IL_0296:  blt        IL_0389
+    IL_0274:  ldarg.0
+    IL_0275:  dup
+    IL_0276:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_027b:  ldc.i4.1
+    IL_027c:  add
+    IL_027d:  stfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_0282:  ldarg.0
+    IL_0283:  dup
+    IL_0284:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_0289:  ldarg.0
+    IL_028a:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_028f:  rem
+    IL_0290:  stfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_0295:  ldarg.0
+    IL_0296:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_029b:  ldc.i4.1
+    IL_029c:  blt        IL_038f
 
-    IL_029b:  ldarg.0
-    IL_029c:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
     IL_02a1:  ldarg.0
-    IL_02a2:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_02a7:  bge        IL_0389
+    IL_02a2:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_02a7:  ldarg.0
+    IL_02a8:  ldfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_02ad:  bge        IL_038f
 
-    IL_02ac:  ldarg.0
-    IL_02ad:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_02b2:  stloc.s    V_9
-    IL_02b4:  ldarg.0
-    IL_02b5:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_02ba:  stloc.s    V_10
-    IL_02bc:  ldarg.0
-    IL_02bd:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_02c2:  stloc.s    V_11
-    IL_02c4:  ldloc.s    V_9
-    IL_02c6:  ldarg.0
-    IL_02c7:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_02cc:  conv.r4
-    IL_02cd:  ldarg.0
-    IL_02ce:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_02d3:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_02d8:  mul
-    IL_02d9:  conv.i8
-    IL_02da:  add
-    IL_02db:  stloc.s    V_9
-    IL_02dd:  ldloc.s    V_10
-    IL_02df:  ldarg.0
-    IL_02e0:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_02e5:  conv.r4
-    IL_02e6:  ldarg.0
-    IL_02e7:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_02ec:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
-    IL_02f1:  mul
-    IL_02f2:  conv.i8
-    IL_02f3:  add
-    IL_02f4:  stloc.s    V_10
-    IL_02f6:  ldloc.s    V_11
-    IL_02f8:  ldarg.0
-    IL_02f9:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_02fe:  conv.r4
-    IL_02ff:  ldarg.0
-    IL_0300:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
-    IL_0305:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
-    IL_030a:  mul
-    IL_030b:  conv.i8
-    IL_030c:  add
-    IL_030d:  stloc.s    V_11
-    IL_030f:  ldarg.0
-    IL_0310:  ldloc.s    V_9
-    IL_0312:  ldloc.s    V_10
-    IL_0314:  ldloc.s    V_11
-    IL_0316:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
+    IL_02b2:  ldarg.0
+    IL_02b3:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_02b8:  stloc.s    V_9
+    IL_02ba:  ldarg.0
+    IL_02bb:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_02c0:  stloc.s    V_10
+    IL_02c2:  ldarg.0
+    IL_02c3:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_02c8:  stloc.s    V_11
+    IL_02ca:  ldloc.s    V_9
+    IL_02cc:  ldarg.0
+    IL_02cd:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_02d2:  conv.r4
+    IL_02d3:  ldarg.0
+    IL_02d4:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_02d9:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_02de:  mul
+    IL_02df:  conv.i8
+    IL_02e0:  add
+    IL_02e1:  stloc.s    V_9
+    IL_02e3:  ldloc.s    V_10
+    IL_02e5:  ldarg.0
+    IL_02e6:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_02eb:  conv.r4
+    IL_02ec:  ldarg.0
+    IL_02ed:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_02f2:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_02f7:  mul
+    IL_02f8:  conv.i8
+    IL_02f9:  add
+    IL_02fa:  stloc.s    V_10
+    IL_02fc:  ldloc.s    V_11
+    IL_02fe:  ldarg.0
+    IL_02ff:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_0304:  conv.r4
+    IL_0305:  ldarg.0
+    IL_0306:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mForwards
+    IL_030b:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
+    IL_0310:  mul
+    IL_0311:  conv.i8
+    IL_0312:  add
+    IL_0313:  stloc.s    V_11
+    IL_0315:  ldarg.0
+    IL_0316:  ldloc.s    V_9
+    IL_0318:  ldloc.s    V_10
+    IL_031a:  ldloc.s    V_11
+    IL_031c:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
                                                                                                                        int64,
                                                                                                                        int64)
-    IL_031b:  stloc.s    V_12
-    IL_031d:  ldloc.s    V_12
-    IL_031f:  brtrue.s   IL_0322
+    IL_0321:  stloc.s    V_12
+    IL_0323:  ldloc.s    V_12
+    IL_0325:  brtrue.s   IL_0328
 
-    IL_0321:  ret
+    IL_0327:  ret
 
-    IL_0322:  ldloc.s    V_12
-    IL_0324:  ldloc.s    V_9
-    IL_0326:  ldloc.s    V_10
-    IL_0328:  ldloc.s    V_11
-    IL_032a:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
+    IL_0328:  ldloc.s    V_12
+    IL_032a:  ldloc.s    V_9
+    IL_032c:  ldloc.s    V_10
+    IL_032e:  ldloc.s    V_11
+    IL_0330:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
                                                                              int64,
                                                                              int64)
-    IL_032f:  stloc.s    V_13
-    IL_0331:  ldc.i4.0
-    IL_0332:  stloc.s    V_14
-    IL_0334:  ldloc.s    V_13
-    IL_0336:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeSolid(int32)
-    IL_033b:  brfalse.s  IL_0349
+    IL_0335:  stloc.s    V_13
+    IL_0337:  ldc.i4.0
+    IL_0338:  stloc.s    V_14
+    IL_033a:  ldloc.s    V_13
+    IL_033c:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeSolid(int32)
+    IL_0341:  brfalse.s  IL_034f
 
-    IL_033d:  ldloc.s    V_13
-    IL_033f:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeGlass(int32)
-    IL_0344:  brtrue.s   IL_0349
+    IL_0343:  ldloc.s    V_13
+    IL_0345:  call       bool ['Assembly-CSharp']CubeHelper::IsCubeGlass(int32)
+    IL_034a:  brtrue.s   IL_034f
 
-    IL_0346:  ldc.i4.1
-    IL_0347:  stloc.s    V_14
-    IL_0349:  ldloc.s    V_13
-    IL_034b:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
-    IL_0350:  brfalse.s  IL_0355
+    IL_034c:  ldc.i4.1
+    IL_034d:  stloc.s    V_14
+    IL_034f:  ldloc.s    V_13
+    IL_0351:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
+    IL_0356:  brfalse.s  IL_035b
 
-    IL_0352:  ldc.i4.1
-    IL_0353:  stloc.s    V_14
-    IL_0355:  ldloc.s    V_14
-    IL_0357:  brfalse.s  IL_0389
+    IL_0358:  ldc.i4.1
+    IL_0359:  stloc.s    V_14
+    IL_035b:  ldloc.s    V_14
+    IL_035d:  brfalse.s  IL_038f
 
-    IL_0359:  ldarg.0
-    IL_035a:  ldsfld     class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
-    IL_035f:  ldfld      class ['Assembly-CSharp']WorldFrustrum ['Assembly-CSharp']WorldScript::mPlayerFrustrum
-    IL_0364:  ldloc.s    V_9
-    IL_0366:  ldloc.s    V_10
-    IL_0368:  ldloc.s    V_11
-    IL_036a:  callvirt   instance valuetype [UnityEngine]UnityEngine.Vector3 ['Assembly-CSharp']WorldFrustrum::GetCoordsToUnity(int64,
+    IL_035f:  ldarg.0
+    IL_0360:  ldsfld     class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
+    IL_0365:  ldfld      class ['Assembly-CSharp']WorldFrustrum ['Assembly-CSharp']WorldScript::mPlayerFrustrum
+    IL_036a:  ldloc.s    V_9
+    IL_036c:  ldloc.s    V_10
+    IL_036e:  ldloc.s    V_11
+    IL_0370:  callvirt   instance valuetype [UnityEngine]UnityEngine.Vector3 ['Assembly-CSharp']WorldFrustrum::GetCoordsToUnity(int64,
                                                                                                                                 int64,
                                                                                                                                 int64)
-    IL_036f:  stfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mImpactPos
-    IL_0374:  ldarg.0
-    IL_0375:  ldarg.0
-    IL_0376:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
-    IL_037b:  ldc.i4.1
-    IL_037c:  sub
-    IL_037d:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
-    IL_0382:  ldarg.0
-    IL_0383:  ldc.i4.0
-    IL_0384:  stfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
-    IL_0389:  ret
+    IL_0375:  stfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserEmitterEntity::mImpactPos
+    IL_037a:  ldarg.0
+    IL_037b:  ldarg.0
+    IL_037c:  ldfld      int32 LaserEmitterEntity::mnStrokeDist
+    IL_0381:  ldc.i4.1
+    IL_0382:  sub
+    IL_0383:  stfld      int32 LaserEmitterEntity::mnBeamStrokeLength
+    IL_0388:  ldarg.0
+    IL_0389:  ldc.i4.0
+    IL_038a:  stfld      valuetype LaserEmitterEntity/eState LaserEmitterEntity::meState
+    IL_038f:  ret
   } // end of method LaserEmitterEntity::UpdateLaser
 
   .method public hidebysig virtual instance void 

@@ -1,5 +1,5 @@
 .class public auto ansi abstract beforefieldinit LaserTwoInputGate
-       extends LaserEmitterEntity
+       extends LaserLogicGate
 	   implements IBooleanReciever
 {
   .field family uint8 mbCurrentLeft
@@ -33,7 +33,7 @@
               ldarg.s    'flags'
               ldarg.s    lValue
               ldarg.s    segment
-              call       instance void ['Assembly-CSharp']LaserEmitterEntity::.ctor(valuetype ['Assembly-CSharp']eSegmentEntity,
+              call       instance void ['Assembly-CSharp']LaserLogicGate::.ctor(valuetype ['Assembly-CSharp']eSegmentEntity,
                                                                                     valuetype ['Assembly-CSharp']SpawnableObjectEnum,
                                                                                     int64,
                                                                                     int64,
@@ -56,7 +56,7 @@
               stfld      uint8 LaserTwoInputGate::mbNextRight
               ldarg.0
               ldc.i4.0
-              stfld      uint8 LaserEmitterEntity::mbOutput
+              stfld      uint8 LaserLogicGate::mbOutput
               ldarg.0
               ldarg.s    'flags'
               call       instance void LaserTwoInputGate::UpdateFaces(uint8)
@@ -67,7 +67,7 @@
           LowFrequencyUpdate() cil managed
   {
     // Code size       140 (0x8c)
-    .maxstack  3
+    .maxstack  4
     .locals init (uint8 V_0,
              uint8 V_1,
              int8 V_2)
@@ -130,7 +130,7 @@
 			  ldloc.0
 			  ldloc.1
 		      callvirt   instance uint8 ['Assembly-CSharp.dll']LaserTwoInputGate::UpdateOutput(uint8, uint8)
-    IL_0072:  stfld      uint8 ['Assembly-CSharp']LaserEmitterEntity::mbOutput
+    IL_0072:  stfld      uint8 ['Assembly-CSharp']LaserLogicGate::mbOutput
     IL_0077:  ldarg.0
     IL_0078:  ldc.i4.m1
     IL_0079:  stfld      int8 LaserTwoInputGate::mLeftUpdate
@@ -138,7 +138,7 @@
     IL_007f:  ldc.i4.m1
     IL_0080:  stfld      int8 LaserTwoInputGate::mRightUpdate
     IL_0085:  ldarg.0
-    IL_0086:  callvirt   instance void ['Assembly-CSharp']LaserEmitterEntity::UpdateLaser()
+    IL_0086:  callvirt   instance void ['Assembly-CSharp']LaserLogicGate::UpdateLaser()
     IL_008b:  ret
   } // end of method LaserTwoInputGate::LowFrequencyUpdate
 
@@ -211,14 +211,14 @@
     IL_0002:  ldc.i4.0
     IL_0003:  call       uint8 ['Assembly-CSharp']CubeHelper::RotateFlags(uint8,
                                                                           bool)
-    IL_0008:  call       uint8 ['Assembly-CSharp']LaserEmitterEntity::CalcFrontFace(uint8)
+    IL_0008:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcFrontFace(uint8)
     IL_000d:  stfld      uint8 LaserTwoInputGate::mbLeftFace
     IL_0012:  ldarg.0
     IL_0013:  ldarg.1
     IL_0014:  ldc.i4.1
     IL_0015:  call       uint8 ['Assembly-CSharp']CubeHelper::RotateFlags(uint8,
                                                                           bool)
-    IL_001a:  call       uint8 ['Assembly-CSharp']LaserEmitterEntity::CalcFrontFace(uint8)
+    IL_001a:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcFrontFace(uint8)
     IL_001f:  stfld      uint8 LaserTwoInputGate::mbRightFace
     IL_0024:  ret
   } // end of method LaserTwoInputGate::UpdateFaces
@@ -230,7 +230,7 @@
     .maxstack  8
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
-    IL_0002:  call       instance void ['Assembly-CSharp']LaserEmitterEntity::OnUpdateRotation(uint8)
+    IL_0002:  call       instance void ['Assembly-CSharp']LaserLogicGate::OnUpdateRotation(uint8)
     IL_0007:  ldarg.0
     IL_0008:  ldarg.1
     IL_0009:  call       instance void LaserTwoInputGate::UpdateFaces(uint8)

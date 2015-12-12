@@ -896,12 +896,16 @@
     IL_0237:  ldarg.3
     IL_0238:  ldarg.s    y
     IL_023a:  ldarg.s    z
+	          ldarg.s    cube
     IL_023c:  ldarg.s    'flags'
+	          ldarg.s    lValue
     IL_023e:  newobj     instance void LaserReceptorEntity::.ctor(class Segment,
                                                                   int64,
                                                                   int64,
                                                                   int64,
-                                                                  uint8)
+																  uint16,
+                                                                  uint8,
+																  uint16)
     IL_0243:  stloc.0
     IL_0244:  br         IL_08b1
 

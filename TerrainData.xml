@@ -5837,7 +5837,7 @@
 	
 	
 	<TerrainDataEntry>
-		<Hidden>true</Hidden>
+		<Hidden>false</Hidden>
 		<CubeType>557</CubeType>
 		<Name>Laser Receptor</Name>
 		<LayerType>PrimaryTerrain</LayerType>

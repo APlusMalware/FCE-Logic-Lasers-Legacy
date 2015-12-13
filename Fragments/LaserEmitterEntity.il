@@ -5,6 +5,7 @@
   .field private int8 mUpdate
   .field private uint8 mbCurrent
   .field private uint8 mbNext
+  .field private uint8 mFace
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -44,6 +45,9 @@
     IL_0029:  ldarg.0
     IL_002a:  ldc.i4     0xff
     IL_002f:  stfld      uint8 LaserEmitterEntity::mbNext
+              ldarg.0
+              ldarg.s    'flags'
+              call       instance void LaserEmitterEntity::UpdateFaces(uint8)
     IL_0034:  ret
   } // end of method LaserEmitterEntity::.ctor
 
@@ -96,7 +100,11 @@
                                       uint8 face) cil managed
   {
     // Code size       22 (0x16)
-    .maxstack  8
+    .maxstack  3
+              ldarg.0
+              ldarg.1
+              callvirt   bool LaserEmitterEntity::IsFaceInput(uint8)
+              brfalse.s  IL_0015
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
     IL_0002:  stfld      uint8 LaserEmitterEntity::mbNext
@@ -113,8 +121,13 @@
           instance bool  IsFaceInput(uint8 face) cil managed
   {
     // Code size       2 (0x2)
-    .maxstack  8
-    IL_0000:  ldc.i4.1
+    .maxstack  2
+              ldarg.0
+              ldfld      uint8 LaserEmitterEntity::mFace
+              ldarg.1
+              ceq
+              ldc.i4.0
+              ceq
     IL_0001:  ret
   } // end of method LaserEmitterEntity::IsFaceInput
   
@@ -138,5 +151,32 @@
 			  ldloc.0
 			  ret
   }
+  
+  .method public hidebysig virtual instance void 
+          OnUpdateRotation(uint8 'flags') cil managed
+  {
+    // Code size       15 (0xf)
+    .maxstack  2
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       instance void ['Assembly-CSharp']LaserLogicGate::OnUpdateRotation(uint8)
+    IL_0007:  ldarg.0
+    IL_0008:  ldarg.1
+    IL_0009:  call       instance void LaserEmitterEntity::UpdateFaces(uint8)
+    IL_000e:  ret
+  } // end of method LaserEmitterEntity::OnUpdateRotation
+  
+  
+  .method private hidebysig instance void 
+          UpdateFaces(uint8 'flags') cil managed
+  {
+    // Code size       18 (0x12)
+    .maxstack  2
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcFrontFace(uint8)
+    IL_000c:  stfld      uint8 LaserEmitterEntity::mFace
+    IL_0011:  ret
+  } // end of method LaserEmitterEntity::UpdateFaces
   
 } // end of class LaserEmitterEntity

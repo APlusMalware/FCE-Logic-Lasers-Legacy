@@ -1149,9 +1149,13 @@
     IL_032c:  stloc.s    V_5
     IL_032e:  ldarg.0
     IL_032f:  ldfld      uint8 LaserLogicGate::mbOutput
-    IL_0334:  brfalse.s  IL_033d
-
-    IL_0336:  ldc.r4     1.
+              conv.r4
+              ldc.r4     255
+              div
+              ldc.r4     .9
+              mul
+              ldc.r4     .1
+              add
     IL_033b:  stloc.s    V_5
     IL_033d:  ldarg.0
     IL_033e:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam

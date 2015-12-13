@@ -3,7 +3,7 @@ using System.IO;
 
 class CILSwapper
 {
-	static void Main()
+	static Int32 Main()
 	{
 		String full = File.ReadAllText(@"..\Originals\Latest.il");
 		String[] originalFragmentPaths = Directory.GetFiles(@"..\Originals\Fragments");
@@ -19,7 +19,7 @@ class CILSwapper
 			{
 				// ERROR 
                 Console.WriteLine("Contents of file " + originalPath + " not found!");
-				return;
+				return 1;
 			}
 			
 			full = full.Substring(0, start) + full.Substring(start + originalFragment.Length);
@@ -42,7 +42,7 @@ class CILSwapper
 			{
 				// ERROR 
                 Console.WriteLine("Contents of file " + originalPath + " not found!");
-				return;
+				return 2;
 			}
 			String modifiedFragment = File.ReadAllText(Path.Combine(@"..\Fragments\Replace", Path.GetFileName(originalPath)));
 			
@@ -53,5 +53,6 @@ class CILSwapper
 		Console.WriteLine("Replacement completed. Beginning file write...");
 		File.WriteAllText(@"..\Integrated.il", full);
 		Console.WriteLine("File write complete.");
+        return 0;
 	}
 }

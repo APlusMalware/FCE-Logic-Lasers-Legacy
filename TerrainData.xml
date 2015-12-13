@@ -5585,6 +5585,12 @@
 				<IconName>MiniHopper</IconName>
 				<Description>Auto transfers 1 item per 30s.</Description>
 			</ValueEntry>
+				<ValueEntry>
+				<Value>3</Value>
+				<Name>CryoHopper</Name>
+				<IconName>CryoHopper</IconName>
+				<Description>Keeps items cold. Needs Power. More efficient if placed somewhere cold.</Description>
+			</ValueEntry>
 		</Values>
 		
 		<LayerType>PrimaryTerrain</LayerType>
@@ -5613,9 +5619,15 @@
 		<CubeType>507</CubeType>
 		<Name>Laser Energy Transmitter</Name>
 		<Values>
+		<ValueEntry>
+			<Value>99</Value>
+				<Name>Basic Laser Energy Transmitter</Name>
+				<IconName>Laser Energy Transmitter</IconName>
+				<Description>Transmits power slowly over distances.\nMax dist 32.\nUpgrade ASAP.</Description>
+			</ValueEntry>
 			<ValueEntry>
 				<Value>0</Value>
-				<Name>Laser Energy Transmitter</Name>
+				<Name>Laser Energy Transmitter MK1</Name>
 				<IconName>Laser Energy Transmitter</IconName>
 				<Description>Transmits power over distances.\nMax dist 64.\nAim at batteries.</Description>
 			</ValueEntry>
@@ -5759,7 +5771,7 @@
 
 	
 	<TerrainDataEntry>
-		<Hidden>true</Hidden>
+		<Hidden>false</Hidden>
 		<CubeType>554</CubeType>
 		<Name>Laser Pressure Pad</Name>
 		<LayerType>PrimaryTerrain</LayerType>
@@ -5811,7 +5823,7 @@
 
 	
 	<TerrainDataEntry>
-		<Hidden>true</Hidden>
+		<Hidden>false</Hidden>
 		<CubeType>556</CubeType>
 		<Name>Laser Mirror</Name>
 		<LayerType>PrimaryTerrain</LayerType>
@@ -5859,8 +5871,8 @@
 			<tag>Voxel</tag>
 			<tag>Machinery</tag>
 		</tags>
-	</TerrainDataEntry>		
-	
+	</TerrainDataEntry>
+    
 	<TerrainDataEntry>
 		<CubeType>508</CubeType>
 		<Name>BFL-9000</Name>
@@ -6345,6 +6357,12 @@
 				<Name>Basic Missile Assembler</Name>
 				<IconName>Basic Missile Assembler</IconName>
 				<Description>Crafts Missiles from Fuel, Tubes and Wire.</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>1</Value>
+				<Name>Organic Reassembler</Name>
+				<IconName>Organic Reassembler</IconName>
+				<Description>Crafts Ruined Organic Components.</Description>
 			</ValueEntry>
 		</Values>
 		
@@ -7258,7 +7276,7 @@
 		<TerrainDataEntry>
 		<CubeType>537</CubeType>
 		<Name>Basic Quarry</Name>
-		<Description>Digs a 10x10x1000m hole.</Description>
+		<Description>Digs a 9 metre big shaft, deep into the surface of the planet.</Description>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>192</TopTexture>
 		<SideTexture>192</SideTexture>

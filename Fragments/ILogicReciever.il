@@ -1,14 +1,14 @@
-.class interface public abstract auto ansi IBooleanReciever
+.class interface public abstract auto ansi ILogicReciever
 {
   .method public hidebysig newslot abstract virtual 
           instance bool  IsFaceInput(uint8 face) cil managed
   {
-  } // end of method IBooleanReciever::IsFaceInput
+  } // end of method ILogicReciever::IsFaceInput
 
   .method public hidebysig newslot abstract virtual 
           instance void  SetNextValue(uint8 'value',
                                       uint8 face) cil managed
   {
-  } // end of method IBooleanReciever::SetNextValue
+  } // end of method ILogicReciever::SetNextValue
 
-} // end of class IBooleanReciever
+} // end of class ILogicReciever

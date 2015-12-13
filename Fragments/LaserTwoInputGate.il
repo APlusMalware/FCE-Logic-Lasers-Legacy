@@ -1,6 +1,6 @@
 .class public auto ansi abstract beforefieldinit LaserTwoInputGate
        extends LaserLogicGate
-	   implements IBooleanReciever
+	   implements ILogicReciever
 {
   .field family uint8 mbCurrentLeft
   .field family uint8 mbCurrentRight

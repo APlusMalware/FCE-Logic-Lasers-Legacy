@@ -1,6 +1,6 @@
 .class public auto ansi abstract beforefieldinit LaserLogicGate
        extends MachineEntity
-       implements IBooleanReciever
+       implements ILogicReciever
 {
   .class auto ansi sealed nested public eState
          extends [mscorlib]System.Enum
@@ -403,7 +403,7 @@
              uint16 V_4,
              class ['Assembly-CSharp']Segment V_5,
              uint16 V_6,
-             class IBooleanReciever V_7,
+             class ILogicReciever V_7,
              uint8 V_8,
              int64 V_9,
              int64 V_10,
@@ -603,7 +603,7 @@
     IL_0199:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
-    IL_019e:  isinst     IBooleanReciever
+    IL_019e:  isinst     ILogicReciever
     IL_01a3:  stloc.s    V_7
     IL_01a5:  ldloc.s    V_7
     IL_01a7:  brfalse    IL_0269
@@ -670,14 +670,14 @@
     IL_021f:  stloc.s    V_8
     IL_0221:  ldloc.s    V_7
     IL_0223:  ldloc.s    V_8
-    IL_0225:  callvirt   instance bool IBooleanReciever::IsFaceInput(uint8)
+    IL_0225:  callvirt   instance bool ILogicReciever::IsFaceInput(uint8)
     IL_022a:  brfalse.s  IL_0269
 
     IL_022c:  ldloc.s    V_7
     IL_022e:  ldarg.0
     IL_022f:  ldfld      uint8 LaserLogicGate::mbOutput
     IL_0234:  ldloc.s    V_8
-    IL_0236:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
+    IL_0236:  callvirt   instance void ILogicReciever::SetNextValue(uint8,
                                                                       uint8)
     IL_023b:  ldarg.0
     IL_023c:  dup

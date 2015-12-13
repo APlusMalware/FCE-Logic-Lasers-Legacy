@@ -1,6 +1,6 @@
 .class public auto ansi beforefieldinit LaserNotGateEntity
        extends LaserLogicGate
-       implements IBooleanReciever
+       implements ILogicReciever
 {
   .field private uint8 mbCurrent
   .field private uint8 mbNext

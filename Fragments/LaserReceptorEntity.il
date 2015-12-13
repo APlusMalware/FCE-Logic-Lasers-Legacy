@@ -62,7 +62,7 @@
              int64 V_8,
              int64 V_9,
              class ['Assembly-CSharp']Segment V_10,
-             class ['Assembly-CSharp']IBooleanReciever V_11,
+             class ['Assembly-CSharp']ILogicReciever V_11,
              uint8 V_12)
     IL_0000:  ldarg.0
     IL_0001:  ldarg.0
@@ -195,7 +195,7 @@
     IL_00f5:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
-    IL_00fa:  isinst     ['Assembly-CSharp']IBooleanReciever
+    IL_00fa:  isinst     ['Assembly-CSharp']ILogicReciever
     IL_00ff:  stloc.s    V_11
     IL_0101:  ldloc.s    V_11
     IL_0103:  brtrue.s   IL_0106
@@ -258,14 +258,14 @@
     IL_0161:  stloc.s    V_12
     IL_0163:  ldloc.s    V_11
     IL_0165:  ldloc.s    V_12
-    IL_0167:  callvirt   instance bool ['Assembly-CSharp']IBooleanReciever::IsFaceInput(uint8)
+    IL_0167:  callvirt   instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
     IL_016c:  brfalse.s  IL_0183
 
     IL_016e:  ldloc.s    V_11
     IL_0170:  ldarg.0
     IL_0171:  ldfld      uint8 LaserReceptorEntity::mOutput
     IL_0176:  ldloc.s    V_12
-    IL_0178:  callvirt   instance void ['Assembly-CSharp']IBooleanReciever::SetNextValue(uint8,
+    IL_0178:  callvirt   instance void ['Assembly-CSharp']ILogicReciever::SetNextValue(uint8,
                                                                                          uint8)
     IL_017d:  ldarg.0
     IL_017e:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()

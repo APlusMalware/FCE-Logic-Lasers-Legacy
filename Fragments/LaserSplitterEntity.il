@@ -1,6 +1,6 @@
 .class public auto ansi beforefieldinit LaserSplitterEntity
        extends MachineEntity
-       implements IBooleanReciever
+       implements ILogicReciever
 {
   .field private uint8 mbCurrent
   .field private uint8 mbNext
@@ -201,7 +201,7 @@
     .maxstack  4
     .locals init (class ['Assembly-CSharp']Segment V_0,
              uint16 V_1,
-             class ['Assembly-CSharp']IBooleanReciever V_2,
+             class ['Assembly-CSharp']ILogicReciever V_2,
              uint8 V_3)
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
@@ -235,7 +235,7 @@
     IL_0024:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
-    IL_0029:  isinst     ['Assembly-CSharp']IBooleanReciever
+    IL_0029:  isinst     ['Assembly-CSharp']ILogicReciever
     IL_002e:  stloc.2
     IL_002f:  ldloc.2
     IL_0030:  brfalse.s  IL_009e
@@ -296,14 +296,14 @@
     IL_0081:  stloc.3
     IL_0082:  ldloc.2
     IL_0083:  ldloc.3
-    IL_0084:  callvirt   instance bool ['Assembly-CSharp']IBooleanReciever::IsFaceInput(uint8)
+    IL_0084:  callvirt   instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
     IL_0089:  brfalse.s  IL_009e
 
     IL_008b:  ldloc.2
     IL_008c:  ldarg.0
     IL_008d:  ldfld      uint8 LaserSplitterEntity::mbOutput
     IL_0092:  ldloc.3
-    IL_0093:  callvirt   instance void IBooleanReciever::SetNextValue(uint8,
+    IL_0093:  callvirt   instance void ILogicReciever::SetNextValue(uint8,
                                                                       uint8)
     IL_0098:  ldarg.0
     IL_0099:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()

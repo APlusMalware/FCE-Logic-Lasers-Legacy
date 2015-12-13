@@ -1,6 +1,6 @@
 .class public auto ansi beforefieldinit LaserOrGateEntity
        extends LaserTwoInputGate
-       implements IBooleanReciever
+       implements ILogicReciever
 {
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,

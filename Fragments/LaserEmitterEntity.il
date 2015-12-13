@@ -1,6 +1,6 @@
 .class public auto ansi beforefieldinit LaserEmitterEntity
        extends LaserLogicGate
-       implements IBooleanReciever
+       implements ILogicReciever
 {
   .field private int8 mUpdate
   .field private uint8 mbCurrent

@@ -1,3 +1,4 @@
+@ECHO OFF
 "C:\Windows\Microsoft.NET\Framework\v4.0.30319\ilasm.exe" /DLL "../Integrated.il"
 IF NOT EXIST "..\Integrated.dll" GOTO ErrorAssembler
 move "..\Integrated.dll" ".\"

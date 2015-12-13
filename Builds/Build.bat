@@ -1,3 +1,4 @@
+@ECHO OFF
 IF NOT EXIST ILReplacer.exe C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc ILReplacer.cs
 ILReplacer.exe
 IF errorlevel 1 goto ErrorOccurred

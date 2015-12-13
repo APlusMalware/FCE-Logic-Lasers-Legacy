@@ -1330,6 +1330,19 @@
           instance bool  IsFaceInput(uint8 face) cil managed
   {
   } // end of method LaserLogicGate::IsFaceInput
+  
+  .method public hidebysig newslot virtual instance int16
+          GetOutput() cil managed
+  {
+              ldarg.0
+			  ldfld     uint8 LaserLogicGate::mbOutput
+			  ret
+  } // end of method LaserLogicGate::GetOutput
+  
+  .method public hidebysig newslot abstract virtual 
+          instance uint8[] GetInputs() cil managed
+  {
+  } // end of method LaserLogicGate::GetInputs
 
   .method public hidebysig static uint8  CalcOppositeFace(uint8 face) cil managed
   {

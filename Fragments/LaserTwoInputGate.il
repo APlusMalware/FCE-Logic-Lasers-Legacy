@@ -222,6 +222,34 @@
     IL_001f:  stfld      uint8 LaserTwoInputGate::mbRightFace
     IL_0024:  ret
   } // end of method LaserTwoInputGate::UpdateFaces
+  
+  .method public hidebysig virtual instance uint8[]
+          GetInputs() cil managed
+  {
+    .maxstack 3
+	.locals init (uint8[] inputs)
+	          // Create byte array with 2 elements
+              ldc.i4.2
+			  newarr     uint8
+			  stloc.0
+			  
+			  // Set element 0 of array to value of mbNextLeft
+			  ldloc.0
+			  ldc.i4.0
+			  ldarg.0
+			  ldfld      uint8 LaserTwoInputGate::mbNextLeft
+			  stelem.i1
+			  
+			  // Set element 1 of array to value of mbNextRight
+			  ldloc.0
+			  ldc.i4.1
+			  ldarg.0
+			  ldfld      uint8 LaserTwoInputGate::mbNextRight
+			  stelem.i1
+			  
+			  ldloc.0
+			  ret
+  }
 
   .method public hidebysig virtual instance void 
           OnUpdateRotation(uint8 'flags') cil managed

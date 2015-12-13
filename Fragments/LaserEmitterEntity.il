@@ -118,4 +118,25 @@
     IL_0001:  ret
   } // end of method LaserEmitterEntity::IsFaceInput
   
+  .method public hidebysig virtual instance uint8[]
+          GetInputs() cil managed
+  {
+    .maxstack 3
+	.locals init (uint8[] inputs)
+	          // Create byte array with 1 element
+              ldc.i4.1
+			  newarr     uint8
+			  stloc.0
+			  
+			  // Set element 0 of array to value of mbNext
+			  ldloc.0
+			  ldc.i4.0
+			  ldarg.0
+			  ldfld      uint8 LaserEmitterEntity::mbNext
+			  stelem.i1
+			  
+			  ldloc.0
+			  ret
+  }
+  
 } // end of class LaserEmitterEntity

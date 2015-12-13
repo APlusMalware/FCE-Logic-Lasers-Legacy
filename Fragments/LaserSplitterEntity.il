@@ -71,6 +71,35 @@
     IL_0015:  ret
   } // end of method LaserSplitterEntity::SetNextValue
 
+  .method public hidebysig newslot virtual instance int16
+          GetOutput() cil managed
+  {
+              ldarg.0
+			  ldfld     uint8 LaserSplitterEntity::mbOutput
+			  ret
+  } // end of method LaserSplitterEntity::GetOutput
+  
+  .method public hidebysig newslot virtual instance uint8[]
+          GetInputs() cil managed
+  {
+    .maxstack 3
+	.locals init (uint8[] inputs)
+	          // Create byte array with 1 element
+              ldc.i4.1
+			  newarr     uint8
+			  stloc.0
+			  
+			  // Set element 0 of array to value of mbNext
+			  ldloc.0
+			  ldc.i4.0
+			  ldarg.0
+			  ldfld      uint8 LaserSplitterEntity::mbNext
+			  stelem.i1
+			  
+			  ldloc.0
+			  ret
+  } // end of method LaserSplitterEntity::GetInputs
+  
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
   {

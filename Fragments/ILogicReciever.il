@@ -11,4 +11,13 @@
   {
   } // end of method ILogicReciever::SetNextValue
 
+  .method public hidebysig newslot abstract virtual
+          instance int16  GetOutput() cil managed
+  {
+  }
+  
+  .method public hidebysig newslot abstract virtual
+          instance uint8[] GetInputs() cil managed
+  {
+  }
 } // end of class ILogicReciever

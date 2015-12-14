@@ -19,8 +19,49 @@
 		[3] uint8[] inputs,
 		[4] int32 i,
 		[5] object temp,
-		[6] object[] concatTemp
+		[6] object[] concatTemp,
+        [7] uint16 selectedBlockType
 	)
+             // Get block type
+             ldsfld     class WorldScript WorldScript::'instance'
+             ldfld      class LocalPlayerScript WorldScript::localPlayerInstance
+             ldfld      class PlayerBlockPicker LocalPlayerScript::mPlayerBlockPicker
+             ldfld      uint16 PlayerBlockPicker::selectBlockType
+             stloc.s    selectedBlockType
+             
+             // Check if block type is a logic laser
+             ldloc.s    selectedBlockType
+             ldc.i4     550
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     551
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     552
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     553
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     554
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     555
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     556
+             beq.s      IL_0000
+             
+             ldloc.s    selectedBlockType
+             ldc.i4     557
+             beq.s      IL_0000
+             ret
     
 	IL_0000: ldsfld class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
 	IL_0005: ldfld class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance

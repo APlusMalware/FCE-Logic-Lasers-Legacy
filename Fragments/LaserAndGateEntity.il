@@ -15,7 +15,7 @@
     .maxstack  10
     IL_0000:  ldarg.0
     IL_0001:  ldc.i4.6
-    IL_0002:  ldc.i4     0x12
+    IL_0002:  ldc.i4     2
     IL_0007:  ldarg.2
     IL_0008:  ldarg.3
     IL_0009:  ldarg.s    z

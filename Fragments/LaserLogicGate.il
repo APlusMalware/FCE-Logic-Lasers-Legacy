@@ -858,13 +858,14 @@
           UnityUpdate() cil managed
   {
     // Code size       1084 (0x43c)
-    .maxstack  5
+    .maxstack  6
     .locals init (class [UnityEngine]UnityEngine.Transform V_0,
              float32 V_1,
              float32 V_2,
              float32 V_3,
              float32 V_4,
-             float32 V_5)
+             float32 V_5,
+             class [UnityEngine]UnityEngine.Transform emitter)
     IL_0000:  ldarg.0
     IL_0001:  dup
     IL_0002:  ldfld      int32 LaserLogicGate::mnUpdates
@@ -919,19 +920,6 @@
                                                                                                         string)
     IL_0094:  callvirt   instance class [UnityEngine]UnityEngine.Light [UnityEngine]UnityEngine.Component::get_light()
     IL_0099:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_009e:  ldarg.0
-    IL_009f:  ldarg.0
-    IL_00a0:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_00a5:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_00aa:  ldc.i4.0
-    IL_00ab:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_00b0:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_00b5:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_00ba:  ldstr      "TransmissionLight"
-    IL_00bf:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
-                                                                                                        string)
-    IL_00c4:  callvirt   instance class [UnityEngine]UnityEngine.Light [UnityEngine]UnityEngine.Component::get_light()
-    IL_00c9:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::TransmissionLight
     IL_00ce:  ldarg.0
     IL_00cf:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
     IL_00d4:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
@@ -987,7 +975,6 @@
     IL_0169:  ldstr      "Laser emitter can't find Beam Impact!"
     IL_016e:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
     IL_0173:  ldarg.0
-    IL_0174:  ldarg.0
     IL_0175:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
     IL_017a:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
     IL_017f:  ldc.i4.0
@@ -997,6 +984,15 @@
     IL_018f:  ldstr      "Laser_Emitter"
     IL_0194:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
                                                                                                         string)
+              // Add null check
+              stloc.s    emitter
+              ldloc.s    emitter
+              ldnull
+              call bool  [UnityEngine]UnityEngine.Object::op_Inequality(class [UnityEngine]UnityEngine.Object, class [UnityEngine]UnityEngine.Object)
+              brfalse.s  IL_01a3
+              
+              ldarg.0
+              ldloc.s    emitter
     IL_0199:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
     IL_019e:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
     IL_01a3:  ldarg.0
@@ -1007,22 +1003,14 @@
     IL_01b0:  ldarg.0
     IL_01b1:  ldfld      float32 ['Assembly-CSharp']MachineEntity::mDistanceToPlayer
     IL_01b6:  ldc.r4     32.
-    IL_01bb:  bge.un.s   IL_01d7
+    IL_01bb:  bge.un.s   IL_01e3
 
-    IL_01bd:  ldarg.0
-    IL_01be:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::TransmissionLight
-    IL_01c3:  ldc.i4.1
-    IL_01c4:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
     IL_01c9:  ldarg.0
     IL_01ca:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
     IL_01cf:  ldc.i4.1
     IL_01d0:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
     IL_01d5:  br.s       IL_01ef
 
-    IL_01d7:  ldarg.0
-    IL_01d8:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::TransmissionLight
-    IL_01dd:  ldc.i4.0
-    IL_01de:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
     IL_01e3:  ldarg.0
     IL_01e4:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
     IL_01e9:  ldc.i4.0
@@ -1260,6 +1248,10 @@
     IL_0024:  stfld      bool LaserLogicGate::mbIsBehindPlayer
     IL_0029:  ldarg.0
     IL_002a:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
+              ldnull
+              beq.s      IL_0035
+              ldarg.0
+              ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
     IL_002f:  ldc.i4.0
     IL_0030:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
     IL_0035:  ret
@@ -1273,6 +1265,10 @@
     IL_0040:  stfld      bool LaserLogicGate::mbIsBehindPlayer
     IL_0045:  ldarg.0
     IL_0046:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
+              ldnull
+              beq.s      IL_0051
+              ldarg.0
+              ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
     IL_004b:  ldc.i4.1
     IL_004c:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
     IL_0051:  ret

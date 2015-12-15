@@ -123,6 +123,9 @@
     IL_0001:  ldarg.0
     IL_0002:  ldfld      uint8 LaserNotGateEntity::mFace
     IL_0007:  ceq
+              // Just for you, steveman
+              ldc.i4.0
+              ceq
     IL_0009:  ret
   } // end of method LaserNotGateEntity::IsFaceInput
 
@@ -132,10 +135,10 @@
   {
     // Code size       31 (0x1f)
     .maxstack  8
-    IL_0000:  ldarg.2
-    IL_0001:  ldarg.0
-    IL_0002:  ldfld      uint8 LaserNotGateEntity::mFace
-    IL_0007:  bne.un.s   IL_001e
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.2
+              callvirt   bool LaserNotGateEntity::IsFaceInput(uint8)
+    IL_0007:  brfalse.s   IL_001e
 
     IL_0009:  ldarg.0
     IL_000a:  ldarg.1
@@ -178,7 +181,6 @@
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
     IL_0002:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcFrontFace(uint8)
-    IL_0007:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcOppositeFace(uint8)
     IL_000c:  stfld      uint8 LaserNotGateEntity::mFace
     IL_0011:  ret
   } // end of method LaserNotGateEntity::UpdateFaces

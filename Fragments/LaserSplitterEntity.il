@@ -6,6 +6,7 @@
   .field private uint8 mbNext
   .field private int8 mUpdate
   .field private uint8 mbOutput
+  .field private uint8 mFace
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -41,6 +42,9 @@
     IL_0019:  ldarg.0
     IL_001a:  ldc.i4.1
     IL_001b:  stfld      bool SegmentEntity::mbNeedsLowFrequencyUpdate
+              ldarg.0
+              ldarg.s    'flags'
+              call       instance void LaserSplitterEntity::UpdateFaces(uint8)
     IL_0020:  ret
   } // end of method LaserSplitterEntity::.ctor
 
@@ -48,9 +52,12 @@
           instance bool  IsFaceInput(uint8 face) cil managed
   {
     // Code size       2 (0x2)
-    .maxstack  8
-    IL_0000:  ldc.i4.1
-    IL_0001:  ret
+    .maxstack  2
+    IL_0000:  ldarg.1
+    IL_0001:  ldarg.0
+    IL_0002:  ldfld      uint8 LaserSplitterEntity::mFace
+    IL_0007:  ceq
+    IL_0009:  ret
   } // end of method LaserSplitterEntity::IsFaceInput
 
   .method public hidebysig newslot virtual 
@@ -59,6 +66,10 @@
   {
     // Code size       22 (0x16)
     .maxstack  8
+              ldarg.0
+              ldarg.2
+              callvirt   bool LaserSplitterEntity::IsFaceInput(uint8)
+              brfalse.s  IL_0015
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
     IL_0002:  stfld      uint8 LaserSplitterEntity::mbNext
@@ -226,117 +237,150 @@
                       int64 y,
                       int64 z) cil managed
   {
-    // Code size       159 (0x9f)
-    .maxstack  4
-    .locals init (class ['Assembly-CSharp']Segment V_0,
-             uint16 V_1,
-             class ['Assembly-CSharp']ILogicReciever V_2,
-             uint8 V_3)
-    IL_0000:  ldarg.0
-    IL_0001:  ldarg.1
-    IL_0002:  ldarg.2
-    IL_0003:  ldarg.3
-    IL_0004:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
-                                                                                                                       int64,
-                                                                                                                       int64)
-    IL_0009:  stloc.0
-    IL_000a:  ldloc.0
-    IL_000b:  brtrue.s   IL_000e
+    // Code size 170 (0xaa)
+    .maxstack 5
+    .locals init (
+        [0] uint8,
+        [1] class ['Assembly-CSharp']Segment,
+        [2] uint16,
+        [3] class ['Assembly-CSharp']ILogicReciever
+    )
 
-    IL_000d:  ret
+    IL_0000: ldc.i4.0
+    IL_0001: stloc.0
+    IL_0002: ldarg.1
+    IL_0003: ldarg.0
+    IL_0004: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_0009: ble.s       IL_0010
 
-    IL_000e:  ldloc.0
-    IL_000f:  ldarg.1
-    IL_0010:  ldarg.2
-    IL_0011:  ldarg.3
-    IL_0012:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
-                                                                             int64,
-                                                                             int64)
-    IL_0017:  stloc.1
-    IL_0018:  ldloc.1
-    IL_0019:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
-    IL_001e:  brfalse.s  IL_009e
+    IL_000b: ldc.i4.s    16
+    IL_000d: stloc.0
+    IL_000e: br.s        IL_0050
 
-    IL_0020:  ldloc.0
-    IL_0021:  ldarg.1
-    IL_0022:  ldarg.2
-    IL_0023:  ldarg.3
-    IL_0024:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
-                                                                                                                  int64,
-                                                                                                                  int64)
-    IL_0029:  isinst     ['Assembly-CSharp']ILogicReciever
-    IL_002e:  stloc.2
-    IL_002f:  ldloc.2
-    IL_0030:  brfalse.s  IL_009e
+    IL_0010: ldarg.1
+    IL_0011: ldarg.0
+    IL_0012: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnX
+    IL_0017: bge.s       IL_001e
 
-    IL_0032:  ldc.i4.0
-    IL_0033:  stloc.3
-    IL_0034:  ldarg.1
-    IL_0035:  ldarg.0
-    IL_0036:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_003b:  ble.s      IL_0042
+    IL_0019: ldc.i4.s    32
+    IL_001b: stloc.0
+    IL_001c: br.s        IL_0050
 
-    IL_003d:  ldc.i4.s   16
-    IL_003f:  stloc.3
-    IL_0040:  br.s       IL_0082
+    IL_001e: ldarg.2
+    IL_001f: ldarg.0
+    IL_0020: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_0025: ble.s       IL_002b
 
-    IL_0042:  ldarg.1
-    IL_0043:  ldarg.0
-    IL_0044:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
-    IL_0049:  bge.s      IL_0050
+    IL_0027: ldc.i4.2
+    IL_0028: stloc.0
+    IL_0029: br.s        IL_0050
 
-    IL_004b:  ldc.i4.s   32
-    IL_004d:  stloc.3
-    IL_004e:  br.s       IL_0082
+    IL_002b: ldarg.2
+    IL_002c: ldarg.0
+    IL_002d: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnY
+    IL_0032: bge.s       IL_0038
 
-    IL_0050:  ldarg.2
-    IL_0051:  ldarg.0
-    IL_0052:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_0057:  ble.s      IL_005d
+    IL_0034: ldc.i4.1
+    IL_0035: stloc.0
+    IL_0036: br.s        IL_0050
 
-    IL_0059:  ldc.i4.2
-    IL_005a:  stloc.3
-    IL_005b:  br.s       IL_0082
+    IL_0038: ldarg.3
+    IL_0039: ldarg.0
+    IL_003a: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_003f: ble.s       IL_0045
 
-    IL_005d:  ldarg.2
-    IL_005e:  ldarg.0
-    IL_005f:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
-    IL_0064:  bge.s      IL_006a
+    IL_0041: ldc.i4.8
+    IL_0042: stloc.0
+    IL_0043: br.s        IL_0050
 
-    IL_0066:  ldc.i4.1
-    IL_0067:  stloc.3
-    IL_0068:  br.s       IL_0082
+    IL_0045: ldarg.3
+    IL_0046: ldarg.0
+    IL_0047: ldfld       int64 ['Assembly-CSharp']SegmentEntity::mnZ
+    IL_004c: bge.s       IL_0050
 
-    IL_006a:  ldarg.3
-    IL_006b:  ldarg.0
-    IL_006c:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_0071:  ble.s      IL_0077
+    IL_004e: ldc.i4.4
+    IL_004f: stloc.0
 
-    IL_0073:  ldc.i4.8
-    IL_0074:  stloc.3
-    IL_0075:  br.s       IL_0082
+    IL_0050: ldarg.0
+             ldfld       uint8 LaserSplitterEntity::mFace
+    IL_0052: ldloc.0
+    IL_0053: call        uint8 ['Assembly-CSharp']LaserLogicGate::CalcOppositeFace(uint8)
+    IL_0058: bne.un.s    IL_005b
 
-    IL_0077:  ldarg.3
-    IL_0078:  ldarg.0
-    IL_0079:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
-    IL_007e:  bge.s      IL_0082
+    IL_005a: ret
 
-    IL_0080:  ldc.i4.4
-    IL_0081:  stloc.3
-    IL_0082:  ldloc.2
-    IL_0083:  ldloc.3
-    IL_0084:  callvirt   instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
-    IL_0089:  brfalse.s  IL_009e
+    IL_005b: ldarg.0
+    IL_005c: ldarg.1
+    IL_005d: ldarg.2
+    IL_005e: ldarg.3
+    IL_005f: call        instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64, int64, int64)
+    IL_0064: stloc.1
+    IL_0065: ldloc.1
+    IL_0066: brtrue.s    IL_0069
 
-    IL_008b:  ldloc.2
-    IL_008c:  ldarg.0
-    IL_008d:  ldfld      uint8 LaserSplitterEntity::mbOutput
-    IL_0092:  ldloc.3
-    IL_0093:  callvirt   instance void ILogicReciever::SetNextValue(uint8,
-                                                                      uint8)
-    IL_0098:  ldarg.0
-    IL_0099:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
-    IL_009e:  ret
+    IL_0068: ret
+
+    IL_0069: ldloc.1
+    IL_006a: ldarg.1
+    IL_006b: ldarg.2
+    IL_006c: ldarg.3
+    IL_006d: callvirt    instance uint16 ['Assembly-CSharp']Segment::GetCube(int64, int64, int64)
+    IL_0072: stloc.2
+    IL_0073: ldloc.2
+    IL_0074: call        bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
+    IL_0079: brfalse.s   IL_00a9
+
+    IL_007b: ldloc.1
+    IL_007c: ldarg.1
+    IL_007d: ldarg.2
+    IL_007e: ldarg.3
+    IL_007f: callvirt    instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64, int64, int64)
+    IL_0084: isinst      ['Assembly-CSharp']ILogicReciever
+    IL_0089: stloc.3
+    IL_008a: ldloc.3
+    IL_008b: brfalse.s   IL_00a9
+
+    IL_008d: ldloc.3
+    IL_008e: ldloc.0
+    IL_008f: callvirt    instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
+    IL_0094: brfalse.s   IL_00a9
+
+    IL_0096: ldloc.3
+    IL_0097: ldarg.0
+    IL_0098: ldfld       uint8 LaserSplitterEntity::mbOutput
+    IL_009d: ldloc.0
+    IL_009e: callvirt    instance void ['Assembly-CSharp']ILogicReciever::SetNextValue(uint8, uint8)
+    IL_00a3: ldarg.0
+    IL_00a4: callvirt    instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
+
+    IL_00a9: ret
   } // end of method LaserSplitterEntity::UpdateBlock
 
+  .method private hidebysig instance void 
+          UpdateFaces(uint8 'flags') cil managed
+  {
+    // Code size       18 (0x12)
+    .maxstack  8
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcFrontFace(uint8)
+    IL_0007:  call       uint8 ['Assembly-CSharp']LaserLogicGate::CalcOppositeFace(uint8)
+    IL_000c:  stfld      uint8 LaserSplitterEntity::mFace
+    IL_0011:  ret
+  } // end of method LaserSplitterEntity::UpdateFaces
+
+  .method public hidebysig virtual instance void 
+          OnUpdateRotation(uint8 'flags') cil managed
+  {
+    // Code size       15 (0xf)
+    .maxstack  2
+    IL_0000:  ldarg.0
+    IL_0001:  ldarg.1
+    IL_0002:  call       instance void ['Assembly-CSharp']LaserLogicGate::OnUpdateRotation(uint8)
+    IL_0007:  ldarg.0
+    IL_0008:  ldarg.1
+    IL_0009:  call       instance void LaserSplitterEntity::UpdateFaces(uint8)
+    IL_000e:  ret
+  } // end of method LaserSplitterEntity::OnUpdateRotation
+  
 } // end of class LaserSplitterEntity

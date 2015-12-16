@@ -102,7 +102,7 @@
     // Code size       22 (0x16)
     .maxstack  3
               ldarg.0
-              ldarg.1
+              ldarg.2
               callvirt   bool LaserEmitterEntity::IsFaceInput(uint8)
               brfalse.s  IL_0015
     IL_0000:  ldarg.0

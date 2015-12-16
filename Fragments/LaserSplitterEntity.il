@@ -68,7 +68,7 @@
     .maxstack  8
               ldarg.0
               ldarg.2
-              callvirt   bool LaserSplitterEntity::IsFaceInput(uint8)
+              callvirt   instance bool LaserSplitterEntity::IsFaceInput(uint8)
               brfalse.s  IL_0015
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1

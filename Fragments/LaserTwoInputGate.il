@@ -129,7 +129,7 @@
 	          ldarg.0
 			  ldloc.0
 			  ldloc.1
-		      callvirt   instance uint8 ['Assembly-CSharp.dll']LaserTwoInputGate::UpdateOutput(uint8, uint8)
+		      callvirt   instance uint8 ['Assembly-CSharp']LaserTwoInputGate::UpdateOutput(uint8, uint8)
     IL_0072:  stfld      uint8 ['Assembly-CSharp']LaserLogicGate::mbOutput
     IL_0077:  ldarg.0
     IL_0078:  ldc.i4.m1

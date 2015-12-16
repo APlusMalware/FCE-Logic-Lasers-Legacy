@@ -103,7 +103,7 @@
     .maxstack  3
               ldarg.0
               ldarg.2
-              callvirt   bool LaserEmitterEntity::IsFaceInput(uint8)
+              callvirt   instance bool LaserEmitterEntity::IsFaceInput(uint8)
               brfalse.s  IL_0015
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1

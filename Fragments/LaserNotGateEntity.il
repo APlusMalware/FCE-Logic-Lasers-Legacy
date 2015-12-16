@@ -137,8 +137,8 @@
     .maxstack  8
     IL_0000:  ldarg.0
     IL_0001:  ldarg.2
-              callvirt   bool LaserNotGateEntity::IsFaceInput(uint8)
-    IL_0007:  brfalse.s   IL_001e
+              callvirt   instance bool LaserNotGateEntity::IsFaceInput(uint8)
+    IL_0007:  brfalse.s  IL_001e
 
     IL_0009:  ldarg.0
     IL_000a:  ldarg.1

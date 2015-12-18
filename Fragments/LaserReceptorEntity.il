@@ -74,8 +74,8 @@
     IL_0013:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
                                                                                                                        int64,
                                                                                                                        int64)
-    IL_0018:  stloc.0
-    IL_0019:  ldloc.0
+    IL_0018:  stloc      segment
+    IL_0019:  ldloc      segment
     IL_001a:  brtrue.s   IL_001d
 
     IL_001c:  ret
@@ -90,12 +90,10 @@
     IL_0030:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
                                                                              int64,
                                                                              int64)
-    IL_0035:  stloc.1
-    IL_0036:  ldloc.1
+    IL_0035:  stloc      sourceCube
+    IL_0036:  ldloc      sourceCube
     IL_0037:  call       bool ['Assembly-CSharp']CubeHelper::HasEntity(int32)
-    IL_003c:  brtrue.s   IL_003f
-
-    IL_003e:  ret
+    IL_003c:  brfalse    RECIEVE
 
     IL_003f:  ldloc.0
     IL_0040:  ldarg.0
@@ -107,35 +105,159 @@
     IL_0052:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
-    IL_0057:  stloc.2
-    IL_0058:  ldloc.2
-    IL_0059:  isinst     ['Assembly-CSharp']PowerConsumerInterface
-    IL_005e:  stloc.3
-    IL_005f:  ldloc.3
-    IL_0060:  brtrue.s   IL_0063
-
-    IL_0062:  ret
-
-    IL_0063:  ldloc.3
-    IL_0064:  callvirt   instance float32 ['Assembly-CSharp']PowerConsumerInterface::GetMaxPower()
+    IL_0057:  stloc      sourceEntity
+    
+              ldarg.0
+              ldfld      uint16 MachineEntity::mValue
+              switch     (POWER, CONVEYOR, STORAGE, CPH, LIFT, THREAT, TRACK)
+              
+              ldarg.0
+              ldc.i4.0
+              stfld      uint8 LaserReceptorEntity::mOutput
+              br         RECIEVE
+              
+      POWER:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForPowerConsumer(class SegmentEntity)
+              br         RECIEVE
+    
+    CONVEYOR: ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForConveyor(class SegmentEntity)
+              br         RECIEVE
+              
+    STORAGE:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForStorage(class SegmentEntity)
+              br         RECIEVE
+              
+        CPH:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForCentralPowerHub(class SegmentEntity)
+              br         RECIEVE
+              
+       LIFT:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForLift(class SegmentEntity)
+              br         RECIEVE
+              
+     THREAT:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForThreatScanner(class SegmentEntity)
+              br         RECIEVE
+              
+      TRACK:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForMinecartTrack(class SegmentEntity)
+              br         RECIEVE
+              
+    RECIEVE:  ldarg.0
+              callvirt   instance void LaserReceptorEntity::UpdateReciever()
+              ret
+  } // end of method LaserReceptorEntity::LowFrequencyUpdate
+  
+  .method private hidebysig newslot instance void
+          UpdateForPowerConsumer(class SegmentEntity entity) cil managed
+  {
+    .maxstack 4
+    .locals (class ['Assembly-CSharp']PowerConsumerInterface powerConsumer)
+              ldarg.1
+              isinst     ['Assembly-CSharp']PowerConsumerInterface
+              stloc      powerConsumer
+              ldloc      powerConsumer
+              brfalse    EXIT
+              
+              // (1 - (empty / maxPower)) * 255
+              ldarg.0
+              ldc.r4     1  
+              ldloc      powerConsumer
+              callvirt   instance float32 ['Assembly-CSharp']PowerConsumerInterface::GetRemainingPowerCapacity()
               call       float32 [UnityEngine]UnityEngine.Mathf::Round(float32)
-    IL_0069:  stloc.s    maxPower
-    IL_006b:  ldloc.3
-    IL_006c:  callvirt   instance float32 ['Assembly-CSharp']PowerConsumerInterface::GetRemainingPowerCapacity()
-	          call       float32 [UnityEngine]UnityEngine.Mathf::Round(float32)
-    IL_0071:  stloc.s    powerLeft
-    IL_0073:  ldc.r4     1.
-    IL_0078:  ldloc.s    powerLeft
-    IL_007a:  ldloc.s    maxPower
-    IL_007c:  div
-    IL_007d:  sub
-    IL_007e:  ldc.r4     255.
-    IL_0083:  mul
-    IL_0084:  stloc.s    V_6
-    IL_0086:  ldarg.0
-    IL_0087:  ldloc.s    V_6
-    IL_0089:  conv.u1
-    IL_008a:  stfld      uint8 LaserReceptorEntity::mOutput
+              ldarg.1
+              callvirt   instance float32 ['Assembly-CSharp']PowerConsumerInterface::GetMaxPower()
+              call       float32 [UnityEngine]UnityEngine.Mathf::Round(float32)
+              div
+              sub
+              ldc.r4     255
+              mul
+              conv.u1
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
+              
+       EXIT:  ldarg.0
+              ldc.i4.0
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForConveyor(class SegmentEntity entity) cil managed
+  {
+          ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForStorage(class SegmentEntity entity) cil managed
+  {
+          ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForCentralPowerHub(class SegmentEntity entity) cil managed
+  {
+          ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForLift(class SegmentEntity entity) cil managed
+  {
+          ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForThreatScanner(class SegmentEntity entity) cil managed
+  {
+    .maxstack 4
+              ldarg.1
+              isinst     ThreatScanner
+              brfalse    EXIT
+              
+              // (1 - seconds / 3600) * 255
+              ldarg.0
+              ldc.r4     1
+              ldsfld     float32 MobSpawnManager::mrTDCountDown
+              ldc.r4     3600
+              div
+              sub
+              ldc.r4     255
+              mul
+              conv.u1
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
+              
+       EXIT:  ldarg.0
+              ldc.i4.0
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForMinecartTrack(class SegmentEntity entity) cil managed
+  {
+          ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateReciever() cil managed
+  {
+    .maxstack 4
+    .locals   (int64 recieverX, 
+               int64 recieverY,
+               int64 recieverZ,
+               class ['Assembly-CSharp']Segment recieverEntity,
+               class ['Assembly-CSharp']ILogicReciever logicReciever,
+               uint8 face
+               )
     IL_008f:  ldarg.0
     IL_0090:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
     IL_0095:  ldc.i4.2
@@ -144,7 +266,7 @@
     IL_0098:  ldarg.0
     IL_0099:  ldfld      int64 LaserReceptorEntity::mnSourceX
     IL_009e:  sub
-    IL_009f:  stloc.s    V_7
+    IL_009f:  stloc.s    recieverX
     IL_00a1:  ldarg.0
     IL_00a2:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
     IL_00a7:  ldc.i4.2
@@ -153,7 +275,7 @@
     IL_00aa:  ldarg.0
     IL_00ab:  ldfld      int64 LaserReceptorEntity::mnSourceY
     IL_00b0:  sub
-    IL_00b1:  stloc.s    V_8
+    IL_00b1:  stloc.s    recieverY
     IL_00b3:  ldarg.0
     IL_00b4:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
     IL_00b9:  ldc.i4.2
@@ -162,24 +284,24 @@
     IL_00bc:  ldarg.0
     IL_00bd:  ldfld      int64 LaserReceptorEntity::mnSourceZ
     IL_00c2:  sub
-    IL_00c3:  stloc.s    V_9
+    IL_00c3:  stloc.s    recieverZ
     IL_00c5:  ldarg.0
-    IL_00c6:  ldloc.s    V_7
-    IL_00c8:  ldloc.s    V_8
-    IL_00ca:  ldloc.s    V_9
+    IL_00c6:  ldloc.s    recieverX
+    IL_00c8:  ldloc.s    recieverY
+    IL_00ca:  ldloc.s    recieverZ
     IL_00cc:  call       instance class ['Assembly-CSharp']Segment ['Assembly-CSharp']MachineEntity::AttemptGetSegment(int64,
                                                                                                                        int64,
                                                                                                                        int64)
-    IL_00d1:  stloc.s    V_10
-    IL_00d3:  ldloc.s    V_10
+    IL_00d1:  stloc.s    recieverEntity
+    IL_00d3:  ldloc.s    recieverEntity
     IL_00d5:  brtrue.s   IL_00d8
 
     IL_00d7:  ret
 
-    IL_00d8:  ldloc.s    V_10
-    IL_00da:  ldloc.s    V_7
-    IL_00dc:  ldloc.s    V_8
-    IL_00de:  ldloc.s    V_9
+    IL_00d8:  ldloc.s    recieverEntity
+    IL_00da:  ldloc.s    recieverX
+    IL_00dc:  ldloc.s    recieverY
+    IL_00de:  ldloc.s    recieverZ
     IL_00e0:  callvirt   instance uint16 ['Assembly-CSharp']Segment::GetCube(int64,
                                                                              int64,
                                                                              int64)
@@ -188,89 +310,89 @@
 
     IL_00ec:  ret
 
-    IL_00ed:  ldloc.s    V_10
-    IL_00ef:  ldloc.s    V_7
-    IL_00f1:  ldloc.s    V_8
-    IL_00f3:  ldloc.s    V_9
+    IL_00ed:  ldloc.s    recieverEntity
+    IL_00ef:  ldloc.s    recieverX
+    IL_00f1:  ldloc.s    recieverY
+    IL_00f3:  ldloc.s    recieverZ
     IL_00f5:  callvirt   instance class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']Segment::SearchEntity(int64,
                                                                                                                   int64,
                                                                                                                   int64)
     IL_00fa:  isinst     ['Assembly-CSharp']ILogicReciever
-    IL_00ff:  stloc.s    V_11
-    IL_0101:  ldloc.s    V_11
+    IL_00ff:  stloc.s    logicReciever
+    IL_0101:  ldloc.s    logicReciever
     IL_0103:  brtrue.s   IL_0106
 
     IL_0105:  ret
 
     IL_0106:  ldc.i4.0
-    IL_0107:  stloc.s    V_12
-    IL_0109:  ldloc.s    V_7
+    IL_0107:  stloc.s    face
+    IL_0109:  ldloc.s    recieverX
     IL_010b:  ldarg.0
     IL_010c:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
     IL_0111:  ble.s      IL_0119
 
     IL_0113:  ldc.i4.s   16
-    IL_0115:  stloc.s    V_12
+    IL_0115:  stloc.s    face
     IL_0117:  br.s       IL_0163
 
-    IL_0119:  ldloc.s    V_7
+    IL_0119:  ldloc.s    recieverX
     IL_011b:  ldarg.0
     IL_011c:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
     IL_0121:  bge.s      IL_0129
 
     IL_0123:  ldc.i4.s   32
-    IL_0125:  stloc.s    V_12
+    IL_0125:  stloc.s    face
     IL_0127:  br.s       IL_0163
 
-    IL_0129:  ldloc.s    V_8
+    IL_0129:  ldloc.s    recieverY
     IL_012b:  ldarg.0
     IL_012c:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
     IL_0131:  ble.s      IL_0138
 
     IL_0133:  ldc.i4.2
-    IL_0134:  stloc.s    V_12
+    IL_0134:  stloc.s    face
     IL_0136:  br.s       IL_0163
 
-    IL_0138:  ldloc.s    V_8
+    IL_0138:  ldloc.s    recieverY
     IL_013a:  ldarg.0
     IL_013b:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnY
     IL_0140:  bge.s      IL_0147
 
     IL_0142:  ldc.i4.1
-    IL_0143:  stloc.s    V_12
+    IL_0143:  stloc.s    face
     IL_0145:  br.s       IL_0163
 
-    IL_0147:  ldloc.s    V_9
+    IL_0147:  ldloc.s    recieverZ
     IL_0149:  ldarg.0
     IL_014a:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
     IL_014f:  ble.s      IL_0156
 
     IL_0151:  ldc.i4.8
-    IL_0152:  stloc.s    V_12
+    IL_0152:  stloc.s    face
     IL_0154:  br.s       IL_0163
 
-    IL_0156:  ldloc.s    V_9
+    IL_0156:  ldloc.s    recieverZ
     IL_0158:  ldarg.0
     IL_0159:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnZ
     IL_015e:  bge.s      IL_0163
 
     IL_0160:  ldc.i4.4
-    IL_0161:  stloc.s    V_12
-    IL_0163:  ldloc.s    V_11
-    IL_0165:  ldloc.s    V_12
+    IL_0161:  stloc.s    face
+    IL_0163:  ldloc.s    logicReciever
+    IL_0165:  ldloc.s    face
     IL_0167:  callvirt   instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
     IL_016c:  brfalse.s  IL_0183
 
-    IL_016e:  ldloc.s    V_11
+    IL_016e:  ldloc.s    logicReciever
     IL_0170:  ldarg.0
     IL_0171:  ldfld      uint8 LaserReceptorEntity::mOutput
-    IL_0176:  ldloc.s    V_12
+    IL_0176:  ldloc.s    face
     IL_0178:  callvirt   instance void ['Assembly-CSharp']ILogicReciever::SetNextValue(uint8,
                                                                                          uint8)
     IL_017d:  ldarg.0
     IL_017e:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
     IL_0183:  ret
-  } // end of method LaserReceptorEntity::LowFrequencyUpdate
+  }
   
   .method private hidebysig newslot instance void
           UpdateFaces(uint8 flag) cil managed

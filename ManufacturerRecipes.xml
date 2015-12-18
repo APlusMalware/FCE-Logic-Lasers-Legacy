@@ -81,10 +81,26 @@
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
 	<CraftData>
-		<Key>logic receptor</Key>
+		<Key>logic power sensor</Key>
 		<Category>power</Category>
 		<Tier>0</Tier>
-		<CraftedName>Laser Receptor</CraftedName>
+		<CraftedName>Power Sensor</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Logic sensor. (0) LOW by default, but adjusts output above it depending on the state of a machine below it.</Description>
+		<Hint>Maximum range: 1</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic threat sensor</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Threat Scanner Sensor</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
 		<Costs>
 			<CraftCost>

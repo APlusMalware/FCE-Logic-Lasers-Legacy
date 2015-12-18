@@ -5852,6 +5852,18 @@
 		<Hidden>false</Hidden>
 		<CubeType>557</CubeType>
 		<Name>Laser Receptor</Name>
+		<Values>
+			<ValueEntry>
+				<Value>0</Value>
+				<Name>Power Sensor</Name>
+				<Description>Outputs towards the top the amount of proportion of power left in a power consuming machine.</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>5</Value>
+				<Name>Threat Scanner Sensor</Name>
+				<Description>Outputs towards the top information on the threat level.</Description>
+			</ValueEntry>
+		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>184</TopTexture>
 		<SideTexture>184</SideTexture>

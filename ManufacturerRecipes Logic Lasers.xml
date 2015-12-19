@@ -1,0 +1,112 @@
+	<CraftData>
+		<Key>logic emitter</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Logic Laser Emitter</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Transmits logic. 255 (HIGH) by default, but will output any recieved value. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic and</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser AND Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>0 (LOW) by default, but if both left and right inputs equal will retransmit the input. Also functions as a Boolean AND Gate. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic or</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser OR Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>0 (LOW) by default, but will output the highest value of the left and right inputs. Also functions as a Boolean OR Gate. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic not</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser NOT Gate</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>0 (LOW) by default, but will output 255 if the back side input is 0. Also functions as a Boolean NOT Gate. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic splitter</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Splitter</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Logic splitter. (0) LOW by default, but will output any recieved value to all adjacent blocks.</Description>
+		<Hint>Maximum range: 1</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic power sensor</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Power Sensor</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Logic sensor. (0) LOW by default, but adjusts output above it depending on the state of a machine below it.</Description>
+		<Hint>Maximum range: 1</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic threat sensor</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Threat Scanner Sensor</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Logic sensor. (0) LOW by default, but adjusts output above it depending on the state of a machine below it.</Description>
+		<Hint>Maximum range: 1</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>

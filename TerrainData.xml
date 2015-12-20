@@ -5671,7 +5671,6 @@
 		<CubeType>550</CubeType>
 		<Name>Logic Laser Emitter</Name>
 		<LayerType>PrimaryTerrain</LayerType>
-		<Description>Creative Laser Machine.\nUnimplemented</Description>
 		<TopTexture>190</TopTexture>
 		<SideTexture>190</SideTexture>
 		<BottomTexture>190</BottomTexture>

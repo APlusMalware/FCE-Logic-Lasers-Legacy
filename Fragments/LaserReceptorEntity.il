@@ -1,5 +1,6 @@
 .class public auto ansi beforefieldinit LaserReceptorEntity
        extends MachineEntity
+       implements ILogicReciever
 {
   .field private int64 mnSourceX
   .field private int64 mnSourceY
@@ -393,6 +394,43 @@
     IL_017e:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
     IL_0183:  ret
   }
+  
+  .method public hidebysig newslot virtual 
+          instance bool  IsFaceInput(uint8 face) cil managed
+  {
+    // Code size       2 (0x2)
+    .maxstack  1
+              ldc.i4.0
+              ret
+  } // end of method LaserReceptorEntity::IsFaceInput
+
+  .method public hidebysig newslot virtual 
+          instance void  SetNextValue(uint8 'value',
+                                      uint8 face) cil managed
+  {
+    // Code size       22 (0x16)
+    .maxstack  0
+    IL_0015:  ret
+  } // end of method LaserReceptorEntity::SetNextValue
+
+  .method public hidebysig newslot virtual instance int16
+          GetOutput() cil managed
+  {
+              ldarg.0
+			  ldfld     uint8 LaserReceptorEntity::mOutput
+			  ret
+  } // end of method LaserReceptorEntity::GetOutput
+  
+  .method public hidebysig newslot virtual instance uint8[]
+          GetInputs() cil managed
+  {
+    .maxstack 1
+	.locals init (uint8[] inputs)
+	          // Create byte array with 0 elements
+              ldc.i4.0
+			  newarr     uint8
+			  ret
+  } // end of method LaserReceptorEntity::GetInputs
   
   .method private hidebysig newslot instance void
           UpdateFaces(uint8 flag) cil managed

@@ -41,34 +41,62 @@
 
 	IL_0046: ldstr       "Laser Emitter"
 	IL_004b: stloc.1
-	IL_004c: br.s        IL_0084
+	IL_004c: br          IL_0084
 
 	IL_004e: ldstr       "Laser AND Gate"
 	IL_0053: stloc.1
-	IL_0054: br.s        IL_0084
+	IL_0054: br          IL_0084
 
 	IL_0056: ldstr       "Laser OR Gate"
 	IL_005b: stloc.1
-	IL_005c: br.s        IL_0084
+	IL_005c: br          IL_0084
 
 	IL_005e: ldstr       "Laser NOT Gate"
 	IL_0063: stloc.1
-	IL_0064: br.s        IL_0084
+	IL_0064: br          IL_0084
 
 	IL_0066: ldstr       "Laser Pressure Pad"
 	IL_006b: stloc.1
-	IL_006c: br.s        IL_0084
+	IL_006c: br          IL_0084
 
 	IL_006e: ldstr       "Laser Splitter"
 	IL_0073: stloc.1
-	IL_0074: br.s        IL_0084
+	IL_0074: br          IL_0084
 
 	IL_0076: ldstr       "Laser Mirror"
 	IL_007b: stloc.1
-	IL_007c: br.s        IL_0084
+	IL_007c: br          IL_0084
 
-	IL_007e: ldstr       "Laser Receptor (Sensor)"
-	IL_0083: stloc.1
+	IL_007e: ldsfld      class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
+	         ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance
+	         ldfld       class ['Assembly-CSharp']PlayerBlockPicker ['Assembly-CSharp']LocalPlayerScript::mPlayerBlockPicker
+	         ldfld       uint16 ['Assembly-CSharp']PlayerBlockPicker::selectBlockValue
+             switch      (POWER, CONVEY, STORAGE, CPH, LIFT, THREAT, TRACK)
+             
+             ldstr       "Laser Receptor (Sensor)"
+             br          SETNAME
+              
+      POWER: ldstr       "Power Sensor"
+             br          SETNAME
+    
+    CONVEY:  ldstr       "Conveyor Sensor"
+             br          SETNAME
+              
+    STORAGE: ldstr       "Storage Sensor"
+             br          SETNAME
+              
+        CPH: ldstr       "CPH Sensor"
+             br          SETNAME
+              
+       LIFT: ldstr       "Lift Sensor"
+             br         SETNAME
+              
+     THREAT: ldstr       "Threat Sensor"
+             br         SETNAME
+              
+      TRACK: ldstr       "Minecart Track Sensor"
+              
+	SETNAME: stloc.1
 
 	IL_0084: ldsfld      class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
 	IL_0089: ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance

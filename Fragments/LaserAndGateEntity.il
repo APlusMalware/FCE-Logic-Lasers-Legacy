@@ -39,16 +39,43 @@
           UpdateOutput(uint8 left,
 		               uint8 right) cil managed
   {
-    // Returns the left input if both right and left inputs are the same, otherwise 0
-              ldarg.1
+    .maxstack 2
+              ldarg.0
+              ldfld      uint16 MachineEntity::mValue
+              switch     (ANDGATE, DOWNMUL, UPMUL)
+              
+              br.s       ZERO
+  
+              // Returns the left input if both right and left inputs are the same, otherwise 0
+    ANDGATE:  ldarg.1
               ldarg.2
               beq.s      NONZERO
 
        ZERO:  ldc.i4.0
-              br.s       END
-
+              br.s       RET
+              
     NONZERO:  ldarg.1
-	    END:  ret
+              br.s       RET
+              
+              // (left * right) / 255
+    DOWNMUL:  ldarg.1
+              ldarg.2
+              mul
+              ldc.i4     255
+              div
+              br.s       RET
+              
+              // If right == 0, 0; otherwise (left * 255) / right
+      UPMUL:  ldarg.2
+              brfalse.s  ZERO
+              ldc.i4     255
+              ldarg.1
+              mul
+              ldarg.2
+              div
+              br.s       RET
+    
+	    RET:  ret
   } // end of method LaserTwoInputGate::UpdateOutput
   
 } // end of class LaserAndGateEntity

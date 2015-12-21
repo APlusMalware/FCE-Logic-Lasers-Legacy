@@ -40,11 +40,33 @@
 		               uint8 right) cil managed
   {
     .maxstack 2
-    // Returns the maximum of left or right
-              ldarg.1
+              ldarg.0
+              ldfld      uint16 MachineEntity::mValue
+              switch     (ORGATE, ADDER, OVRFLOW)
+              
+              ldc.i4.0
+              br.s       RET
+              
+              // Returns the maximum of left or right
+     ORGATE:  ldarg.1
               ldarg.2
               call uint8 [mscorlib]System.Math::Max(uint8, uint8)
-	          ret
+              br.s       RET
+              
+              // Adds the inputs together
+      ADDER:  ldarg.1
+              ldarg.2
+              add
+              br.s       RET
+              
+              // Checks for overflow
+    OVRFLOW:  ldarg.1
+              ldarg.2
+              add
+              ldc.i4     255
+              cgt
+              
+	    RET:  ret
   } // end of method LaserTwoInputGate::UpdateOutput
   
 } // end of class LaserOrGateEntity

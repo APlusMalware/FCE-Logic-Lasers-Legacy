@@ -28,6 +28,23 @@
 		<Hidden>false</Hidden>
 		<CubeType>551</CubeType>
 		<Name>Laser AND Gate</Name>
+		<Values>
+			<ValueEntry>
+				<Value>0</Value>
+				<Name>Laser AND Gate</Name>
+				<Description>Outputs the inputs if both inputs are the same, otherwise 0.</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>1</Value>
+				<Name>Laser Downscaler</Name>
+				<Description>Outputs the value of (Left * Right) / 255</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>2</Value>
+				<Name>Laser Upscaler</Name>
+				<Description>Outputs the value of Left * (255 / Right), or 0 if Right is 0.</Description>
+			</ValueEntry>
+		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>44</TopTexture>
 		<SideTexture>44</SideTexture>
@@ -54,6 +71,23 @@
 		<Hidden>false</Hidden>
 		<CubeType>552</CubeType>
 		<Name>Laser OR Gate</Name>
+		<Values>
+			<ValueEntry>
+				<Value>0</Value>
+				<Name>Laser OR Gate</Name>
+				<Description>Outputs the greater of either input.</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>1</Value>
+				<Name>Laser Adder</Name>
+				<Description>Outputs the value of (Left + Right) mod 256</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>2</Value>
+				<Name>Laser Overflow Checker</Name>
+				<Description>Outputs 1 if Left + Right > 255, zero otherwise</Description>
+			</ValueEntry>
+		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>44</TopTexture>
 		<SideTexture>44</SideTexture>

@@ -31,6 +31,38 @@
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
 	<CraftData>
+		<Key>logic upscaler</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Upscaler</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Outputs (255 / right) * left, or 0 if right is 0</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic downscaler</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Downscaler</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Outputs (left * right) / 255</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
 		<Key>logic or</Key>
 		<Category>power</Category>
 		<Tier>0</Tier>
@@ -43,6 +75,38 @@
 			</CraftCost>
 		</Costs>
 		<Description>0 (LOW) by default, but will output the highest value of the left and right inputs. Also functions as a Boolean OR Gate. Can send to other logic gates</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic adder</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Adder</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Outputs (left + right) mod 256</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
+		<Key>logic overflower</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Overflow Checker</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Outputs 1 if left + right > 255</Description>
 		<Hint>Maximum range: 64</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>

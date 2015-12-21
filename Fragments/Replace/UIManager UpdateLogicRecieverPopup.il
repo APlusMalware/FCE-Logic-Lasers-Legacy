@@ -14,7 +14,7 @@
 	// Code size 316 (0x13c)
 	.maxstack 3
 	.locals init (
-		[0] uint16,
+		[0] uint16 cubeValue,
 		[1] string,
 		[2] class ['Assembly-CSharp']ILogicReciever,
 		[3] int16,
@@ -24,18 +24,20 @@
 		[7] uint16,
 		[8] object[]
 	)
+             ldsfld      class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
+	         ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance
+	         ldfld       class ['Assembly-CSharp']PlayerBlockPicker ['Assembly-CSharp']LocalPlayerScript::mPlayerBlockPicker
+	         ldfld       uint16 ['Assembly-CSharp']PlayerBlockPicker::selectBlockValue
+             stloc       cubeValue
 
 	IL_0000: ldsfld      class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
 	IL_0005: ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance
 	IL_000a: ldfld       class ['Assembly-CSharp']PlayerBlockPicker ['Assembly-CSharp']LocalPlayerScript::mPlayerBlockPicker
 	IL_000f: ldfld       uint16 ['Assembly-CSharp']PlayerBlockPicker::selectBlockType
-	IL_0014: stloc.0
-	IL_0015: ldloc.0
-	IL_0016: stloc.s     7
-	IL_0018: ldloc.s     7
+    
 	IL_001a: ldc.i4      550
 	IL_001f: sub
-	IL_0020: switch      (IL_0046, IL_004e, IL_0056, IL_005e, IL_0066, IL_006e, IL_0076, IL_007e)
+	IL_0020: switch      (IL_0046, ANDTYPE, ORTYPE, IL_005e, IL_0066, IL_006e, IL_0076, IL_007e)
 
 	IL_0045: ret
 
@@ -43,13 +45,29 @@
 	IL_004b: stloc.1
 	IL_004c: br          IL_0084
 
-	IL_004e: ldstr       "Laser AND Gate"
-	IL_0053: stloc.1
-	IL_0054: br          IL_0084
+	ANDTYPE: ldloc       cubeValue
+             switch      (ANDGATE, DOWNMUL, UPMUL)
+             
+    ANDGATE: ldstr       "Laser AND Gate"
+	         br          SETNAME
+             
+    DOWNMUL: ldstr       "Laser Downscaler"
+	         br          SETNAME
+             
+      UPMUL: ldstr       "Laser Upscaler"
+	         br          SETNAME
 
-	IL_0056: ldstr       "Laser OR Gate"
-	IL_005b: stloc.1
-	IL_005c: br          IL_0084
+	 ORTYPE: ldloc       cubeValue
+             switch      (ORGATE, ADDER, OVRFLOW)
+             
+     ORGATE: ldstr       "Laser OR Gate"
+	         br          SETNAME
+             
+      ADDER: ldstr       "Laser Adder"
+	         br          SETNAME
+             
+    OVRFLOW: ldstr       "Laser Overflow Checker"
+	         br          SETNAME
 
 	IL_005e: ldstr       "Laser NOT Gate"
 	IL_0063: stloc.1
@@ -67,10 +85,7 @@
 	IL_007b: stloc.1
 	IL_007c: br          IL_0084
 
-	IL_007e: ldsfld      class ['Assembly-CSharp']WorldScript ['Assembly-CSharp']WorldScript::'instance'
-	         ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance
-	         ldfld       class ['Assembly-CSharp']PlayerBlockPicker ['Assembly-CSharp']LocalPlayerScript::mPlayerBlockPicker
-	         ldfld       uint16 ['Assembly-CSharp']PlayerBlockPicker::selectBlockValue
+	IL_007e: ldloc       cubeValue
              switch      (POWER, CONVEY, STORAGE, CPH, LIFT, THREAT, TRACK)
              
              ldstr       "Laser Receptor (Sensor)"

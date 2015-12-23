@@ -1,0 +1,12 @@
+syntax: glob
+
+# Binary files
+*.dll
+*.exe
+
+# Temp/intermediate files
+Integrated.il
+temp.*
+
+# Anything in \Builds
+Builds\*

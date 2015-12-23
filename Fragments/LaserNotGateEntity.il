@@ -39,13 +39,24 @@
           UpdateOutput(uint8 input) cil managed
   {
     .maxstack 2
-    // Returns 255 if input is 0, otherwise 0
-              ldarg.1
+	          ldarg.0
+			  ldfld     uint16 ['Assembly-CSharp']MachineEntity::mValue
+			  switch (NOTGATE, NEGATOR)
+			
+			  // Returns 255 if input is 0, otherwise 0
+	NOTGATE:  ldarg.1
 			  ldc.i4.0
 			  ceq
 			  ldc.i4     255
 			  mul
 	          ret
+			  
+			  // Returns the Two's Complement of input
+    NEGATOR:  ldc.i4     256
+	          ldarg.1
+			  sub
+			  ret
+	          
   } // end of method LaserNotGateEntity::UpdateOutput
   
 } // end of class LaserNotGateEntity

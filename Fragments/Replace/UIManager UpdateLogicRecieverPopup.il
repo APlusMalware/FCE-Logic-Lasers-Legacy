@@ -37,7 +37,7 @@
     
 	IL_001a: ldc.i4      550
 	IL_001f: sub
-	IL_0020: switch      (IL_0046, ANDTYPE, ORTYPE, IL_005e, IL_0066, IL_006e, IL_0076, IL_007e)
+	IL_0020: switch      (IL_0046, ANDTYPE, ORTYPE, NOTTYPE, IL_0066, IL_006e, IL_0076, IL_007e)
 
 	IL_0045: ret
 
@@ -68,10 +68,16 @@
              
     OVRFLOW: ldstr       "Laser Overflow Checker"
 	         br          SETNAME
+             
 
-	IL_005e: ldstr       "Laser NOT Gate"
-	IL_0063: stloc.1
-	IL_0064: br          IL_0084
+	NOTTYPE: ldloc       cubeValue
+             switch      (NOTGATE, NEGATOR)
+             
+    NOTGATE: ldstr       "Laser NOT Gate"
+	         br          SETNAME
+             
+    NEGATOR: ldstr       "Laser Negator"
+             br          SETNAME
 
 	IL_0066: ldstr       "Laser Pressure Pad"
 	IL_006b: stloc.1

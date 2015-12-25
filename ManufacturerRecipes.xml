@@ -4629,6 +4629,22 @@
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
 	<CraftData>
+		<Key>logic negator</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Negator</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Finds the negative value of the input by treating it as a signed 8-bit integer and finding the Two's Complement</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
 		<Key>logic splitter</Key>
 		<Category>power</Category>
 		<Tier>0</Tier>

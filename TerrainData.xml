@@ -5806,6 +5806,18 @@
 		<Hidden>false</Hidden>
 		<CubeType>553</CubeType>
 		<Name>Laser NOT Gate</Name>
+		<Values>
+			<ValueEntry>
+				<Value>0</Value>
+				<Name>Laser NOT Gate</Name>
+				<Description>Outputs 255 if the input is 0, otherwise 0</Description>
+			</ValueEntry>
+			<ValueEntry>
+				<Value>1</Value>
+				<Name>Laser Negator</Name>
+				<Description>Outputs the Two's Complement of the input, or (256 - input) mod 255</Description>
+			</ValueEntry>
+		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>44</TopTexture>
 		<SideTexture>44</SideTexture>

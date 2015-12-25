@@ -4317,6 +4317,25 @@
 	</CraftData>
 	
 	<CraftData>
+		<Key>Snowman</Key>
+		<Category>decoration</Category>
+		<Tier>0</Tier>
+		<CraftedName>Snowman</CraftedName>
+		<CraftedAmount>1</CraftedAmount>
+		<Costs>
+		<CraftCost>
+				<Name>Snow</Name>
+				<Amount>50</Amount><!-- Send the player on an easy early-game treasure hunt -->
+			</CraftCost>	
+		</Costs>
+		<Description>Will not melt, even if exposed to Magma.</Description>
+		<Hint>Don't have the Dapper DLC pack? You'll have to let this go.</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	
+	
+	
+	<CraftData>
 		<Key>Pristine Heavy Chitin</Key>
 		<Category>CraftingIngredient</Category>
 		<Tier>3</Tier>
@@ -4481,7 +4500,7 @@
 		</ResearchRequirements>
 
 	</CraftData>
-			<CraftData>
+		<CraftData>
 		<Key>logic emitter</Key>
 		<Category>power</Category>
 		<Tier>0</Tier>

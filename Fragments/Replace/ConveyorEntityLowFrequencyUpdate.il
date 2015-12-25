@@ -9,14 +9,14 @@
               ldc.i4     255
               stfld      uint8 ConveyorEntity::mNext
               // End new code
-    IL_0108:  stfld      float32 ConveyorEntity::mrCarrySpeed
-    IL_010d:  ldarg.0
-    IL_010e:  ldc.i4.1
-    IL_010f:  stfld      bool ConveyorEntity::mbConveyorNeedsColourChange
+    IL_01b9:  stfld      float32 ConveyorEntity::mrCarrySpeed
+    IL_01be:  ldarg.0
+    IL_01bf:  ldc.i4.1
+    IL_01c0:  stfld      bool ConveyorEntity::mbConveyorNeedsColourChange
               br.s       Next
               // Actual new code
               // Multiplies the conveyor speed by mValue / 255
-    IL_0114:  ldarg.0
+    IL_01c5:  ldarg.0
               ldarg.0
               ldfld      float32 ConveyorEntity::mrBaseCarrySpeed
               ldarg.0

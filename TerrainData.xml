@@ -4063,7 +4063,31 @@
 			<tag>Machinery</tag>
 		</tags>
 	</TerrainDataEntry>		
-									
+	<TerrainDataEntry>
+		<CubeType>149</CubeType>
+		<Name>Snowman</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>168</TopTexture>
+		<SideTexture>168</SideTexture>
+		<BottomTexture>168</BottomTexture>
+		<GUITexture>168</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>true</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>false</hasEntity>
+		<Category>Machine</Category>
+		<AudioWalkType>Sand</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Lights</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>						
 	<TerrainDataEntry>
 		<CubeType>150</CubeType>
 		<Name>Nickel Ore</Name>
@@ -5622,7 +5646,7 @@
 		<ValueEntry>
 			<Value>99</Value>
 				<Name>Basic Laser Energy Transmitter</Name>
-				<IconName>Laser Energy Transmitter</IconName>
+				<IconName>Basic Laser Energy Transmitter</IconName>
 				<Description>Transmits power slowly over distances.\nMax dist 32.\nUpgrade ASAP.</Description>
 			</ValueEntry>
 			<ValueEntry>
@@ -5918,7 +5942,7 @@
 			<tag>Machinery</tag>
 		</tags>
 	</TerrainDataEntry>	
-    
+	
 	<TerrainDataEntry>
 		<CubeType>508</CubeType>
 		<Name>BFL-9000</Name>

@@ -1,6 +1,6 @@
 	<CraftData>
 		<Key>logic emitter</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Logic Laser Emitter</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -16,7 +16,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic and</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser AND Gate</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -32,7 +32,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic upscaler</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Upscaler</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -48,7 +48,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic downscaler</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Downscaler</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -64,7 +64,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic memory cell</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Memory Cell</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -80,7 +80,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic or</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser OR Gate</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -96,7 +96,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic adder</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Adder</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -112,7 +112,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic overflower</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Overflow Checker</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -128,7 +128,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic not</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser NOT Gate</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -144,7 +144,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic negator</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Negator</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -160,7 +160,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic splitter</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Laser Splitter</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -176,7 +176,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic power sensor</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Power Sensor</CraftedName>
 		<CraftedAmount>10</CraftedAmount>
@@ -192,7 +192,7 @@
 	</CraftData>
 	<CraftData>
 		<Key>logic threat sensor</Key>
-		<Category>power</Category>
+		<Category>logic</Category>
 		<Tier>0</Tier>
 		<CraftedName>Threat Scanner Sensor</CraftedName>
 		<CraftedAmount>10</CraftedAmount>

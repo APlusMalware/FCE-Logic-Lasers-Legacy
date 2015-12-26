@@ -46,7 +46,7 @@
 	IL_004c: br          IL_0084
 
 	ANDTYPE: ldloc       cubeValue
-             switch      (ANDGATE, DOWNMUL, UPMUL)
+             switch      (ANDGATE, DOWNMUL, UPMUL, MEMORY)
              
     ANDGATE: ldstr       "Laser AND Gate"
 	         br          SETNAME
@@ -56,6 +56,9 @@
              
       UPMUL: ldstr       "Laser Upscaler"
 	         br          SETNAME
+             
+     MEMORY: ldstr       "Laser Memory Cell"
+             br          SETNAME
 
 	 ORTYPE: ldloc       cubeValue
              switch      (ORGATE, ADDER, OVRFLOW)

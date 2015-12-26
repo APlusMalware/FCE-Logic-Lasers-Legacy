@@ -4565,6 +4565,22 @@
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
 	<CraftData>
+		<Key>logic memory cell</Key>
+		<Category>power</Category>
+		<Tier>0</Tier>
+		<CraftedName>Laser Memory Cell</CraftedName>
+		<CraftedAmount>10</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>Snow</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Keeps the same output while the right input is 0. When the right input is 0, the output is the left input. A prepackaged D Flip-Flop.</Description>
+		<Hint>Maximum range: 64</Hint>
+		<CanCraftAnywhere>true</CanCraftAnywhere>
+	</CraftData>
+	<CraftData>
 		<Key>logic or</Key>
 		<Category>power</Category>
 		<Tier>0</Tier>

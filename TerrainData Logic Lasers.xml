@@ -44,6 +44,11 @@
 				<Name>Laser Upscaler</Name>
 				<Description>Outputs the value of Left * (255 / Right), or 0 if Right is 0.</Description>
 			</ValueEntry>
+			<ValueEntry>
+				<Value>3</Value>
+				<Name>Laser Memory Cell</Name>
+				<Description>Output does not change while the right input is 0. If the right input is not 0, the output is the left input.</Description>
+			</ValueEntry>
 		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>44</TopTexture>

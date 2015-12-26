@@ -42,7 +42,7 @@
     .maxstack 2
               ldarg.0
               ldfld      uint16 MachineEntity::mValue
-              switch     (ANDGATE, DOWNMUL, UPMUL)
+              switch     (ANDGATE, DOWNMUL, UPMUL, MEMORY)
               
               br.s       ZERO
   
@@ -74,6 +74,19 @@
               ldarg.2
               div
               br.s       RET
+              
+              // Keeps the current output as long as right is 0, otherwise left
+     MEMORY:  ldarg.2
+              ldc.i4.0
+              bne.un.s   OUTPUT
+              
+              // Keep the current output
+              ldarg.0
+              ldfld      uint8 LaserLogicGate::mbOutput
+              br.s       RET
+              
+              // Output the left input
+     OUTPUT:  ldarg.1
     
 	    RET:  ret
   } // end of method LaserTwoInputGate::UpdateOutput

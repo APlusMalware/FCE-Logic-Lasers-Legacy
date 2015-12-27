@@ -5938,6 +5938,11 @@
 				<Name>Threat Scanner Sensor</Name>
 				<Description>Outputs towards the top information on the threat level.</Description>
 			</ValueEntry>
+			<ValueEntry>
+				<Value>7</Value>
+				<Name>Crystal Clock Sensor</Name>
+				<Description>Outputs a periodic, short 255 pulse when attached to a crystal.</Description>
+			</ValueEntry>
 		</Values>
 		<LayerType>PrimaryTerrain</LayerType>
 		<TopTexture>184</TopTexture>

@@ -95,7 +95,7 @@
 	IL_007c: br          IL_0084
 
 	IL_007e: ldloc       cubeValue
-             switch      (POWER, CONVEY, STORAGE, CPH, LIFT, THREAT, TRACK)
+             switch      (POWER, CONVEY, STORAGE, CPH, LIFT, THREAT, TRACK, CRYSTAL)
              
              ldstr       "Laser Receptor (Sensor)"
              br          SETNAME
@@ -119,6 +119,9 @@
              br         SETNAME
               
       TRACK: ldstr       "Minecart Track Sensor"
+             br          SETNAME 
+             
+    CRYSTAL: ldstr       "Crystal Clock Sensor"
               
 	SETNAME: stloc.1
 

@@ -110,7 +110,7 @@
     
               ldarg.0
               ldfld      uint16 MachineEntity::mValue
-              switch     (POWER, CONVEYOR, STORAGE, CPH, LIFT, THREAT, TRACK)
+              switch     (POWER, CONVEYOR, STORAGE, CPH, LIFT, THREAT, TRACK, CRYSTAL)
               
               ldarg.0
               ldc.i4.0
@@ -150,6 +150,11 @@
       TRACK:  ldarg.0
               ldloc      sourceEntity
               callvirt   instance void LaserReceptorEntity::UpdateForMinecartTrack(class SegmentEntity)
+              br         RECIEVE
+              
+    CRYSTAL:  ldarg.0
+              ldloc      sourceEntity
+              callvirt   instance void LaserReceptorEntity::UpdateForCrystal(class SegmentEntity)
               br         RECIEVE
               
     RECIEVE:  ldarg.0
@@ -246,6 +251,50 @@
           UpdateForMinecartTrack(class SegmentEntity entity) cil managed
   {
           ret
+  }
+  
+  .method private hidebysig newslot instance void
+          UpdateForCrystal(class SegmentEntity entity) cil managed
+  {
+    .maxstack 3
+    .locals (class ['Assembly-CSharp']CrystalEntity crystal)
+              ldarg.1
+              isinst     ['Assembly-CSharp']CrystalEntity
+              stloc.s    crystal
+              
+              ldarg.0
+              ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
+              
+              ldloc.s    crystal
+              brfalse.s  DEFAULT
+              
+              ldloc.s    crystal
+              ldfld      uint16 ['Assembly-CSharp']CrystalEntity::mValue
+              switch     (DIAMOND, EMERALD, RUBY, SAPPHIR, TOPAZ, SUGALIT)
+              
+    DIAMOND:  ldc.i4.2
+              br.s       CHECK
+    EMERALD:  ldc.i4.3
+              br.s       CHECK
+       RUBY:  ldc.i4.5
+              br.s       CHECK
+    SAPPHIR:  ldc.i4.7
+              br.s       CHECK
+      TOPAZ:  ldc.i4.s   11
+              br.s       CHECK
+    SUGALIT:  ldc.i4.s   13
+              br.s       CHECK
+    DEFAULT:  ldc.i4.1
+              
+      CHECK:  rem
+              brfalse.s  PULSE
+              ldc.i4.0
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
+              
+      PULSE:  ldc.i4     255
+              stfld      uint8 LaserReceptorEntity::mOutput
+              ret
   }
   
   .method private hidebysig newslot instance void

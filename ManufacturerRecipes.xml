@@ -2780,46 +2780,7 @@
 
 	<!-- Components for crafting (currently stuck in T4) -->
 	
-	<CraftData>
-		<Key>copper wire</Key>
-		<Category>CraftingIngredient</Category>
-		<Tier>0</Tier>
-		<CraftedName>Copper Wire</CraftedName>
-		<CraftedAmount>5</CraftedAmount>
-		<Costs>
-			<CraftCost>
-				<Name>Copper Bar</Name>
-				<Amount>1</Amount>
-			</CraftCost>
-		</Costs>
-		<ResearchCost>1</ResearchCost>
-		<Description>Fine Copper wire, used for delicate electronics.</Description>
-		<Hint>Currently lacking insulation.</Hint>
-		
-		<ResearchRequirements>
-			<Research>mining upgrade 1</Research>
-		</ResearchRequirements>
-	</CraftData>
 	
-	<CraftData>
-		<Key>Tin Plate</Key>
-		<Category>CraftingIngredient</Category>
-		<Tier>0</Tier>
-		<CraftedName>Tin Plate</CraftedName>
-		<CraftedAmount>1</CraftedAmount>
-		<Costs>
-			<CraftCost>
-				<Name>Tin Bar</Name>
-				<Amount>1</Amount>
-			</CraftCost>
-		</Costs>
-		<ResearchCost>2</ResearchCost>
-		<Description>Thin metal plates, used for the outside of lightweight objects.</Description>
-		<Hint>Not to be used for heavy-duty machines!</Hint>
-		<ResearchRequirements>
-			<Research>mining upgrade 1</Research>
-		</ResearchRequirements>
-	</CraftData>
 	<CraftData>
 		<Key>Iron Gear</Key>
 		<Category>CraftingIngredient</Category>
@@ -3709,25 +3670,6 @@
 		</ResearchRequirements>
 	</CraftData>
 	<CraftData>
-		<Key>Basic PCB</Key>
-		<Category>CraftingIngredient</Category><!-- or Intermediate -->
-		<Tier>1</Tier>
-		<CraftedName>Basic PCB</CraftedName>
-		<CraftedAmount>1</CraftedAmount>
-		<Costs>
-			<CraftCost>
-				<Name>Copper Coil</Name>
-				<Amount>1</Amount>
-			</CraftCost>
-		</Costs>
-		<ResearchCost>10</ResearchCost>
-		<Description>A low clock PCB. More advanced PCBs must be manufactured in a PCB Assembling Plant. Coils are made in a Coiling Plant.</Description>
-		<Hint>Coils are made in Coiling Plants.</Hint>
-		<ResearchRequirements>
-			<Research>advanced research</Research>
-		</ResearchRequirements>
-	</CraftData>
-	<CraftData>
 		<Key>Copper Housing</Key>
 		<Category>CraftingIngredient</Category>
 		<Tier>1</Tier>
@@ -3742,30 +3684,6 @@
 		<ResearchCost>2</ResearchCost>
 		<Description>Copper-based housing.</Description>
 		<Hint>Use to house low-level items safely.</Hint>
-		<ResearchRequirements>
-			<Research>advanced research</Research>
-		</ResearchRequirements>
-	</CraftData>
-	<CraftData>
-		<Key>Basic Experimental Pod</Key>
-		<Category>upgrades</Category>
-		<Tier>1</Tier>
-		<CraftedName>Basic Experimental Pod</CraftedName>
-		<CraftedAmount>1</CraftedAmount>
-		<Costs>
-			<CraftCost>
-			<!-- To consider, add a housing creator on the assembly line -->
-				<Name>Copper Plate</Name>
-				<Amount>6</Amount>
-			</CraftCost>
-			<CraftCost>
-				<Name>Basic PCB</Name>
-				<Amount>1</Amount>
-			</CraftCost>
-		</Costs>
-		<ResearchCost>10</ResearchCost>
-		<Description>A low-level Experimental Pod. Use to unlock research projects. More advanced pods require a research assembler.</Description>
-		<Hint>Use to unlock Projects. More advanced pods require a research assembler.</Hint>
 		<ResearchRequirements>
 			<Research>advanced research</Research>
 		</ResearchRequirements>

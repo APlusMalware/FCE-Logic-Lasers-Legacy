@@ -1,0 +1,206 @@
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>550</CubeType>
+		<Name>Logic Laser Emitter</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<Description>Creative Laser Machine.\nUnimplemented</Description>
+		<TopTexture>190</TopTexture>
+		<SideTexture>190</SideTexture>
+		<BottomTexture>190</BottomTexture>
+		<GUITexture>190</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>551</CubeType>
+		<Name>Laser AND Gate</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>44</TopTexture>
+		<SideTexture>44</SideTexture>
+		<BottomTexture>44</BottomTexture>
+		<GUITexture>51</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+	
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>552</CubeType>
+		<Name>Laser OR Gate</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>44</TopTexture>
+		<SideTexture>44</SideTexture>
+		<BottomTexture>44</BottomTexture>
+		<GUITexture>51</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>553</CubeType>
+		<Name>Laser NOT Gate</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>44</TopTexture>
+		<SideTexture>44</SideTexture>
+		<BottomTexture>44</BottomTexture>
+		<GUITexture>51</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>554</CubeType>
+		<Name>Laser Pressure Pad</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>188</TopTexture>
+		<SideTexture>188</SideTexture>
+		<BottomTexture>188</BottomTexture>
+		<GUITexture>188</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>555</CubeType>
+		<Name>Laser Splitter</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>186</TopTexture>
+		<SideTexture>186</SideTexture>
+		<BottomTexture>186</BottomTexture>
+		<GUITexture>186</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>556</CubeType>
+		<Name>Laser Mirror</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>189</TopTexture>
+		<SideTexture>189</SideTexture>
+		<BottomTexture>189</BottomTexture>
+		<GUITexture>189</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>		
+	
+	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>557</CubeType>
+		<Name>Laser Receptor</Name>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>184</TopTexture>
+		<SideTexture>184</SideTexture>
+		<BottomTexture>184</BottomTexture>
+		<GUITexture>184</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Metal</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Voxel</tag>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>		

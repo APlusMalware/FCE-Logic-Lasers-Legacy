@@ -6,6 +6,8 @@ syntax: glob
 
 # Temp/intermediate files
 Integrated.il
+ManufacturerRecipes.xml
+TerrainData.xml
 temp.*
 
 # Anything in \Builds

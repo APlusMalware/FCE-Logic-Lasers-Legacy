@@ -1,4 +1,33 @@
 	<CraftData>
+		<Key>organicrecombinator</Key>
+		<Category>consumables</Category>
+		<Tier>2</Tier>
+		<CraftedName>Organic Reassembler</CraftedName>
+		<CraftedAmount>1</CraftedAmount>
+		<Costs>
+			<CraftCost>
+				<Name>MK1 Robot Arm</Name>
+				<Amount>1</Amount>
+			</CraftCost>
+			<CraftCost>
+				<Name>Charged PCB</Name>
+				<Amount>5</Amount>
+			</CraftCost>
+			<CraftCost>
+				<Name>Crystal Deposit</Name>
+				<Amount>128</Amount>
+			</CraftCost>
+		</Costs>
+		<Description>Feed 10x Ruined Organic Parts to this and receive a single Recombinated Organic Component.</Description>
+		<Hint>Recombinated Organic Components can be used to Self-Craft Pristine Organic Components.</Hint>
+		<ResearchRequirements>
+			<Research>Cyrogenics Research</Research>
+		</ResearchRequirements>
+
+	</CraftData>
+
+    <!-- New Recipes here -->
+	<CraftData>
 		<Key>logic emitter</Key>
 		<Category>logic</Category>
 		<Tier>0</Tier>
@@ -222,3 +251,4 @@
 		<Hint>Maximum range: 1</Hint>
 		<CanCraftAnywhere>true</CanCraftAnywhere>
 	</CraftData>
+    <!-- New Recipes end -->

@@ -6237,6 +6237,39 @@
 		</tags>
 	</TerrainDataEntry>
 	
+	<TerrainDataEntry>
+		<CubeType>586</CubeType>
+		<Name>Zipper Merge</Name>
+		<Values>
+			<ValueEntry>
+				<Value>1</Value>
+				<Name>Zipper Merge</Name>
+				<IconName>Zipper Merge</IconName>
+				<Description>Rapidly combines 2 lines into 1 with a guaranteed 50:50 ratio.</Description>
+			</ValueEntry>
+		</Values>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>192</TopTexture>
+		<SideTexture>192</SideTexture>
+		<BottomTexture>192</BottomTexture>
+		<GUITexture>192</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<Category>Machine</Category>
+		<AudioWalkType>Sand</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>
+	
+	
 	
 	<!-- Needs power or interaction with other objects -->
 	<TerrainDataEntry>

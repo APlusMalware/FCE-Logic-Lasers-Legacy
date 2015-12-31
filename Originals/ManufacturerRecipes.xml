@@ -13,7 +13,7 @@
 			</CraftCost>
 			<CraftCost>
 				<Name>Gold Bar</Name>
-				<Amount>25</Amount>
+				<Amount>45</Amount><!-- Increased to encourage more storage and less solar spamming -->
 			</CraftCost>
 			<CraftCost>
 				<Name>Tin Bar</Name>

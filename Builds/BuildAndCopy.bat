@@ -12,14 +12,14 @@ if not defined InstallLocation (
 
 set AssemblyLocation=%InstallLocation%\64\FC_64_Data\Managed
 echo Copying Assembly-CSharp.dll to %AssemblyLocation%
-copy Assembly-CSharp.dll %AssemblyLocation%
+copy Assembly-CSharp.dll "%AssemblyLocation%"
 
 set DataLocation=%InstallLocation%\64\Default\Data
 echo Copying TerrainData.xml to %DataLocation%
-copy ..\TerrainData.xml %DataLocation%
+copy ..\TerrainData.xml "%DataLocation%"
 
 set ModLocation=%APPDATA%\..\LocalLow\ProjectorGames\FortressCraft\Mods\XML
 echo Copying ManufacturerRecipes.xml to %ModLocation%
-copy ..\ManufacturerRecipes.xml %ModLocation%
+copy ..\ManufacturerRecipes.xml "%ModLocation%"
 
 :END

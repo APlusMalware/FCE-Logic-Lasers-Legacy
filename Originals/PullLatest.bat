@@ -11,14 +11,14 @@ if not defined InstallLocation (
 
 set AssemblyLocation=%InstallLocation%\64\FC_64_Data\Managed\Assembly-CSharp.dll
 echo Getting %AssemblyLocation%
-copy %AssemblyLocation% .\
+copy "%AssemblyLocation%" .\
 
 set DataLocation=%InstallLocation%\64\Default\Data\TerrainData.xml
 echo Getting %DataLocation%
-copy %DataLocation% .\
+copy "%DataLocation%" .\
 
 set ModLocation=%InstallLocation%\64\Default\Data\ManufacturerRecipes.xml
 echo Getting %ModLocation%
-copy %ModLocation% .\
+copy "%ModLocation%" .\
 
 :END

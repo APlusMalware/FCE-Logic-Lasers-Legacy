@@ -978,6 +978,7 @@
 			<tag>Ore</tag>
 			<tag>Fluid</tag>
 		</tags>
+		<Hardness>350</Hardness> <!-- Explosives yes, BFL yes (!), Build Gun, No-->
 	</TerrainDataEntry>	
 	<TerrainDataEntry>
 		<CubeType>169</CubeType>
@@ -7674,8 +7675,14 @@
 				<IconName>T4 Energy Turret component</IconName>
 				<Description>Create a 3x3x3 Turret. High Damage, High Energy usage.</Description>
 			</ValueEntry>	
+			<ValueEntry>
+				<Value>10</Value>
+				<Name>Fusion Reactor Pylon component</Name>
+				<IconName>Fusion Reactor Pylon component</IconName>
+				<Description>Create a pylon as part of a Fusion Reactor configuration. Use the Fusion Reactor Monitor for a build guide.</Description>
+			</ValueEntry>
 		</Values>
-		<Stages>s
+		<Stages>
 			<Stage>
 				<RangeMinimum>1</RangeMinimum>
 				<RangeMaximum>1</RangeMaximum>
@@ -7708,6 +7715,14 @@
 				<BottomTexture>57</BottomTexture>
 				<GUITexture>153</GUITexture>
 			</Stage>
+			<Stage>
+				<RangeMinimum>10</RangeMinimum>
+				<RangeMaximum>10</RangeMaximum>
+				<TopTexture>57</TopTexture>
+				<SideTexture>153</SideTexture>
+				<BottomTexture>57</BottomTexture>
+				<GUITexture>153</GUITexture>
+			</Stage>			
 		</Stages>
 		<DefaultValue>1</DefaultValue>
 		<LayerType>PrimaryTerrain</LayerType>
@@ -7909,6 +7924,84 @@
 			<tag>Machinery</tag>
 		</tags>
 	</TerrainDataEntry>	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>587</CubeType>
+		<Name>Fusion Reactor Pylon</Name>
+		<DefaultValue>0</DefaultValue>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>126</TopTexture>
+		<SideTexture>126</SideTexture>
+		<BottomTexture>126</BottomTexture>
+		<GUITexture>126</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<isColorised>false</isColorised>
+		<isPaintable>false</isPaintable>		
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Sand</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+			<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>588</CubeType>
+		<Name>Fusion Reactor Core</Name>
+		<DefaultValue>0</DefaultValue>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>126</TopTexture>
+		<SideTexture>126</SideTexture>
+		<BottomTexture>126</BottomTexture>
+		<GUITexture>126</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<isColorised>false</isColorised>
+		<isPaintable>false</isPaintable>		
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Sand</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>	
+	<TerrainDataEntry>
+		<Hidden>true</Hidden>
+		<CubeType>589</CubeType>
+		<Name>Fusion Reactor Monitor</Name>
+		<DefaultValue>0</DefaultValue>
+		<LayerType>PrimaryTerrain</LayerType>
+		<TopTexture>126</TopTexture>
+		<SideTexture>126</SideTexture>
+		<BottomTexture>126</BottomTexture>
+		<GUITexture>126</GUITexture>
+		<isSolid>false</isSolid>
+		<isTransparent>true</isTransparent>
+		<isHollow>false</isHollow>
+		<isGlass>false</isGlass>
+		<isPassable>false</isPassable>
+		<isColorised>false</isColorised>
+		<isPaintable>false</isPaintable>		
+		<hasObject>true</hasObject>
+		<hasEntity>true</hasEntity>
+		<AudioWalkType>Sand</AudioWalkType>
+		<AudioBuildType>Dirt</AudioBuildType>
+		<AudioDestroyType>None</AudioDestroyType>
+		<tags>
+			<tag>Machinery</tag>
+		</tags>
+	</TerrainDataEntry>		
 	<TerrainDataEntry>
   		<CubeType>32511</CubeType>
   		<Name>Workshop Placement</Name>

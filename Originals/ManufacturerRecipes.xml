@@ -402,11 +402,11 @@
 			</CraftCost>
 			<CraftCost>
 				<Name>Pristine Faceted Eye</Name>
-				<Amount>6</Amount>
+				<Amount>2</Amount>
 			</CraftCost>
 			<CraftCost>
 				<Name>Pristine Phosphorescent Gland</Name>
-				<Amount>4</Amount>
+				<Amount>8</Amount>
 			</CraftCost>
 			<CraftCost>
 				<Name>Titanium Bar</Name>
@@ -2103,7 +2103,7 @@
 				<Amount>2</Amount>
 			</CraftCost>
 		</Costs>
-	<!--	<RequiredModule>HydrojetCutter</RequiredModule>--><!--Removed as people are too stupid to cope with complexity-->
+	<!--	<RequiredModule>HydrojetCutter</RequiredModule>--><!--Removed as it was too complex-->
 		<Description>Fixes the damage to ARTHER allowing him to move reliably. Only one required and must be carried in your inventory.</Description>
 		<Hint>Allows ARTHER to move reliably again. You need to keep 1 in your inventory.</Hint>
 	</CraftData>
@@ -2286,7 +2286,7 @@
 	</CraftData>
 		
 	<CraftData>
-		<Key>arther charter</Key>
+		<Key>arther charter</Key><!-- Charter?! -->
 		<Category>upgrades</Category>
 		<Tier>0</Tier>
 		<CraftedName>ARTHER Charging Station</CraftedName>
@@ -2305,7 +2305,7 @@
 				<Amount>1</Amount>
 			</CraftCost>
 		</Costs>
-	<!--	<RequiredModule>HydrojetCutter</RequiredModule>--><!--Removed as people are too stupid to cope with complexity-->
+	<!--	<RequiredModule>HydrojetCutter</RequiredModule>--><!--Removed it was too compex-->
 		<Description>Allows ARTHER to charger rapidly! Requires Power.</Description>
 		<Hint>This is awesome. Use it.</Hint>
 		<ResearchRequirements>

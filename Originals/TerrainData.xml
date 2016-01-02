@@ -7677,8 +7677,8 @@
 			</ValueEntry>	
 			<ValueEntry>
 				<Value>10</Value>
-				<Name>Fusion Reactor Pylon component</Name>
-				<IconName>Fusion Reactor Pylon component</IconName>
+				<Name>Fusion Reactor Pylon comp.</Name>
+				<IconName>Fusion Reactor Pylon comp</IconName>
 				<Description>Create a pylon as part of a Fusion Reactor configuration. Use the Fusion Reactor Monitor for a build guide.</Description>
 			</ValueEntry>
 		</Values>
@@ -7969,6 +7969,7 @@
 		<isPaintable>false</isPaintable>		
 		<hasObject>true</hasObject>
 		<hasEntity>true</hasEntity>
+		<Hardness>9001</Hardness> <!-- Can never be dug up. Will be destroyed by deconstructing the multiblock machine -->
 		<AudioWalkType>Sand</AudioWalkType>
 		<AudioBuildType>Dirt</AudioBuildType>
 		<AudioDestroyType>None</AudioDestroyType>
@@ -7977,7 +7978,7 @@
 		</tags>
 	</TerrainDataEntry>	
 	<TerrainDataEntry>
-		<Hidden>true</Hidden>
+		<Hidden>false</Hidden>
 		<CubeType>589</CubeType>
 		<Name>Fusion Reactor Monitor</Name>
 		<DefaultValue>0</DefaultValue>
@@ -7995,6 +7996,7 @@
 		<isPaintable>false</isPaintable>		
 		<hasObject>true</hasObject>
 		<hasEntity>true</hasEntity>
+		<Category>Machine</Category>
 		<AudioWalkType>Sand</AudioWalkType>
 		<AudioBuildType>Dirt</AudioBuildType>
 		<AudioDestroyType>None</AudioDestroyType>

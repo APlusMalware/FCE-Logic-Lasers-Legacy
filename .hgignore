@@ -12,3 +12,8 @@ temp.*
 
 # Anything in \Builds
 Builds\*
+
+# Original files
+Originals\Latest.il
+Originals\ManufacturerRecipes.xml
+Originals\TerrainData.xml

@@ -5,4 +5,4 @@ REM        Pulls in the latest originals, then attempts to make a build and copy
 cd ..\Originals\
 call PullAndDissassemble.bat
 cd ..\Builds\
-call Build.bat
+call BuildAndCopy.bat

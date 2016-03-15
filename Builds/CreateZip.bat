@@ -1,5 +1,5 @@
 @ECHO OFF
-mkdir Zipped\Temp
+mkdir \Zipped\Temp
 copy ..\ManufacturerRecipes.xml Zipped\Temp
 copy ..\TerrainData.xml Zipped\Temp
 copy Assembly-CSharp.dll Zipped\Temp

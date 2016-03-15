@@ -12,7 +12,7 @@
   .method private hidebysig instance void  UpdateLogicRecieverPopup() cil managed
   {
 	// Code size 316 (0x13c)
-	.maxstack 3
+	.maxstack 4
 	.locals init (
 		[0] uint16 cubeValue,
 		[1] string,
@@ -210,7 +210,8 @@
 	IL_012f: ldarg.0
 	IL_0130: ldloc.1
 	IL_0131: ldc.r4      0.6
-	IL_0136: call        instance void UIManager::SetInfoText(string, float32)
+             ldc.i4.0
+	IL_0136: call        instance void UIManager::SetInfoText(string, float32, bool)
 
 	IL_013b: ret
   } // end of method UIManager::UpdateLogicRecieverPopup

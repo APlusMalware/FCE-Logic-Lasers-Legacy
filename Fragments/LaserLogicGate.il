@@ -918,7 +918,7 @@
     IL_008a:  ldstr      "Laser Impact"
     IL_008f:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
                                                                                                         string)
-    IL_0094:  callvirt   instance class [UnityEngine]UnityEngine.Light [UnityEngine]UnityEngine.Component::get_light()
+    IL_0094:  callvirt instance !!0 [UnityEngine]UnityEngine.Component::GetComponent<class [UnityEngine]UnityEngine.Light>()
     IL_0099:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
     IL_00ce:  ldarg.0
     IL_00cf:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper

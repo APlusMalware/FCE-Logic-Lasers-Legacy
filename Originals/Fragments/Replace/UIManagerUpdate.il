@@ -1,4 +1,4 @@
-    IL_048b:  ldarg.0
-    IL_048c:  call       instance void UIManager::UpdateMatterMoverPopup()
-    IL_0491:  ldarg.0
-    IL_0492:  call       instance void UIManager::UpdateLaserPowerPopup()
+    IL_08fe:  ldarg.0
+    IL_08ff:  call       instance void UIManager::UpdateMatterMoverPopup()
+    IL_0904:  ldarg.0
+    IL_0905:  call       instance void UIManager::UpdateLaserPowerPopup()

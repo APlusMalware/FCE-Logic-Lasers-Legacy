@@ -1,6 +1,7 @@
 .class public auto ansi beforefieldinit ConveyorEntity
        extends MachineEntity
+       implements PowerConsumerInterface
        // Actual new code
-       implements ILogicReciever
+       , ILogicReciever
        // End actual new code
 {

@@ -12,7 +12,7 @@
                                uint16 lValue) cil managed
   {
     // Code size       67 (0x43)
-    .maxstack  10
+    .maxstack  11
     IL_0000:  ldarg.0
     IL_0001:  ldc.i4.6
     IL_0002:  ldc.i4     2
@@ -23,6 +23,7 @@
     IL_000d:  ldarg.s    'flags'
     IL_000f:  ldarg.s    lValue
     IL_0011:  ldarg.1
+              newobj     instance void class ['APlusMalware.ByteLogic']APlusMalware.ByteLogic.EqualityChecker::.ctor()
     IL_0012:  call       instance void ['Assembly-CSharp']LaserTwoInputGate::.ctor(valuetype ['Assembly-CSharp']eSegmentEntity,
                                                                                     valuetype ['Assembly-CSharp']SpawnableObjectEnum,
                                                                                     int64,
@@ -31,7 +32,8 @@
                                                                                     uint16,
                                                                                     uint8,
                                                                                     uint16,
-                                                                                    class ['Assembly-CSharp']Segment)
+                                                                                    class ['Assembly-CSharp']Segment,
+                                                                                    class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>)
     IL_0042:  ret
   } // end of method LaserAndGateEntity::.ctor
     

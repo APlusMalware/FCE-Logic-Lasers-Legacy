@@ -376,7 +376,7 @@
     .maxstack  2
     IL_0000:  ldarg.0
     IL_0001:  ldarg.1
-    IL_0002:  call       instance void ['Assembly-CSharp']LaserLogicGate::OnUpdateRotation(uint8)
+    IL_0002:  call       instance void ['Assembly-CSharp']MachineEntity::OnUpdateRotation(uint8)
     IL_0007:  ldarg.0
     IL_0008:  ldarg.1
     IL_0009:  call       instance void LaserSplitterEntity::UpdateFaces(uint8)

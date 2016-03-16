@@ -12,7 +12,7 @@
                                uint16 lValue) cil managed
   {
     // Code size       72 (0x48)
-    .maxstack  10
+    .maxstack  11
               ldarg.0
               ldc.i4.5
               ldc.i4.1
@@ -23,6 +23,7 @@
               ldarg.s    'flags'
               ldarg.s    lValue
               ldarg.1
+              newobj     instance void class ['APlusMalware.ByteLogic']APlusMalware.ByteLogic.Repeater::.ctor()
               call       instance void LaserOneInputGate::.ctor(valuetype ['Assembly-CSharp']eSegmentEntity,
                                                                                     valuetype ['Assembly-CSharp']SpawnableObjectEnum,
                                                                                     int64,
@@ -31,7 +32,8 @@
                                                                                     uint16,
                                                                                     uint8,
                                                                                     uint16,
-                                                                                    class ['Assembly-CSharp']Segment)
+                                                                                    class ['Assembly-CSharp']Segment,
+                                                                                    class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>)
               ret
   } // end of method LaserEmitterEntity::.ctor
   

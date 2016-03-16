@@ -1,0 +1,1 @@
+  .field public class WorldData mWorldData

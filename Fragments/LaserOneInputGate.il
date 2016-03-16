@@ -15,10 +15,11 @@
                                uint16 cube,
                                uint8 'flags',
                                uint16 lValue,
-                               class Segment segment) cil managed
+                               class Segment segment,
+                               class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> logicNode) cil managed
   {
     // Code size       53 (0x35)
-    .maxstack  10
+    .maxstack  11
               ldarg.0
               ldarg.1
               ldarg.2
@@ -29,6 +30,7 @@
               ldarg.s    'flags'
               ldarg.s    lValue
               ldarg.s    segment
+              ldarg.s    logicNode
               call       instance void LaserLogicGate::.ctor(valuetype ['Assembly-CSharp']eSegmentEntity,
                                                                                     valuetype ['Assembly-CSharp']SpawnableObjectEnum,
                                                                                     int64,
@@ -37,7 +39,8 @@
                                                                                     uint16,
                                                                                     uint8,
                                                                                     uint16,
-                                                                                    class ['Assembly-CSharp']Segment)
+                                                                                    class ['Assembly-CSharp']Segment,
+                                                                                    class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>)
               ldarg.0
               ldc.i4     0xff
               stfld      uint8 LaserLogicGate::mbOutput

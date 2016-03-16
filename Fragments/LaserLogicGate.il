@@ -25,16 +25,15 @@
   .field public float32 mrVisualBeamLength
   .field private bool mbLinkedToGO
   .field private class [UnityEngine]UnityEngine.Light ImpactLight
-  .field private class [UnityEngine]UnityEngine.Light TransmissionLight
   .field private class [UnityEngine]UnityEngine.GameObject Beam
   .field private class [UnityEngine]UnityEngine.GameObject BeamImpact
-  .field private class [UnityEngine]UnityEngine.GameObject EmitterObject
   .field public valuetype LaserLogicGate/eState meState
   .field public int32 mnNumTransfers
   .field private float32 mrStateTimer
   .field private valuetype [UnityEngine]UnityEngine.Vector3 mImpactPos
   .field private bool mbIsBehindPlayer
   .field family uint8 mbOutput
+  .field private class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> mLogicNode
   
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(valuetype eSegmentEntity segmentEntity,
@@ -45,7 +44,8 @@
                                uint16 cube,
                                uint8 'flags',
                                uint16 lValue,
-                               class Segment segment) cil managed
+                               class Segment segment,
+                               class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> logicNode) cil managed
   {
     // Code size       93 (0x5d)
     .maxstack  11
@@ -92,6 +92,9 @@
     IL_0051:  ldarg.0
     IL_0052:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mForwards
     IL_0057:  call       instance void [UnityEngine]UnityEngine.Vector3::Normalize()
+              ldarg.0
+              ldarg.s    logicNode
+              stfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
     IL_005c:  ret
   } // end of method LaserLogicGate::.ctor
   
@@ -835,22 +838,16 @@
           UnitySuspended() cil managed
   {
     // Code size       36 (0x24)
-    .maxstack  8
+    .maxstack  3
     IL_0000:  ldarg.0
     IL_0001:  ldnull
     IL_0002:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_0007:  ldarg.0
-    IL_0008:  ldnull
-    IL_0009:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::TransmissionLight
     IL_000e:  ldarg.0
     IL_000f:  ldnull
     IL_0010:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
     IL_0015:  ldarg.0
     IL_0016:  ldnull
     IL_0017:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_001c:  ldarg.0
-    IL_001d:  ldnull
-    IL_001e:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
     IL_0023:  ret
   } // end of method LaserLogicGate::UnitySuspended
 
@@ -859,419 +856,510 @@
   {
     // Code size       1084 (0x43c)
     .maxstack  6
-    .locals init (class [UnityEngine]UnityEngine.Transform V_0,
-             float32 V_1,
-             float32 V_2,
-             float32 V_3,
-             float32 V_4,
+    .locals init (bool V_0,
+             class [UnityEngine]UnityEngine.Transform V_1,
+             bool V_2,
+             class Segment V_3,
+             class Segment V_4,
              float32 V_5,
-             class [UnityEngine]UnityEngine.Transform emitter)
+             float32 V_6,
+             float32 V_7,
+             float32 V_8,
+             float32 beamWidth)
     IL_0000:  ldarg.0
     IL_0001:  dup
     IL_0002:  ldfld      int32 LaserLogicGate::mnUpdates
     IL_0007:  ldc.i4.1
     IL_0008:  add
     IL_0009:  stfld      int32 LaserLogicGate::mnUpdates
-    IL_000e:  ldarg.0
-    IL_000f:  ldfld      bool LaserLogicGate::mbLinkedToGO
-    IL_0014:  brtrue     IL_01aa
+    IL_000e:  ldc.i4.0
+    IL_000f:  stloc.0
+    IL_0010:  ldarg.0
+    IL_0011:  ldfld      bool LaserLogicGate::mbLinkedToGO
+    IL_0016:  brtrue     IL_01c3
 
-    IL_0019:  ldarg.0
-    IL_001a:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_001f:  brfalse.s  IL_002e
+    IL_001b:  ldarg.0
+    IL_001c:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_0021:  brfalse    IL_0036
 
-    IL_0021:  ldarg.0
-    IL_0022:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_0027:  ldfld      bool ['Assembly-CSharp']GameObjectWrapper::mbHasGameObject
-    IL_002c:  brtrue.s   IL_002f
+    IL_0026:  ldarg.0
+    IL_0027:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_002c:  ldfld      bool GameObjectWrapper::mbHasGameObject
+    IL_0031:  brtrue     IL_0037
 
-    IL_002e:  ret
+    IL_0036:  ret
 
-    IL_002f:  ldarg.0
-    IL_0030:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_0035:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_003a:  brtrue.s   IL_0046
+    IL_0037:  ldarg.0
+    IL_0038:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_003d:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> GameObjectWrapper::mGameObjectList
+    IL_0042:  brtrue     IL_0051
 
-    IL_003c:  ldstr      "Ore Extractor missing game object #0\?"
-    IL_0041:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
-    IL_0046:  ldarg.0
-    IL_0047:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_004c:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_0051:  ldc.i4.0
-    IL_0052:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_0057:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_005c:  ldnull
-    IL_005d:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
+    IL_0047:  ldstr      "Ore Extractor missing game object #0\?"
+    IL_004c:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
+    IL_0051:  ldarg.0
+    IL_0052:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_0057:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> GameObjectWrapper::mGameObjectList
+    IL_005c:  ldc.i4.0
+    IL_005d:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
+    IL_0062:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
+    IL_0067:  ldnull
+    IL_0068:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
                                                                            class [UnityEngine]UnityEngine.Object)
-    IL_0062:  brfalse.s  IL_006e
+    IL_006d:  brfalse    IL_007c
 
-    IL_0064:  ldstr      "Ore Extractor missing game object #0 (GO)\?"
-    IL_0069:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
-    IL_006e:  ldarg.0
-    IL_006f:  ldarg.0
-    IL_0070:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_0075:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_007a:  ldc.i4.0
-    IL_007b:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_0080:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_0085:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_008a:  ldstr      "Laser Impact"
-    IL_008f:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
-                                                                                                        string)
-    IL_0094:  callvirt instance !!0 [UnityEngine]UnityEngine.Component::GetComponent<class [UnityEngine]UnityEngine.Light>()
-    IL_0099:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_00ce:  ldarg.0
-    IL_00cf:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_00d4:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_00d9:  ldc.i4.0
-    IL_00da:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_00df:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_00e4:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_00e9:  ldstr      "Laser"
-    IL_00ee:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
-                                                                                                        string)
-    IL_00f3:  stloc.0
-    IL_00f4:  ldloc.0
-    IL_00f5:  ldnull
-    IL_00f6:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
+    IL_0072:  ldstr      "Ore Extractor missing game object #0 (GO)\?"
+    IL_0077:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
+    IL_007c:  ldarg.0
+    IL_007d:  ldarg.0
+    IL_007e:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_0083:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> GameObjectWrapper::mGameObjectList
+    IL_0088:  ldc.i4.0
+    IL_0089:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
+    IL_008e:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
+    IL_0093:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_0098:  ldstr      "Laser Impact"
+    IL_009d:  call       class [UnityEngine]UnityEngine.Transform Extensions::Search(class [UnityEngine]UnityEngine.Transform,
+                                                                                     string)
+    IL_00a2:  callvirt   instance !!0 [UnityEngine]UnityEngine.Component::GetComponent<class [UnityEngine]UnityEngine.Light>()
+    IL_00a7:  stfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
+    IL_00dc:  ldarg.0
+    IL_00dd:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_00e2:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> GameObjectWrapper::mGameObjectList
+    IL_00e7:  ldc.i4.0
+    IL_00e8:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
+    IL_00ed:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
+    IL_00f2:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_00f7:  ldstr      "Laser"
+    IL_00fc:  call       class [UnityEngine]UnityEngine.Transform Extensions::Search(class [UnityEngine]UnityEngine.Transform,
+                                                                                     string)
+    IL_0101:  stloc.1
+    IL_0102:  ldloc.1
+    IL_0103:  ldnull
+    IL_0104:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
                                                                            class [UnityEngine]UnityEngine.Object)
-    IL_00fb:  brfalse.s  IL_0107
+    IL_0109:  brfalse    IL_0118
 
-    IL_00fd:  ldstr      "Laser emitter can't find Trans-form!"
-    IL_0102:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
-    IL_0107:  ldarg.0
-    IL_0108:  ldloc.0
-    IL_0109:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
-    IL_010e:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
-    IL_0113:  ldarg.0
-    IL_0114:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
-    IL_0119:  ldnull
-    IL_011a:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
+    IL_010e:  ldstr      "Laser emitter can't find Trans-form!"
+    IL_0113:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
+    IL_0118:  ldarg.0
+    IL_0119:  ldloc.1
+    IL_011a:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
+    IL_011f:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_0124:  ldarg.0
+    IL_0125:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_012a:  ldnull
+    IL_012b:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
                                                                            class [UnityEngine]UnityEngine.Object)
-    IL_011f:  brfalse.s  IL_012b
+    IL_0130:  brfalse    IL_013f
 
-    IL_0121:  ldstr      "Laser emitter can't find La-ser!"
-    IL_0126:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
-    IL_012b:  ldarg.0
-    IL_012c:  ldarg.0
-    IL_012d:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_0132:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_0137:  ldc.i4.0
-    IL_0138:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_013d:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_0142:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_0147:  ldstr      "Laser Impact"
-    IL_014c:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
-                                                                                                        string)
-    IL_0151:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
-    IL_0156:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_015b:  ldarg.0
-    IL_015c:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_0161:  ldnull
-    IL_0162:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
+    IL_0135:  ldstr      "Laser emitter can't find La-ser!"
+    IL_013a:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
+    IL_013f:  ldarg.0
+    IL_0140:  ldarg.0
+    IL_0141:  ldfld      class GameObjectWrapper SegmentEntity::mWrapper
+    IL_0146:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> GameObjectWrapper::mGameObjectList
+    IL_014b:  ldc.i4.0
+    IL_014c:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
+    IL_0151:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
+    IL_0156:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_015b:  ldstr      "Laser Impact"
+    IL_0160:  call       class [UnityEngine]UnityEngine.Transform Extensions::Search(class [UnityEngine]UnityEngine.Transform,
+                                                                                     string)
+    IL_0165:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
+    IL_016a:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
+    IL_016f:  ldarg.0
+    IL_0170:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
+    IL_0175:  ldnull
+    IL_0176:  call       bool [UnityEngine]UnityEngine.Object::op_Equality(class [UnityEngine]UnityEngine.Object,
                                                                            class [UnityEngine]UnityEngine.Object)
-    IL_0167:  brfalse.s  IL_0173
+    IL_017b:  brfalse    IL_018a
 
-    IL_0169:  ldstr      "Laser emitter can't find Beam Impact!"
-    IL_016e:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
-    IL_0173:  ldarg.0
-    IL_0175:  ldfld      class ['Assembly-CSharp']GameObjectWrapper ['Assembly-CSharp']SegmentEntity::mWrapper
-    IL_017a:  ldfld      class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject> ['Assembly-CSharp']GameObjectWrapper::mGameObjectList
-    IL_017f:  ldc.i4.0
-    IL_0180:  callvirt   instance !0 class [mscorlib]System.Collections.Generic.List`1<class [UnityEngine]UnityEngine.GameObject>::get_Item(int32)
-    IL_0185:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.GameObject::get_gameObject()
-    IL_018a:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_018f:  ldstr      "Laser_Emitter"
-    IL_0194:  call       class [UnityEngine]UnityEngine.Transform ['Assembly-CSharp']Extensions::Search(class [UnityEngine]UnityEngine.Transform,
-                                                                                                        string)
-              // Add null check
-              stloc.s    emitter
-              ldloc.s    emitter
-              ldnull
-              call bool  [UnityEngine]UnityEngine.Object::op_Inequality(class [UnityEngine]UnityEngine.Object, class [UnityEngine]UnityEngine.Object)
-              brfalse.s  IL_01a3
+    IL_0180:  ldstr      "Laser emitter can't find Beam Impact!"
+    IL_0185:  call       void [UnityEngine]UnityEngine.Debug::LogError(object)
+    IL_018a:  
+    IL_01ba:  ldarg.0
+    IL_01bb:  ldc.i4.1
+    IL_01bc:  stfld      bool LaserLogicGate::mbLinkedToGO
+    IL_01c1:  ldc.i4.1
+    IL_01c2:  stloc.0
+    IL_01c3:  ldarg.0
+    IL_01c4:  call       instance void LaserLogicGate::ConfigLOD()
+    IL_01c9:  ldarg.0
+    IL_01ca:  ldfld      float32 SegmentEntity::mDistanceToPlayer
+    IL_01cf:  ldc.r4     32.
+    IL_01d4:  bge.un     IL_01f6
+
+    IL_01e5:  ldarg.0
+    IL_01e6:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
+    IL_01eb:  ldc.i4.1
+    IL_01ec:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
+    IL_01f1:  br         IL_020e
+
+    IL_01f6:  
+    IL_0202:  ldarg.0
+    IL_0203:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
+    IL_0208:  ldc.i4.0
+    IL_0209:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
+    IL_020e:  ldc.i4.1
+    IL_020f:  stloc.2
+    IL_0210:  ldarg.0
+    IL_0211:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 SegmentEntity::mVectorToPlayer
+    IL_0216:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_021b:  ldc.r4     128.
+    IL_0220:  bgt        IL_023a
+
+    IL_0225:  ldarg.0
+    IL_0226:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 SegmentEntity::mVectorToPlayer
+    IL_022b:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_0230:  ldc.r4     -128.
+    IL_0235:  bge.un     IL_023c
+
+    IL_023a:  ldc.i4.0
+    IL_023b:  stloc.2
+    IL_023c:  ldarg.0
+    IL_023d:  ldfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
+    IL_0242:  ldc.i4.3
+    IL_0243:  bne.un     IL_02df
+
+    IL_0248:  ldarg.0
+    IL_0249:  ldfld      class Segment SegmentEntity::mSegment
+    IL_024e:  ldfld      bool Segment::mbOutOfView
+    IL_0253:  brfalse    IL_02df
+
+    IL_0258:  ldarg.0
+    IL_0259:  ldarg.0
+    IL_025a:  ldfld      int64 LaserLogicGate::mEntityX
+    IL_025f:  ldarg.0
+    IL_0260:  ldfld      int64 LaserLogicGate::mEntityY
+    IL_0265:  ldarg.0
+    IL_0266:  ldfld      int64 LaserLogicGate::mEntityZ
+    IL_026b:  call       instance class Segment MachineEntity::AttemptGetSegment(int64,
+                                                                                 int64,
+                                                                                 int64)
+    IL_0270:  stloc.3
+    IL_0271:  ldarg.0
+    IL_0272:  ldarg.0
+    IL_0273:  ldfld      int64 LaserLogicGate::mEntityX
+    IL_0278:  ldc.i4.2
+    IL_0279:  conv.i8
+    IL_027a:  div
+    IL_027b:  ldarg.0
+    IL_027c:  ldfld      int64 SegmentEntity::mnX
+    IL_0281:  ldc.i4.2
+    IL_0282:  conv.i8
+    IL_0283:  div
+    IL_0284:  add
+    IL_0285:  ldarg.0
+    IL_0286:  ldfld      int64 LaserLogicGate::mEntityY
+    IL_028b:  ldc.i4.2
+    IL_028c:  conv.i8
+    IL_028d:  div
+    IL_028e:  ldarg.0
+    IL_028f:  ldfld      int64 SegmentEntity::mnY
+    IL_0294:  ldc.i4.2
+    IL_0295:  conv.i8
+    IL_0296:  div
+    IL_0297:  add
+    IL_0298:  ldarg.0
+    IL_0299:  ldfld      int64 LaserLogicGate::mEntityZ
+    IL_029e:  ldc.i4.2
+    IL_029f:  conv.i8
+    IL_02a0:  div
+    IL_02a1:  ldarg.0
+    IL_02a2:  ldfld      int64 SegmentEntity::mnZ
+    IL_02a7:  ldc.i4.2
+    IL_02a8:  conv.i8
+    IL_02a9:  div
+    IL_02aa:  add
+    IL_02ab:  call       instance class Segment MachineEntity::AttemptGetSegment(int64,
+                                                                                 int64,
+                                                                                 int64)
+    IL_02b0:  stloc.s    V_4
+    IL_02b2:  ldloc.3
+    IL_02b3:  brfalse    IL_02bf
+
+    IL_02b8:  ldloc.s    V_4
+    IL_02ba:  brtrue     IL_02c6
+
+    IL_02bf:  ldc.i4.0
+    IL_02c0:  stloc.2
+    IL_02c1:  br         IL_02df
+
+    IL_02c6:  ldloc.3
+    IL_02c7:  ldfld      bool Segment::mbOutOfView
+    IL_02cc:  brfalse    IL_02df
+
+    IL_02d1:  ldloc.s    V_4
+    IL_02d3:  ldfld      bool Segment::mbOutOfView
+    IL_02d8:  brfalse    IL_02df
+
+    IL_02dd:  ldc.i4.0
+    IL_02de:  stloc.2
+    IL_02df:  ldloc.2
+    IL_02e0:  ldarg.0
+    IL_02e1:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_02e6:  callvirt   instance bool [UnityEngine]UnityEngine.GameObject::get_activeSelf()
+    IL_02eb:  beq        IL_02fc
+
+    IL_02f0:  ldarg.0
+    IL_02f1:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_02f6:  ldloc.2
+    IL_02f7:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
+    IL_02fc:  ldarg.0
+    IL_02fd:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_0302:  ldarg.0
+    IL_0303:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
+    IL_0308:  conv.r4
+    IL_0309:  bne.un     IL_0314
+
+    IL_030e:  ldloc.0
+    IL_030f:  brfalse    IL_03cb
+
+    IL_0314:  ldarg.0
+    IL_0315:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
+    IL_031a:  conv.r4
+    IL_031b:  ldarg.0
+    IL_031c:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_0321:  sub
+    IL_0322:  stloc.s    V_5
+    IL_0324:  ldloc.s    V_5
+    IL_0326:  ldc.r4     0.1
+    IL_032b:  bge.un     IL_0342
+
+    IL_0330:  ldarg.0
+    IL_0331:  ldarg.0
+    IL_0332:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
+    IL_0337:  conv.r4
+    IL_0338:  stfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_033d:  br         IL_0365
+
+    IL_0342:  ldarg.0
+    IL_0343:  dup
+    IL_0344:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_0349:  ldloc.s    V_5
+    IL_034b:  call       float32 [UnityEngine]UnityEngine.Time::get_deltaTime()
+    IL_0350:  mul
+    IL_0351:  ldarg.0
+    IL_0352:  ldfld      uint16 MachineEntity::mValue
+    IL_0357:  conv.r4
+    IL_0358:  ldc.r4     8.
+    IL_035d:  add
+    IL_035e:  mul
+    IL_035f:  add
+    IL_0360:  stfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_0365:  ldarg.0
+    IL_0366:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_036b:  ldc.r4     1.
+    IL_0370:  sub
+    IL_0371:  stloc.s    V_6
+    IL_0373:  ldarg.0
+    IL_0374:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_0379:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_037e:  ldloc.s    V_6
+    IL_0380:  ldc.r4     1.
+    IL_0385:  ldc.r4     1.
+    IL_038a:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
+                                                                               float32,
+                                                                               float32)
+    IL_038f:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_0394:  ldarg.0
+    IL_0395:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
+    IL_039a:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_039f:  ldarg.0
+    IL_03a0:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_03a5:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_03aa:  callvirt   instance valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Transform::get_position()
+    IL_03af:  ldarg.0
+    IL_03b0:  ldfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mForwards
+    IL_03b5:  ldloc.s    V_6
+    IL_03b7:  call       valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Vector3::op_Multiply(valuetype [UnityEngine]UnityEngine.Vector3,
+                                                                                                                  float32)
+    IL_03bc:  call       valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Vector3::op_Addition(valuetype [UnityEngine]UnityEngine.Vector3,
+                                                                                                                  valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_03c1:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_position(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_03c6:  br         IL_04e4
+
+    IL_03cb:  ldarg.0
+    IL_03cc:  ldfld      float32 SegmentEntity::mDistanceToPlayer
+    IL_03d1:  ldc.r4     68.
+    IL_03d6:  bge.un     IL_0448
+
+    IL_03db:  ldarg.0
+    IL_03dc:  ldfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
+    IL_03e1:  ldc.i4.1
+    IL_03e2:  beq        IL_03f3
+
+    IL_03e7:  ldarg.0
+    IL_03e8:  ldfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
+    IL_03ed:  ldc.i4.3
+    IL_03ee:  bne.un     IL_0424
+
+    IL_03f3:  ldc.r4     0.40000001
+    IL_03f8:  ldc.r4     0.80000001
+    IL_03fd:  call       float32 [UnityEngine]UnityEngine.Random::Range(float32,
+                                                                        float32)
+    IL_0402:  stloc.s    V_7
+    IL_0404:  ldarg.0
+    IL_0405:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
+    IL_040a:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_040f:  ldloc.s    V_7
+    IL_0411:  ldloc.s    V_7
+    IL_0413:  ldloc.s    V_7
+    IL_0415:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
+                                                                               float32,
+                                                                               float32)
+    IL_041a:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_041f:  br         IL_0448
+
+    IL_0424:  ldarg.0
+    IL_0425:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
+    IL_042a:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    IL_042f:  ldc.r4     0.15000001
+    IL_0434:  ldc.r4     0.15000001
+    IL_0439:  ldc.r4     0.15000001
+    IL_043e:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
+                                                                               float32,
+                                                                               float32)
+    IL_0443:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_0448:  ldarg.0
+    IL_0449:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
+    IL_044e:  ldc.r4     1.
+    IL_0453:  sub
+    IL_0454:  stloc.s    V_8
+    IL_0456:  ldarg.0
+    IL_0457:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
+    IL_045c:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
+    
               
               ldarg.0
-              ldloc.s    emitter
-    IL_0199:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
-    IL_019e:  stfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
-    IL_01a3:  ldarg.0
-    IL_01a4:  ldc.i4.1
-    IL_01a5:  stfld      bool LaserLogicGate::mbLinkedToGO
-    IL_01aa:  ldarg.0
-    IL_01ab:  call       instance void LaserLogicGate::ConfigLOD()
-    IL_01b0:  ldarg.0
-    IL_01b1:  ldfld      float32 ['Assembly-CSharp']MachineEntity::mDistanceToPlayer
-    IL_01b6:  ldc.r4     32.
-    IL_01bb:  bge.un.s   IL_01e3
-
-    IL_01c9:  ldarg.0
-    IL_01ca:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_01cf:  ldc.i4.1
-    IL_01d0:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
-    IL_01d5:  br.s       IL_01ef
-
-    IL_01e3:  ldarg.0
-    IL_01e4:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_01e9:  ldc.i4.0
-    IL_01ea:  callvirt   instance void [UnityEngine]UnityEngine.Behaviour::set_enabled(bool)
-    IL_01ef:  ldarg.0
-    IL_01f0:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_01f5:  ldarg.0
-    IL_01f6:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
-    IL_01fb:  conv.r4
-    IL_01fc:  beq        IL_02ac
-
-    IL_0201:  ldarg.0
-    IL_0202:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
-    IL_0207:  conv.r4
-    IL_0208:  ldarg.0
-    IL_0209:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_020e:  sub
-    IL_020f:  stloc.1
-    IL_0210:  ldloc.1
-    IL_0211:  ldc.r4     0.1
-    IL_0216:  bge.un.s   IL_0227
-
-    IL_0218:  ldarg.0
-    IL_0219:  ldarg.0
-    IL_021a:  ldfld      int32 LaserLogicGate::mnBeamStrokeLength
-    IL_021f:  conv.r4
-    IL_0220:  stfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_0225:  br.s       IL_0249
-
-    IL_0227:  ldarg.0
-    IL_0228:  dup
-    IL_0229:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_022e:  ldloc.1
-    IL_022f:  call       float32 [UnityEngine]UnityEngine.Time::get_deltaTime()
-    IL_0234:  mul
-    IL_0235:  ldarg.0
-    IL_0236:  ldfld      uint16 ['Assembly-CSharp']MachineEntity::mValue
-    IL_023b:  conv.r4
-    IL_023c:  ldc.r4     4.
-    IL_0241:  add
-    IL_0242:  mul
-    IL_0243:  add
-    IL_0244:  stfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_0249:  ldarg.0
-    IL_024a:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_024f:  ldc.r4     1.
-    IL_0254:  sub
-    IL_0255:  stloc.2
-    IL_0256:  ldarg.0
-    IL_0257:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
-    IL_025c:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_0261:  ldloc.2
-    IL_0262:  ldc.r4     1.
-    IL_0267:  ldc.r4     1.
-    IL_026c:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
-                                                                               float32,
-                                                                               float32)
-    IL_0271:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_0276:  ldarg.0
-    IL_0277:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_027c:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_0281:  ldarg.0
-    IL_0282:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
-    IL_0287:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_028c:  callvirt   instance valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Transform::get_position()
-    IL_0291:  ldarg.0
-    IL_0292:  ldfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mForwards
-    IL_0297:  ldloc.2
-    IL_0298:  call       valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Vector3::op_Multiply(valuetype [UnityEngine]UnityEngine.Vector3,
-                                                                                                                  float32)
-    IL_029d:  call       valuetype [UnityEngine]UnityEngine.Vector3 [UnityEngine]UnityEngine.Vector3::op_Addition(valuetype [UnityEngine]UnityEngine.Vector3,
-                                                                                                                  valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_02a2:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_position(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_02a7:  br         IL_0397
-
-    IL_02ac:  ldarg.0
-    IL_02ad:  ldfld      float32 ['Assembly-CSharp']MachineEntity::mDistanceToPlayer
-    IL_02b2:  ldc.r4     32.
-    IL_02b7:  bge.un.s   IL_0319
-
-    IL_02b9:  ldarg.0
-    IL_02ba:  ldfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
-    IL_02bf:  ldc.i4.1
-    IL_02c0:  beq.s      IL_02cb
-
-    IL_02c2:  ldarg.0
-    IL_02c3:  ldfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
-    IL_02c8:  ldc.i4.3
-    IL_02c9:  bne.un.s   IL_02f5
-
-    IL_02cb:  ldc.r4     0.40000001
-    IL_02d0:  ldc.r4     0.80000001
-    IL_02d5:  call       float32 [UnityEngine]UnityEngine.Random::Range(float32,
-                                                                        float32)
-    IL_02da:  stloc.3
-    IL_02db:  ldarg.0
-    IL_02dc:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_02e1:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_02e6:  ldloc.3
-    IL_02e7:  ldloc.3
-    IL_02e8:  ldloc.3
-    IL_02e9:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
-                                                                               float32,
-                                                                               float32)
-    IL_02ee:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_02f3:  br.s       IL_0319
-
-    IL_02f5:  ldarg.0
-    IL_02f6:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::BeamImpact
-    IL_02fb:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_0300:  ldc.r4     0.15000001
-    IL_0305:  ldc.r4     0.15000001
-    IL_030a:  ldc.r4     0.15000001
-    IL_030f:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
-                                                                               float32,
-                                                                               float32)
-    IL_0314:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_0319:  ldarg.0
-    IL_031a:  ldfld      float32 LaserLogicGate::mrVisualBeamLength
-    IL_031f:  ldc.r4     1.
-    IL_0324:  sub
-    IL_0325:  stloc.s    V_4
-    IL_0327:  ldc.r4     0.1
-    IL_032c:  stloc.s    V_5
-    IL_032e:  ldarg.0
-    IL_032f:  ldfld      uint8 LaserLogicGate::mbOutput
-              conv.r4
-              ldc.r4     255
+              ldfld      uint8 LaserLogicGate::mbOutput
+              dup
+              
+              // If output is 0, load -14 so that beam width is much smaller.
+              brtrue     NONZERO
+              pop
+              ldc.i4     -14
+              
+              // Output / 255 * .9 + .1
+    NONZERO:  conv.r4
+              ldc.r4     255.0
               div
-              ldc.r4     .9
+              ldc.r4     0.9
               mul
-              ldc.r4     .1
+              ldc.r4     0.1
               add
-    IL_033b:  stloc.s    V_5
-    IL_033d:  ldarg.0
-    IL_033e:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::Beam
-    IL_0343:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.GameObject::get_transform()
-    IL_0348:  ldloc.s    V_4
-    IL_034a:  ldloc.s    V_5
-    IL_034c:  ldloc.s    V_5
-    IL_034e:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
+              stloc.s    beamWidth
+              
+    IL_0461:  ldloc.s    V_8
+              ldloc.s    beamWidth
+              ldloc.s    beamWidth
+    IL_046f:  newobj     instance void [UnityEngine]UnityEngine.Vector3::.ctor(float32,
                                                                                float32,
                                                                                float32)
-    IL_0353:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_0358:  ldarg.0
-    IL_0359:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_035e:  ldloc.s    V_5
-    IL_0360:  ldc.r4     2.
-    IL_0365:  mul
-    IL_0366:  callvirt   instance void [UnityEngine]UnityEngine.Light::set_intensity(float32)
-    IL_036b:  ldarg.0
-    IL_036c:  ldfld      uint8 LaserLogicGate::mbOutput
-    IL_0371:  brtrue.s   IL_0386
+    IL_0474:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_localScale(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_0479:  ldarg.0
+    IL_047a:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
+              ldloc.s    beamWidth
+    IL_0485:  ldc.r4     2.
+    IL_048a:  mul
+    IL_048b:  callvirt   instance void [UnityEngine]UnityEngine.Light::set_intensity(float32)
+    
+              // Simplified from original to remove branching
+              ldarg.0
+              ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
+              callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
+    IL_04a2:  ldloc.s    beamWidth
+    IL_04a8:  ldc.r4     0.1
+              cgt
+              callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
+              
+    IL_04e4:  ldarg.0
+    IL_04e5:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_04ea:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_04ef:  ldc.r4     -999.
+    IL_04f4:  beq        IL_0579
 
-    IL_0373:  ldarg.0
-    IL_0374:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_0379:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
-    IL_037e:  ldc.i4.0
-    IL_037f:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
-    IL_0384:  br.s       IL_0397
-
-    IL_0386:  ldarg.0
-    IL_0387:  ldfld      class [UnityEngine]UnityEngine.Light LaserLogicGate::ImpactLight
-    IL_038c:  callvirt   instance class [UnityEngine]UnityEngine.GameObject [UnityEngine]UnityEngine.Component::get_gameObject()
-    IL_0391:  ldc.i4.1
-    IL_0392:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
-    IL_0397:  ldarg.0
-    IL_0398:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_039d:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_03a2:  ldc.r4     -999.
-    IL_03a7:  beq        IL_043b
-
-    IL_03ac:  ldarg.0
-    IL_03ad:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03b2:  ldarg.0
-    IL_03b3:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03b8:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_03bd:  ldc.r4     0.5
-    IL_03c2:  add
-    IL_03c3:  stfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_03c8:  ldarg.0
-    IL_03c9:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03ce:  ldarg.0
-    IL_03cf:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03d4:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
-    IL_03d9:  ldc.r4     0.5
-    IL_03de:  add
-    IL_03df:  stfld      float32 [UnityEngine]UnityEngine.Vector3::y
-    IL_03e4:  ldarg.0
-    IL_03e5:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03ea:  ldarg.0
-    IL_03eb:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_03f0:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
-    IL_03f5:  ldc.r4     0.5
-    IL_03fa:  add
-    IL_03fb:  stfld      float32 [UnityEngine]UnityEngine.Vector3::z
-    IL_0400:  ldsfld     class ['Assembly-CSharp']SurvivalParticleManager ['Assembly-CSharp']SurvivalParticleManager::'instance'
-    IL_0405:  ldfld      class [UnityEngine]UnityEngine.ParticleSystem ['Assembly-CSharp']SurvivalParticleManager::LPTImpactFailEffect
-    IL_040a:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.Component::get_transform()
-    IL_040f:  ldarg.0
-    IL_0410:  ldfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_0415:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_position(valuetype [UnityEngine]UnityEngine.Vector3)
-    IL_041a:  ldsfld     class ['Assembly-CSharp']SurvivalParticleManager ['Assembly-CSharp']SurvivalParticleManager::'instance'
-    IL_041f:  ldfld      class [UnityEngine]UnityEngine.ParticleSystem ['Assembly-CSharp']SurvivalParticleManager::LPTImpactFailEffect
-    IL_0424:  ldc.i4.s   50
-    IL_0426:  callvirt   instance void [UnityEngine]UnityEngine.ParticleSystem::Emit(int32)
-    IL_042b:  ldarg.0
-    IL_042c:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
-    IL_0431:  ldc.r4     -999.
-    IL_0436:  stfld      float32 [UnityEngine]UnityEngine.Vector3::x
-    IL_043b:  ret
+    IL_04f9:  ldarg.0
+    IL_04fa:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_04ff:  dup
+    IL_0500:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_0505:  ldc.r4     0.5
+    IL_050a:  add
+    IL_050b:  stfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_0510:  ldarg.0
+    IL_0511:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_0516:  dup
+    IL_0517:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_051c:  ldc.r4     0.5
+    IL_0521:  add
+    IL_0522:  stfld      float32 [UnityEngine]UnityEngine.Vector3::y
+    IL_0527:  ldarg.0
+    IL_0528:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_052d:  dup
+    IL_052e:  ldfld      float32 [UnityEngine]UnityEngine.Vector3::z
+    IL_0533:  ldc.r4     0.5
+    IL_0538:  add
+    IL_0539:  stfld      float32 [UnityEngine]UnityEngine.Vector3::z
+    IL_053e:  ldsfld     class SurvivalParticleManager SurvivalParticleManager::'instance'
+    IL_0543:  ldfld      class [UnityEngine]UnityEngine.ParticleSystem SurvivalParticleManager::LPTImpactFailEffect
+    IL_0548:  callvirt   instance class [UnityEngine]UnityEngine.Transform [UnityEngine]UnityEngine.Component::get_transform()
+    IL_054d:  ldarg.0
+    IL_054e:  ldfld      valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_0553:  callvirt   instance void [UnityEngine]UnityEngine.Transform::set_position(valuetype [UnityEngine]UnityEngine.Vector3)
+    IL_0558:  ldsfld     class SurvivalParticleManager SurvivalParticleManager::'instance'
+    IL_055d:  ldfld      class [UnityEngine]UnityEngine.ParticleSystem SurvivalParticleManager::LPTImpactFailEffect
+    IL_0562:  ldc.i4.s   50
+    IL_0564:  callvirt   instance void [UnityEngine]UnityEngine.ParticleSystem::Emit(int32)
+    IL_0569:  ldarg.0
+    IL_056a:  ldflda     valuetype [UnityEngine]UnityEngine.Vector3 LaserLogicGate::mImpactPos
+    IL_056f:  ldc.r4     -999.
+    IL_0574:  stfld      float32 [UnityEngine]UnityEngine.Vector3::x
+    IL_0579:  ret
   } // end of method LaserLogicGate::UnityUpdate
 
   .method private hidebysig instance void 
           ConfigLOD() cil managed
   {
-    // Code size       82 (0x52)
-    .maxstack  2
-    IL_0000:  ldarg.0
-    IL_0001:  ldfld      float32 ['Assembly-CSharp']MachineEntity::mDotWithPlayerForwards
-    IL_0006:  ldc.r4     0.0
-    IL_000b:  bge.un.s   IL_0036
+    .maxstack  4
+    .locals init (bool V_0)
+    IL_0000:  ldc.i4.0
+    IL_0001:  stloc.0
+    IL_0002:  ldarg.0
+    IL_0003:  ldfld      float32 SegmentEntity::mDotWithPlayerForwards
+    IL_0008:  ldc.r4     0.0
+    IL_000d:  bge.un     IL_0024
 
-    IL_000d:  ldarg.0
-    IL_000e:  ldfld      float32 ['Assembly-CSharp']MachineEntity::mDistanceToPlayer
-    IL_0013:  ldc.r4     4.
-    IL_0018:  ble.un.s   IL_0036
+    IL_0012:  ldarg.0
+    IL_0013:  ldfld      float32 SegmentEntity::mDistanceToPlayer
+    IL_0018:  ldc.r4     4.
+    IL_001d:  ble.un     IL_0024
 
-    IL_001a:  ldarg.0
-    IL_001b:  ldfld      bool LaserLogicGate::mbIsBehindPlayer
-    IL_0020:  brtrue.s   IL_0051
+    IL_0022:  ldc.i4.1
+    IL_0023:  stloc.0
+    IL_0024:  ldarg.0
+    IL_0025:  ldfld      class Segment SegmentEntity::mSegment
+    IL_002a:  ldfld      bool Segment::mbOutOfView
+    IL_002f:  brfalse    IL_0036
 
-    IL_0022:  ldarg.0
-    IL_0023:  ldc.i4.1
-    IL_0024:  stfld      bool LaserLogicGate::mbIsBehindPlayer
-    IL_0029:  ldarg.0
-    IL_002a:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
-              ldnull
-              beq.s      IL_0035
-              ldarg.0
-              ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
-    IL_002f:  ldc.i4.0
-    IL_0030:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
-    IL_0035:  ret
-
+    IL_0034:  ldc.i4.1
+    IL_0035:  stloc.0
     IL_0036:  ldarg.0
-    IL_0037:  ldfld      bool LaserLogicGate::mbIsBehindPlayer
-    IL_003c:  brfalse.s  IL_0051
+    IL_0037:  ldfld      float32 SegmentEntity::mDistanceToPlayer
+    IL_003c:  ldc.r4     96.
+    IL_0041:  ble.un     IL_0048
 
-    IL_003e:  ldarg.0
-    IL_003f:  ldc.i4.0
-    IL_0040:  stfld      bool LaserLogicGate::mbIsBehindPlayer
-    IL_0045:  ldarg.0
-    IL_0046:  ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
-              ldnull
-              beq.s      IL_0051
-              ldarg.0
-              ldfld      class [UnityEngine]UnityEngine.GameObject LaserLogicGate::EmitterObject
-    IL_004b:  ldc.i4.1
-    IL_004c:  callvirt   instance void [UnityEngine]UnityEngine.GameObject::SetActive(bool)
-    IL_0051:  ret
+    IL_0046:  ldc.i4.1
+    IL_0047:  stloc.0
+    IL_0048:  ldloc.0
+    IL_0049:  ldarg.0
+    IL_004a:  ldfld      bool LaserLogicGate::mbIsBehindPlayer
+    IL_004f:  beq        IL_006c
+
+    IL_0054:  
+    IL_0065:  ldarg.0
+    IL_0066:  ldloc.0
+    IL_0067:  stfld      bool LaserLogicGate::mbIsBehindPlayer
+    IL_006c:  ret
   } // end of method LaserLogicGate::ConfigLOD
 
   .method public hidebysig virtual instance void 
@@ -1319,6 +1407,16 @@
     IL_0000:  ldc.i4.1
     IL_0001:  ret
   } // end of method LaserLogicGate::ShouldNetworkUpdate
+  
+  .method public hidebysig instance class 
+          [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>
+          GetLogicNode() cil managed
+  {
+              ldarg.0
+              ldfld     class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              ret
+  }
+          
 
   .method public hidebysig newslot abstract virtual 
           instance void  SetNextValue(uint8 'value',

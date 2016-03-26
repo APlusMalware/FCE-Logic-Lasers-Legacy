@@ -6,6 +6,7 @@
   .field private int64 mnSourceY
   .field private int64 mnSourceZ
   .field private uint8 mOutput
+  .field private class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput mLogicNode
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -44,8 +45,53 @@
 	          ldarg.0
 			  ldarg.s    'flags'
 			  call       instance void ['Assembly-CSharp']LaserReceptorEntity::UpdateFaces(uint8)
+              ldarg.0
+              newobj     instance void class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput::.ctor()
+              stfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.ByteLogic']APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              call       instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::AddNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
     IL_0020:  ret
   } // end of method LaserReceptorEntity::.ctor
+  
+  .method public hidebysig virtual instance void
+          OnDelete() cil managed
+  {
+              ldarg.0
+              callvirt   instance void LaserReceptorEntity::ResetLogic()
+              ldarg.0
+              call       instance void MachineEntity::OnDelete()
+              ret
+  }
+  
+  .method public hidebysig virtual instance void
+          OnUpdateRotation(uint8 newFlags) cil managed
+  {
+              ldarg.0
+              callvirt   instance void LaserReceptorEntity::ResetLogic()
+              ldarg.0
+              ldarg.1
+              call       instance void MachineEntity::OnUpdateRotation(uint8)
+              ret
+  }
+  
+  .method private hidebysig instance void 
+          ResetLogic() cil managed
+  {
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.ByteLogic']APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              callvirt   instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::RemoveNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
+              
+              ldarg.0
+              ldfld      class ['APlusMalware.ByteLogic']APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              callvirt   instance void class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>::DisconnectAll()
+              ret
+  }
 
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
@@ -306,8 +352,22 @@
                int64 recieverZ,
                class ['Assembly-CSharp']Segment recieverEntity,
                class ['Assembly-CSharp']ILogicReciever logicReciever,
-               uint8 face
+               uint8 face,
+               int8  faceInputIndex
                )
+              
+              ldarg.0
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              brfalse.s  IL_008f
+              
+              ldarg.0
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              ldarg.0
+              ldfld      uint8 LaserReceptorEntity::mOutput
+              callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.NoInputLogicNode`1<uint8>::SetOutput(!0)
+              
+              ret
+              
     IL_008f:  ldarg.0
     IL_0090:  ldfld      int64 ['Assembly-CSharp']SegmentEntity::mnX
     IL_0095:  ldc.i4.2
@@ -430,56 +490,47 @@
     IL_0161:  stloc.s    face
     IL_0163:  ldloc.s    logicReciever
     IL_0165:  ldloc.s    face
-    IL_0167:  callvirt   instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
-    IL_016c:  brfalse.s  IL_0183
+    IL_0167:  callvirt   instance int8 ILogicReciever::FindFaceInputIndex(uint8)
+              stloc.s    faceInputIndex
+              ldloc.s    faceInputIndex
+              ldc.i4.0
+    IL_016c:  blt.s      IL_0183
 
+              ldarg.0
+              ldc.i4.0
     IL_016e:  ldloc.s    logicReciever
-    IL_0170:  ldarg.0
-    IL_0171:  ldfld      uint8 LaserReceptorEntity::mOutput
-    IL_0176:  ldloc.s    face
-    IL_0178:  callvirt   instance void ['Assembly-CSharp']ILogicReciever::SetNextValue(uint8,
-                                                                                         uint8)
+              callvirt   instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+              ldloc.s    faceInputIndex
+    IL_0178:  callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::RegisterHead(int32, class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<!0>, int32)
+    
+              ldarg.0
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              ldarg.0
+              ldfld      uint8 LaserReceptorEntity::mOutput
+              callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.NoInputLogicNode`1<uint8>::SetOutput(!0)
+              
     IL_017d:  ldarg.0
     IL_017e:  callvirt   instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
     IL_0183:  ret
   }
   
   .method public hidebysig newslot virtual 
-          instance bool  IsFaceInput(uint8 face) cil managed
+          instance int8  FindFaceInputIndex(uint8 face) cil managed
   {
     // Code size       2 (0x2)
     .maxstack  1
-              ldc.i4.0
+              ldc.i4.m1
               ret
-  } // end of method LaserReceptorEntity::IsFaceInput
-
-  .method public hidebysig newslot virtual 
-          instance void  SetNextValue(uint8 'value',
-                                      uint8 face) cil managed
-  {
-    // Code size       22 (0x16)
-    .maxstack  0
-    IL_0015:  ret
-  } // end of method LaserReceptorEntity::SetNextValue
-
-  .method public hidebysig newslot virtual instance int16
-          GetOutput() cil managed
+  } // end of method LaserReceptorEntity::FindFaceInputIndex
+  
+  .method public hidebysig newslot virtual instance class 
+          [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>
+          GetLogicNode() cil managed
   {
               ldarg.0
-			  ldfld     uint8 LaserReceptorEntity::mOutput
-			  ret
-  } // end of method LaserReceptorEntity::GetOutput
-  
-  .method public hidebysig newslot virtual instance uint8[]
-          GetInputs() cil managed
-  {
-    .maxstack 1
-	.locals init (uint8[] inputs)
-	          // Create byte array with 0 elements
-              ldc.i4.0
-			  newarr     uint8
-			  ret
-  } // end of method LaserReceptorEntity::GetInputs
+              ldfld     class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.OnlyOutput LaserReceptorEntity::mLogicNode
+              ret
+  }
   
   .method private hidebysig newslot instance void
           UpdateFaces(uint8 flag) cil managed

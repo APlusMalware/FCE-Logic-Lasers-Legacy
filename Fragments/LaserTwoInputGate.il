@@ -145,64 +145,29 @@
     IL_008b:  ret
   } // end of method LaserTwoInputGate::LowFrequencyUpdate
 
-  .method public hidebysig virtual instance bool 
-          IsFaceInput(uint8 face) cil managed
+  .method public hidebysig virtual instance int8 
+          FindFaceInputIndex(uint8 face) cil managed
   {
     // Code size       21 (0x15)
     .maxstack  8
     IL_0000:  ldarg.1
     IL_0001:  ldarg.0
     IL_0002:  ldfld      uint8 LaserTwoInputGate::mbLeftFace
-    IL_0007:  beq.s      IL_0013
+    IL_0007:  beq.s      LEFT
 
     IL_0009:  ldarg.1
     IL_000a:  ldarg.0
     IL_000b:  ldfld      uint8 LaserTwoInputGate::mbRightFace
-    IL_0010:  ceq
+    IL_0010:  beq.s      RIGHT
+              ldc.i4.m1
     IL_0012:  ret
+    
+      RIGHT:  ldc.i4.1
+              ret
 
-    IL_0013:  ldc.i4.1
+       LEFT:  ldc.i4.0
     IL_0014:  ret
-  } // end of method LaserTwoInputGate::IsFaceInput
-
-  .method public hidebysig virtual instance void 
-          SetNextValue(uint8 'value',
-                       uint8 face) cil managed
-  {
-    // Code size       62 (0x3e)
-    .maxstack  8
-    IL_0000:  ldarg.2
-    IL_0001:  ldarg.0
-    IL_0002:  ldfld      uint8 LaserTwoInputGate::mbLeftFace
-    IL_0007:  bne.un.s   IL_001f
-
-    IL_0009:  ldarg.0
-    IL_000a:  ldarg.1
-    IL_000b:  stfld      uint8 LaserTwoInputGate::mbNextLeft
-    IL_0010:  ldarg.0
-    IL_0011:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
-    IL_0016:  ldc.i4.1
-    IL_0017:  and
-    IL_0018:  conv.i1
-    IL_0019:  stfld      int8 LaserTwoInputGate::mLeftUpdate
-    IL_001e:  ret
-
-    IL_001f:  ldarg.2
-    IL_0020:  ldarg.0
-    IL_0021:  ldfld      uint8 LaserTwoInputGate::mbRightFace
-    IL_0026:  bne.un.s   IL_003d
-
-    IL_0028:  ldarg.0
-    IL_0029:  ldarg.1
-    IL_002a:  stfld      uint8 LaserTwoInputGate::mbNextRight
-    IL_002f:  ldarg.0
-    IL_0030:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
-    IL_0035:  ldc.i4.1
-    IL_0036:  and
-    IL_0037:  conv.i1
-    IL_0038:  stfld      int8 LaserTwoInputGate::mRightUpdate
-    IL_003d:  ret
-  } // end of method LaserTwoInputGate::SetNextValue
+  } // end of method LaserTwoInputGate::FindFaceInputIndex
 
   .method private hidebysig instance void 
           UpdateFaces(uint8 'flags') cil managed
@@ -225,34 +190,6 @@
     IL_001f:  stfld      uint8 LaserTwoInputGate::mbRightFace
     IL_0024:  ret
   } // end of method LaserTwoInputGate::UpdateFaces
-  
-  .method public hidebysig virtual instance uint8[]
-          GetInputs() cil managed
-  {
-    .maxstack 3
-	.locals init (uint8[] inputs)
-	          // Create byte array with 2 elements
-              ldc.i4.2
-			  newarr     uint8
-			  stloc.0
-			  
-			  // Set element 0 of array to value of mbNextLeft
-			  ldloc.0
-			  ldc.i4.0
-			  ldarg.0
-			  ldfld      uint8 LaserTwoInputGate::mbNextLeft
-			  stelem.i1
-			  
-			  // Set element 1 of array to value of mbNextRight
-			  ldloc.0
-			  ldc.i4.1
-			  ldarg.0
-			  ldfld      uint8 LaserTwoInputGate::mbNextRight
-			  stelem.i1
-			  
-			  ldloc.0
-			  ret
-  }
 
   .method public hidebysig virtual instance void 
           OnUpdateRotation(uint8 'flags') cil managed

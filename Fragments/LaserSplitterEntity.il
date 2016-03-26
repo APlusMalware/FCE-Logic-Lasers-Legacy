@@ -7,6 +7,7 @@
   .field private int8 mUpdate
   .field private uint8 mbOutput
   .field private uint8 mFace
+  .field private class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> mLogicNode
   .method public hidebysig specialname rtspecialname 
           instance void  .ctor(class Segment segment,
                                int64 x,
@@ -45,71 +46,57 @@
               ldarg.0
               ldarg.s    'flags'
               call       instance void LaserSplitterEntity::UpdateFaces(uint8)
+              ldarg.0
+              newobj     instance void class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Splitter::.ctor()
+              stfld      class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+              
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+              call       instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::AddNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
     IL_0020:  ret
   } // end of method LaserSplitterEntity::.ctor
+  
+  .method public hidebysig virtual instance void
+          OnDelete() cil managed
+  {
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+              callvirt   instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::RemoveNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
+              
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+              callvirt   instance void class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>::DisconnectAll()
+              ret
+  }
 
   .method public hidebysig newslot virtual 
-          instance bool  IsFaceInput(uint8 face) cil managed
+          instance int8  FindFaceInputIndex(uint8 face) cil managed
   {
     // Code size       2 (0x2)
     .maxstack  2
     IL_0000:  ldarg.1
     IL_0001:  ldarg.0
     IL_0002:  ldfld      uint8 LaserSplitterEntity::mFace
-    IL_0007:  ceq
+    IL_0007:  beq.s      FACE
+              ldc.i4.m1
     IL_0009:  ret
-  } // end of method LaserSplitterEntity::IsFaceInput
-
-  .method public hidebysig newslot virtual 
-          instance void  SetNextValue(uint8 'value',
-                                      uint8 face) cil managed
-  {
-    // Code size       22 (0x16)
-    .maxstack  8
-              ldarg.0
-              ldarg.2
-              callvirt   instance bool LaserSplitterEntity::IsFaceInput(uint8)
-              brfalse.s  IL_0015
-    IL_0000:  ldarg.0
-    IL_0001:  ldarg.1
-    IL_0002:  stfld      uint8 LaserSplitterEntity::mbNext
-    IL_0007:  ldarg.0
-    IL_0008:  ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
-    IL_000d:  ldc.i4.1
-    IL_000e:  and
-    IL_000f:  conv.i1
-    IL_0010:  stfld      int8 LaserSplitterEntity::mUpdate
-    IL_0015:  ret
-  } // end of method LaserSplitterEntity::SetNextValue
-
-  .method public hidebysig newslot virtual instance int16
-          GetOutput() cil managed
-  {
-              ldarg.0
-			  ldfld     uint8 LaserSplitterEntity::mbOutput
-			  ret
-  } // end of method LaserSplitterEntity::GetOutput
+    
+       FACE:  ldc.i4.0
+              ret
+  } // end of method LaserSplitterEntity::FindFaceInputIndex
   
-  .method public hidebysig newslot virtual instance uint8[]
-          GetInputs() cil managed
+  .method public hidebysig newslot virtual instance class 
+          [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>
+          GetLogicNode() cil managed
   {
-    .maxstack 3
-	.locals init (uint8[] inputs)
-	          // Create byte array with 1 element
-              ldc.i4.1
-			  newarr     uint8
-			  stloc.0
-			  
-			  // Set element 0 of array to value of mbNext
-			  ldloc.0
-			  ldc.i4.0
-			  ldarg.0
-			  ldfld      uint8 LaserSplitterEntity::mbNext
-			  stelem.i1
-			  
-			  ldloc.0
-			  ret
-  } // end of method LaserSplitterEntity::GetInputs
+              ldarg.0
+              ldfld     class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+              ret
+  }
   
   .method public hidebysig virtual instance void 
           LowFrequencyUpdate() cil managed
@@ -243,7 +230,9 @@
         [0] uint8,
         [1] class ['Assembly-CSharp']Segment,
         [2] uint16,
-        [3] class ['Assembly-CSharp']ILogicReciever
+        [3] class ['Assembly-CSharp']ILogicReciever,
+        [4] int8 faceInputIndex,
+        [5] uint8 faceOutindex
     )
 
     IL_0000: ldc.i4.0
@@ -255,6 +244,8 @@
 
     IL_000b: ldc.i4.s    16
     IL_000d: stloc.0
+             ldc.i4.4
+             stloc.s     faceOutindex
     IL_000e: br.s        IL_0050
 
     IL_0010: ldarg.1
@@ -264,6 +255,8 @@
 
     IL_0019: ldc.i4.s    32
     IL_001b: stloc.0
+             ldc.i4.5
+             stloc.s     faceOutindex
     IL_001c: br.s        IL_0050
 
     IL_001e: ldarg.2
@@ -273,6 +266,8 @@
 
     IL_0027: ldc.i4.2
     IL_0028: stloc.0
+             ldc.i4.1
+             stloc.s     faceOutindex
     IL_0029: br.s        IL_0050
 
     IL_002b: ldarg.2
@@ -282,6 +277,8 @@
 
     IL_0034: ldc.i4.1
     IL_0035: stloc.0
+             ldc.i4.0
+             stloc.s     faceOutindex
     IL_0036: br.s        IL_0050
 
     IL_0038: ldarg.3
@@ -291,6 +288,8 @@
 
     IL_0041: ldc.i4.8
     IL_0042: stloc.0
+             ldc.i4.3
+             stloc.s     faceOutindex
     IL_0043: br.s        IL_0050
 
     IL_0045: ldarg.3
@@ -300,6 +299,8 @@
 
     IL_004e: ldc.i4.4
     IL_004f: stloc.0
+             ldc.i4.2
+             stloc.s     faceOutindex
 
     IL_0050: ldarg.0
              ldfld       uint8 LaserSplitterEntity::mFace
@@ -342,14 +343,20 @@
 
     IL_008d: ldloc.3
     IL_008e: ldloc.0
-    IL_008f: callvirt    instance bool ['Assembly-CSharp']ILogicReciever::IsFaceInput(uint8)
-    IL_0094: brfalse.s   IL_00a9
+    IL_008f: callvirt    instance int8 ['Assembly-CSharp']ILogicReciever::FindFaceInputIndex(uint8)
+             stloc.s     faceInputIndex
+             ldloc.s     faceInputIndex
+             ldc.i4.0
+    IL_0094: blt.s       IL_00a9
 
-    IL_0096: ldloc.3
-    IL_0097: ldarg.0
-    IL_0098: ldfld       uint8 LaserSplitterEntity::mbOutput
-    IL_009d: ldloc.0
-    IL_009e: callvirt    instance void ['Assembly-CSharp']ILogicReciever::SetNextValue(uint8, uint8)
+             ldarg.0
+             ldfld      class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserSplitterEntity::mLogicNode
+             ldloc.s    faceOutindex
+             ldloc.3
+             callvirt   instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+             ldloc      faceInputIndex
+             callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::RegisterHead(int32, class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<!0>, int32)
+
     IL_00a3: ldarg.0
     IL_00a4: callvirt    instance void ['Assembly-CSharp']SegmentEntity::MarkDirtyDelayed()
 

@@ -114,30 +114,7 @@
   } // end of method LaserOneInputGate::LowFrequencyUpdate
 
   .method public hidebysig virtual 
-          instance void  SetNextValue(uint8 'value',
-                                      uint8 face) cil managed
-  {
-    // Code size       22 (0x16)
-    .maxstack  3
-              ldarg.0
-              ldarg.2
-              callvirt   instance bool LaserOneInputGate::IsFaceInput(uint8)
-              brfalse.s  RET
-			  
-              ldarg.0
-              ldarg.1
-              stfld      uint8 LaserOneInputGate::mNext
-              ldarg.0
-              ldsfld     int32 ['Assembly-CSharp']LowFrequencyThread::mnThreadedUpdates
-              ldc.i4.1
-              and
-              conv.i1
-              stfld      int8 LaserOneInputGate::mUpdate
-        RET:  ret
-  } // end of method LaserOneInputGate::SetNextValue
-
-  .method public hidebysig virtual 
-          instance bool  IsFaceInput(uint8 face) cil managed
+          instance int8  FindFaceInputIndex(uint8 face) cil managed
   {
     // Code size       2 (0x2)
     .maxstack  2
@@ -145,32 +122,12 @@
               ldarg.0
               ldfld      uint8 LaserOneInputGate::mFrontFace
               ldarg.1
-              ceq
+              beq.s      NOINPUT
               ldc.i4.0
-              ceq
               ret
-  } // end of method LaserOneInputGate::IsFaceInput
-  
-  .method public hidebysig virtual instance uint8[]
-          GetInputs() cil managed
-  {
-    .maxstack 3
-	.locals init (uint8[] inputs)
-	          // Create byte array with 1 element
-              ldc.i4.1
-			  newarr     uint8
-			  stloc.0
-			  
-			  // Set element 0 of array to value of mNext
-			  ldloc.0
-			  ldc.i4.0
-			  ldarg.0
-			  ldfld      uint8 LaserOneInputGate::mNext
-			  stelem.i1
-			  
-			  ldloc.0
-			  ret
-  }
+    NOINPUT:  ldc.i4.m1
+              ret
+  } // end of method LaserOneInputGate::FindFaceInputIndex
   
   .method public hidebysig virtual instance void 
           OnUpdateRotation(uint8 'flags') cil managed

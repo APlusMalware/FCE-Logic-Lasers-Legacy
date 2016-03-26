@@ -134,41 +134,50 @@
 	IL_009e: ldloc.2
 	IL_009f: brfalse     IL_013b
 
-	IL_00a4: ldloc.2
-	IL_00a5: callvirt    instance int16 ['Assembly-CSharp']ILogicReciever::GetOutput()
-	IL_00aa: stloc.3
-	IL_00ab: ldloc.3
-	IL_00ac: ldc.i4.m1
-	IL_00ad: beq.s       IL_00e4
+	         ldloc.2
+             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+	         callvirt    instance !0[] class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::get_OutputValues()
+	         stloc.s     5
+	         ldloc.s     5
+	         ldlen
+	         conv.i4
+	         ldc.i4.0
+	         ble.s       OUTEXIT
 
-	IL_00af: ldloc.1
-	IL_00b0: stloc.s     4
-	IL_00b2: ldc.i4.4
-	IL_00b3: newarr      [mscorlib]System.Object
-	IL_00b8: stloc.s     8
-	IL_00ba: ldloc.s     8
-	IL_00bc: ldc.i4.0
-	IL_00bd: ldloc.s     4
-	IL_00bf: stelem.ref
-	IL_00c0: ldloc.s     8
-	IL_00c2: ldc.i4.1
-	IL_00c3: ldstr       "\nCurrent Output: "
-	IL_00c8: stelem.ref
-	IL_00c9: ldloc.s     8
-	IL_00cb: ldc.i4.2
-	IL_00cc: ldloc.3
-	IL_00cd: box         [mscorlib]System.Int16
-	IL_00d2: stelem.ref
-	IL_00d3: ldloc.s     8
-	IL_00d5: ldc.i4.3
-	IL_00d6: ldstr       "\n"
-	IL_00db: stelem.ref
-	IL_00dc: ldloc.s     8
-	IL_00de: call        string [mscorlib]System.String::Concat(object[])
-	IL_00e3: stloc.1
+	         ldloc.1
+	         ldstr       "Next Output(s): "
+	         call        string [mscorlib]System.String::Concat(string, string)
+	         stloc.1
+	         ldc.i4.0
+	         stloc.s     6
+	// loop start (head: OUTLOOP)
+		OUTLOOP: ldloc.1
+		         ldloc.s     5
+		         ldloc.s     6
+		         ldelem.u1
+		         box         [mscorlib]System.Byte
+		         call        string [mscorlib]System.String::Concat(object, object)
+		         stloc.1
+		         ldloc.s     6
+		         ldc.i4.1
+		         add
+		         stloc.s     6
+		         ldloc.s     6
+		         ldloc.s     5
+		         ldlen
+		         conv.i4
+		         beq.s       OUTEXIT
 
-	IL_00e4: ldloc.2
-	IL_00e5: callvirt    instance uint8[] ['Assembly-CSharp']ILogicReciever::GetInputs()
+		         ldloc.1
+		         ldstr       ", "
+		         call        string [mscorlib]System.String::Concat(string, string)
+		         stloc.1
+		         br.s        OUTLOOP
+	// end loop
+
+	OUTEXIT: ldloc.2
+             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+	         callvirt    instance !0[] class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::get_InputValues()
 	IL_00ea: stloc.s     5
 	IL_00ec: ldloc.s     5
 	IL_00ee: ldlen

@@ -3,7 +3,7 @@
        extends [mscorlib]System.Object
 {
   .field public static class LogicManager 'instance'
-  .field public class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.Graph`1<uint8> graph
+  .field public class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph mGraph
   
   
   .method public hidebysig specialname rtspecialname 
@@ -15,8 +15,8 @@
               ldarg.0
               stsfld     class LogicManager LogicManager::'instance'
               ldarg.0
-              newobj     instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.Graph`1<uint8>::.ctor()
-              stfld      class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.Graph`1<uint8> LogicManager::graph
+              newobj     instance void class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::.ctor()
+              stfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
               ret
   }
 }

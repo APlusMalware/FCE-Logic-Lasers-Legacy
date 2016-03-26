@@ -95,8 +95,26 @@
               ldarg.0
               ldarg.s    logicNode
               stfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              call       instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::AddNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
+              
     IL_005c:  ret
   } // end of method LaserLogicGate::.ctor
+  
+  .method public hidebysig virtual instance void
+          OnDelete() cil managed
+  {
+              ldarg.0
+              callvirt   instance void LaserLogicGate::ResetLogic()
+              ldarg.0
+              call       instance void MachineEntity::OnDelete()
+              ret
+              ret
+  }
   
   .method public hidebysig virtual instance void 
           DropGameObject() cil managed
@@ -413,7 +431,8 @@
              int64 V_11,
              class ['Assembly-CSharp']Segment V_12,
              uint16 V_13,
-             bool V_14)
+             bool V_14,
+             int8 faceInputIndex)
     IL_0000:  ldarg.0
     IL_0001:  dup
     IL_0002:  dup
@@ -673,15 +692,20 @@
     IL_021f:  stloc.s    V_8
     IL_0221:  ldloc.s    V_7
     IL_0223:  ldloc.s    V_8
-    IL_0225:  callvirt   instance bool ILogicReciever::IsFaceInput(uint8)
-    IL_022a:  brfalse.s  IL_0269
+    IL_0225:  callvirt   instance int8 ILogicReciever::FindFaceInputIndex(uint8)
+              stloc.s    faceInputIndex
+              ldloc.s    faceInputIndex
+              ldc.i4.0
+    IL_022a:  blt.s      IL_0269
+    
+              ldarg.0
+              ldfld      class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              ldc.i4.0
+              ldloc.s    V_7
+              callvirt   instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+              ldloc      faceInputIndex
+              callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::RegisterHead(int32, class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<!0>, int32)
 
-    IL_022c:  ldloc.s    V_7
-    IL_022e:  ldarg.0
-    IL_022f:  ldfld      uint8 LaserLogicGate::mbOutput
-    IL_0234:  ldloc.s    V_8
-    IL_0236:  callvirt   instance void ILogicReciever::SetNextValue(uint8,
-                                                                      uint8)
     IL_023b:  ldarg.0
     IL_023c:  dup
     IL_023d:  ldfld      int32 LaserLogicGate::mnNumTransfers
@@ -694,6 +718,12 @@
 
     IL_0251:  ldstr      "Laser can no longer find an entity - what happened\?"
     IL_0256:  call       void [UnityEngine]UnityEngine.Debug::LogWarning(object)
+    
+              ldarg.0
+              ldfld      class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              ldc.i4.0
+              callvirt   instance void class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::DeregisterHead(int32)
+              
     IL_025b:  ldarg.0
     IL_025c:  ldc.i4.1
     IL_025d:  stfld      int32 LaserLogicGate::mnBeamStrokeLength
@@ -1387,6 +1417,8 @@
     IL_0034:  ldarg.0
     IL_0035:  ldc.i4.0
     IL_0036:  stfld      valuetype LaserLogicGate/eState LaserLogicGate::meState
+              ldarg.0
+              callvirt   instance void LaserLogicGate::ResetLogic()
     IL_003b:  ret
   } // end of method LaserLogicGate::OnUpdateRotation
 
@@ -1408,7 +1440,22 @@
     IL_0001:  ret
   } // end of method LaserLogicGate::ShouldNetworkUpdate
   
-  .method public hidebysig instance class 
+  .method private hidebysig instance void 
+          ResetLogic() cil managed
+  {
+              ldsfld     class LogicManager LogicManager::'instance'
+              ldfld      class [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph LogicManager::mGraph
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              callvirt   instance void [APlusMalware.ByteLogic]APlusMalware.ByteLogic.Graph::RemoveNode(class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>)
+              
+              ldarg.0
+              ldfld      class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
+              callvirt   instance void class ['APlusMalware.LogicGraph']APlusMalware.LogicGraph.LogicNode`1<uint8>::DisconnectAll()
+              ret
+  }
+  
+  .method public hidebysig newslot virtual instance class 
           [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>
           GetLogicNode() cil managed
   {
@@ -1416,31 +1463,11 @@
               ldfld     class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> LaserLogicGate::mLogicNode
               ret
   }
-          
 
   .method public hidebysig newslot abstract virtual 
-          instance void  SetNextValue(uint8 'value',
-                                      uint8 face) cil managed
+          instance int8  FindFaceInputIndex(uint8 face) cil managed
   {
-  } // end of method LaserLogicGate::SetNextValue
-
-  .method public hidebysig newslot abstract virtual 
-          instance bool  IsFaceInput(uint8 face) cil managed
-  {
-  } // end of method LaserLogicGate::IsFaceInput
-  
-  .method public hidebysig newslot virtual instance int16
-          GetOutput() cil managed
-  {
-              ldarg.0
-			  ldfld     uint8 LaserLogicGate::mbOutput
-			  ret
-  } // end of method LaserLogicGate::GetOutput
-  
-  .method public hidebysig newslot abstract virtual 
-          instance uint8[] GetInputs() cil managed
-  {
-  } // end of method LaserLogicGate::GetInputs
+  } // end of method LaserLogicGate::FindFaceInputIndex
 
   .method public hidebysig static uint8  CalcOppositeFace(uint8 face) cil managed
   {

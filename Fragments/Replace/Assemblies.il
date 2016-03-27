@@ -7,6 +7,10 @@
 {
   .ver 1:0:0:0
 }
+.assembly extern 'APlusMalware.LogicLaserPlugin'
+{
+  .ver 1:0:0:0
+}
 // End new code
 .assembly extern Ionic.Zip
 {

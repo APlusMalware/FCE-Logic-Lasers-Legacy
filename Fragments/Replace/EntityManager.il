@@ -5,7 +5,7 @@
               ldarg.s    cube
     IL_01df:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_01e1:  newobj     instance void LaserEmitterEntity::.ctor(class Segment,
+    IL_01e1:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicLaserRepeater::.ctor(class Segment,
                                                                  int64,
                                                                  int64,
                                                                  int64,
@@ -22,7 +22,7 @@
               ldarg.s    cube
     IL_01f2:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_01f4:  newobj     instance void LaserAndGateEntity::.ctor(class Segment,
+    IL_01f4:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicLaserEqualityChecker::.ctor(class Segment,
                                                                  int64,
                                                                  int64,
                                                                  int64,
@@ -39,7 +39,7 @@
               ldarg.s    cube
     IL_0205:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_0207:  newobj     instance void LaserOrGateEntity::.ctor(class Segment,
+    IL_0207:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicLaserMaxSelector::.ctor(class Segment,
                                                                 int64,
                                                                 int64,
                                                                 int64,
@@ -56,7 +56,7 @@
               ldarg.s    cube
     IL_0218:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_021a:  newobj     instance void LaserNotGateEntity::.ctor(class Segment,
+    IL_021a:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicLaserInverter::.ctor(class Segment,
                                                                  int64,
                                                                  int64,
                                                                  int64,
@@ -86,7 +86,7 @@
               ldarg.s    cube
     IL_023e:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_0240:  newobj     instance void LaserSplitterEntity::.ctor(class Segment,
+    IL_0240:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicSplitter::.ctor(class Segment,
                                                                   int64,
                                                                   int64,
                                                                   int64,
@@ -116,7 +116,7 @@
               ldarg.s    cube
     IL_0264:  ldarg.s    'flags'
               ldarg.s    lValue
-    IL_0266:  newobj     instance void LaserReceptorEntity::.ctor(class Segment,
+    IL_0266:  newobj     instance void [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.LogicSensor::.ctor(class Segment,
                                                                   int64,
                                                                   int64,
                                                                   int64,

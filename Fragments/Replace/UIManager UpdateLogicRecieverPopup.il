@@ -16,7 +16,7 @@
 	.locals init (
 		[0] uint16 cubeValue,
 		[1] string,
-		[2] class ['Assembly-CSharp']ILogicReciever,
+		[2] class [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.ILogicReceiver,
 		[3] int16,
 		[4] object,
 		[5] uint8[],
@@ -129,13 +129,13 @@
 	IL_0089: ldfld       class ['Assembly-CSharp']LocalPlayerScript ['Assembly-CSharp']WorldScript::localPlayerInstance
 	IL_008e: ldfld       class ['Assembly-CSharp']PlayerBlockPicker ['Assembly-CSharp']LocalPlayerScript::mPlayerBlockPicker
 	IL_0093: ldfld       class ['Assembly-CSharp']SegmentEntity ['Assembly-CSharp']PlayerBlockPicker::selectedEntity
-	IL_0098: isinst      ['Assembly-CSharp']ILogicReciever
+	IL_0098: isinst      [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.ILogicReceiver
 	IL_009d: stloc.2
 	IL_009e: ldloc.2
 	IL_009f: brfalse     IL_013b
 
 	         ldloc.2
-             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.ILogicReceiver::GetLogicNode()
 	         callvirt    instance !0[] class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::get_OutputValues()
 	         stloc.s     5
 	         ldloc.s     5
@@ -176,7 +176,7 @@
 	// end loop
 
 	OUTEXIT: ldloc.2
-             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> ILogicReciever::GetLogicNode()
+             callvirt    instance class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8> [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.ILogicReceiver::GetLogicNode()
 	         callvirt    instance !0[] class [APlusMalware.LogicGraph]APlusMalware.LogicGraph.LogicNode`1<uint8>::get_InputValues()
 	IL_00ea: stloc.s     5
 	IL_00ec: ldloc.s     5

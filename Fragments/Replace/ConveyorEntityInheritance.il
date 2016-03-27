@@ -2,6 +2,6 @@
        extends MachineEntity
        implements PowerConsumerInterface
        // Actual new code
-       , ILogicReciever
+       , [APlusMalware.LogicLaserPlugin]APlusMalware.LogicLaserPlugin.ILogicReceiver
        // End actual new code
 {
